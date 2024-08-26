@@ -1,0 +1,36 @@
+.post {
+    background-color: #33806C;
+}
+h2 {
+    padding: 5px;
+    color: #e1dada;
+    font-family: "Bowlby One", sans-serif;
+    letter-spacing: 0.5px;
+}
+.input {
+    width: 170px;
+    background-color: #e1dada;
+    height: 25px;
+    position: relative;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+}
+.button {
+    width: 100px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Bowlby One", sans-serif;
+    font-weight: bold;
+    background-color: #e1dada;
+    margin: 0 0 0 5px;
+    transition: all 500ms ease;
+}
+.button:hover {
+    cursor: pointer;
+    background-color: #ccc7c7;
+    width: 103px;
+    height: 28px;
+    transition: all 0.2s ease;
+}

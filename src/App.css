@@ -8,7 +8,7 @@
 .app-wrapper {
   display: flex;
   flex-direction: column;
-  width: 1000px;
+  width: 1080px;
   margin: 0 auto;
 }
 .main-content {

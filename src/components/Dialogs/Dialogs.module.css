@@ -1,7 +1,26 @@
-.content {
-    color: #1a1919;
-    background-color: #fff;
-    width: 1080px;
-    height: 500px;
-    margin: 0 auto;
+.dialogs {
+    display: flex;
+    justify-content: space-between;
+}
+.dialogs {
+    flex-basis: 30%;
+    flex-shrink: 0;
+
+}
+.dialog {
+    padding: 10px;
+    align-items: center;
+}
+.dialog.active {
+    color: #9DE0CF;
+}
+.messages {
+    flex-basis: 70%;
+    flex-shrink: 0;
+}
+.dialogs .dialogs-items {
+
+}
+.messages .message {
+
 }

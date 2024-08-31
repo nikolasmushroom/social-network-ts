@@ -14,3 +14,9 @@
 .main-content {
   display: flex;
 }
+.content {
+  color: #fff;
+  background-color: #2c2f33;
+  width: 1080px;
+  margin: 0 auto;
+}

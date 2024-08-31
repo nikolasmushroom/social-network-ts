@@ -2,14 +2,21 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: #fff;
-    background-color: #000;
+    color: #e1dada;
+    background-color: #1a1919;
     width: 150px;
 
 }
 .item {
-    color: #fff;
-    padding: 15px 0 0 0;
+   padding: 15px 0 0 0;
+}
+.item a.activeLink {
+    color: #9DE0CF;
+}
+.item a {
+    color: #e1dada;
     font-family: "Bowlby One", sans-serif;
     font-size: 17px;
+    text-decoration: none;
 }
+

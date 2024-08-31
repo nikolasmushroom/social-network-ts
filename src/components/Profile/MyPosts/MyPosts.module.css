@@ -1,5 +1,5 @@
 .post {
-    background-color: #33806C;
+    background-color: #2c2f33;
 }
 h2 {
     padding: 5px;
@@ -33,4 +33,7 @@ h2 {
     width: 103px;
     height: 28px;
     transition: all 0.2s ease;
+}
+.postBlock {
+    padding: 10px;
 }

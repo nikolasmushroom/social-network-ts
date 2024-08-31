@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './Header.module.css';
-import logo from  '../../asserts/images/mobile-logo.png'
+import logo from  '../../asserts/images/logo.png'
 const Header : React.FC= () => {
     return (
         <header className={classes.header}>

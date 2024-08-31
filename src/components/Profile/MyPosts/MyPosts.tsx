@@ -3,11 +3,13 @@ import s from './MyPosts.module.css';
 import { Post, PostPropsType } from "./Post/Post";
 
 export const MyPosts = () => {
-    const [currentPosts, setCurrentPosts] = useState<Array<PostPropsType>>([]);
+    const [currentPosts, setCurrentPosts] = useState<Array<PostPropsType>>([
+        {message : 'Hello World!', likesCount: 12}
+    ]);
     const [currentInput, setCurrentInput] = useState('');
 
     const addNewPost = () => {
-        setCurrentPosts([...currentPosts, { message: currentInput }]);
+        setCurrentPosts([...currentPosts, { message: currentInput, likesCount : 0 }]);
         setCurrentInput('');
     };
 
@@ -33,7 +35,7 @@ export const MyPosts = () => {
             <button onClick={addNewPost} className={s.button}>Add new post</button>
             <h2>New posts</h2>
             <div className={s.posts}>
-                {currentPosts.map((post, index) => <Post key={index} message={post.message} />)}
+                {currentPosts.map((post, index) => <Post key={index} message={post.message} likesCount={post.likesCount}/>)}
             </div>
         </div>
     );

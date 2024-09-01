@@ -1,13 +1,17 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MyPosts} from "./MyPosts/MyPosts";
-
-const Profile: React.FC = () => {
+import {PostPropsType} from "./MyPosts/Post/Post";
+export type ProfilePropsType = {
+    posts: PostPropsType[]
+    changePostsHandler : (posts : PostPropsType[]) => void
+}
+const Profile : React.FC<ProfilePropsType> = ({posts, changePostsHandler}) => {
     return (
         <div className={classes.content}>
             <ProfileInfo/>
-            <MyPosts/>
+            <MyPosts posts={posts} changePostsHandler={changePostsHandler}/>
         </div>
     )
 }

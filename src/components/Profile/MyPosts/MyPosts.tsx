@@ -1,15 +1,16 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import s from './MyPosts.module.css';
 import { Post, PostPropsType } from "./Post/Post";
+type MyPostsPropsType = {
+    posts : PostPropsType[];
+    changePostsHandler : (posts : PostPropsType[]) => void;
+}
 
-export const MyPosts = () => {
-    const [posts, setPosts] = useState<Array<PostPropsType>>([
-        {message : 'Hello World!', likesCount: 12}
-    ]);
+export const MyPosts = ({posts, changePostsHandler} : MyPostsPropsType) => {
     const [currentInput, setCurrentInput] = useState('');
 
     const addNewPost = () => {
-        setPosts([...posts, { message: currentInput, likesCount : 0 }]);
+        changePostsHandler([...posts, { message: currentInput, likesCount : 0 }]);
         setCurrentInput('');
     };
 

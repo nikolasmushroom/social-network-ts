@@ -1,8 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./Dialogitem/Dialogitem";
 import Message from "./Message/Message";
-import {v1} from "uuid";
 
 
 export type DialogPropsType = {
@@ -14,19 +13,11 @@ export type MessagePropsType = {
     id: string
 }
 
-export const Dialogs: React.FC = () => {
-    let dialogsData = [
-        {id: v1(), name: 'Igor'},
-        {id: v1(), name: 'Viktor'},
-        {id: v1(), name: 'Vlad'},
-        {id: v1(), name: 'Dasha'},
-    ]
-    let messagesData = [
-        {id: v1(), message : 'Hi'},
-        {id: v1(), message : 'How is your day?'},
-        {id: v1(), message : 'How are you?'},
-        {id: v1(), message : 'Whats wrong with you?'},
-    ]
+type  DialogsPropsType = {
+    dialogsData : DialogPropsType[]
+    messagesData : MessagePropsType[]
+}
+export const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData} : DialogsPropsType) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>

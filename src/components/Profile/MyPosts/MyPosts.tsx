@@ -6,11 +6,11 @@ type MyPostsPropsType = {
     changePostsHandler : (posts : PostPropsType[]) => void;
 }
 
-export const MyPosts = ({posts, changePostsHandler} : MyPostsPropsType) => {
+export const MyPosts : React.FC<MyPostsPropsType> = (props) => {
     const [currentInput, setCurrentInput] = useState('');
 
     const addNewPost = () => {
-        changePostsHandler([...posts, { message: currentInput, likesCount : 0 }]);
+        props.changePostsHandler([...props.posts, { message: currentInput, likesCount : 0 }]);
         setCurrentInput('');
     };
 
@@ -36,7 +36,7 @@ export const MyPosts = ({posts, changePostsHandler} : MyPostsPropsType) => {
             <button onClick={addNewPost} className={s.button}>Add new post</button>
             <h2>New posts</h2>
             <div className={s.posts}>
-                {posts.map((post, index) => <Post key={index} message={post.message} likesCount={post.likesCount}/>)}
+                {props.posts.map((post, index) => <Post key={index} message={post.message} likesCount={post.likesCount}/>)}
             </div>
         </div>
     );

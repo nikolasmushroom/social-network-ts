@@ -13,10 +13,10 @@ import {PostPropsType} from "./components/Profile/MyPosts/Post/Post";
 type AppPropsType = {
     dialogsData: DialogPropsType[]
     messagesData: MessagePropsType[]
-    posts : PostPropsType[]
-    changePostsHandler : (posts: PostPropsType[]) => void
+    posts: PostPropsType[]
+    changePostsHandler: (posts: PostPropsType[]) => void
 }
-const App : React.FC<AppPropsType> = ({dialogsData, messagesData, posts, changePostsHandler}: AppPropsType) => {
+const App: React.FC<AppPropsType> = (props) => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -26,15 +26,16 @@ const App : React.FC<AppPropsType> = ({dialogsData, messagesData, posts, changeP
                     <div className='content'>
                         <Routes>
                             <Route path={'/dialogs'}
-                                   element={<Dialogs dialogsData={dialogsData} messagesData={messagesData}/>}/>
+                                   element={<Dialogs dialogsData={props.dialogsData}
+                                                     messagesData={props.messagesData}/>}/>
                             <Route path={'/profile'}
-                                   element={<Profile posts={posts} changePostsHandler={changePostsHandler}/>}/>
+                                   element={<Profile posts={props.posts}
+                                                     changePostsHandler={props.changePostsHandler}/>}/>
                             <Route path={'/news'} element={<News/>}/>
                             <Route path={'/music'} element={<Music/>}/>
                             <Route path={'/settings'} element={<Settings/>}/>
                         </Routes>
                     </div>
-
                 </div>
             </div>
         </BrowserRouter>

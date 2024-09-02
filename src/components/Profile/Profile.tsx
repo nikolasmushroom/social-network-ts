@@ -7,11 +7,11 @@ export type ProfilePropsType = {
     posts: PostPropsType[]
     changePostsHandler : (posts : PostPropsType[]) => void
 }
-const Profile : React.FC<ProfilePropsType> = ({posts, changePostsHandler}) => {
+const Profile : React.FC<ProfilePropsType> = (props) => {
     return (
         <div className={classes.content}>
             <ProfileInfo/>
-            <MyPosts posts={posts} changePostsHandler={changePostsHandler}/>
+            <MyPosts posts={props.posts} changePostsHandler={props.changePostsHandler}/>
         </div>
     )
 }

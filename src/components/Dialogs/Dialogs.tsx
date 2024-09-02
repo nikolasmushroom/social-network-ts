@@ -17,11 +17,11 @@ type  DialogsPropsType = {
     dialogsData : DialogPropsType[]
     messagesData : MessagePropsType[]
 }
-export const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData} : DialogsPropsType) => {
+export const Dialogs: React.FC<DialogsPropsType> = (props) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
-                {dialogsData.map(dialog => {
+                {props.dialogsData.map(dialog => {
                     return (
                         <DialogItem name={dialog.name} id={dialog.id}/>
                     )
@@ -29,7 +29,7 @@ export const Dialogs: React.FC<DialogsPropsType> = ({dialogsData, messagesData} 
             </div>
             <div className={classes.messages}>
                 <div className={classes.dialog}>
-                    {messagesData.map(message => {
+                    {props.messagesData.map(message => {
                         return (
                             <Message message={message.message} id={message.id}/>
                         )

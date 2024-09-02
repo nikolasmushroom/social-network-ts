@@ -1,4 +1,4 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import React, {ChangeEvent, KeyboardEvent, useRef, useState} from "react";
 import s from './MyPosts.module.css';
 import { Post, PostPropsType } from "./Post/Post";
 type MyPostsPropsType = {
@@ -8,6 +8,7 @@ type MyPostsPropsType = {
 
 export const MyPosts : React.FC<MyPostsPropsType> = (props) => {
     const [currentInput, setCurrentInput] = useState('');
+    const newPostElement = useRef(props.posts)
 
     const addNewPost = () => {
         props.changePostsHandler([...props.posts, { message: currentInput, likesCount : 0 }]);

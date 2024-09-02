@@ -20,7 +20,7 @@ export const State: React.FC = () => {
         {id: v1(), message: 'Whats wrong with you?'},
     ]
     const changePostsHandler = (posts: PostPropsType[]) => {
-        setPosts(posts);
+        setPosts([...posts]);
     }
     return (
         <App

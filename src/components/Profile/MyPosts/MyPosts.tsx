@@ -1,18 +1,16 @@
 import React, {ChangeEvent, KeyboardEvent, useRef, useState} from "react";
 import s from './MyPosts.module.css';
-import { Post, PostPropsType } from "./Post/Post";
+import { Post } from "./Post/Post";
+import {PostType} from "../../Redux/State";
 type MyPostsPropsType = {
-    posts : PostPropsType[];
-    changePostsHandler : (posts : PostPropsType[]) => void;
+    posts : PostType[];
 }
 
 export const MyPosts : React.FC<MyPostsPropsType> = (props) => {
     const [currentInput, setCurrentInput] = useState('');
-    const newPostElement = useRef(props.posts)
 
     const addNewPost = () => {
-        props.changePostsHandler([...props.posts, { message: currentInput, likesCount : 0 }]);
-        setCurrentInput('');
+
     };
 
     const onChangeCurrentInput = (e : ChangeEvent<HTMLInputElement>) => {
@@ -37,7 +35,7 @@ export const MyPosts : React.FC<MyPostsPropsType> = (props) => {
             <button onClick={addNewPost} className={s.button}>Add new post</button>
             <h2>New posts</h2>
             <div className={s.posts}>
-                {props.posts.map((post, index) => <Post key={index} message={post.message} likesCount={post.likesCount}/>)}
+                {props.posts.map((post) => <Post id={post.id} message={post.message} likesCount={post.likesCount}/>)}
             </div>
         </div>
     );

@@ -12,7 +12,7 @@ import {RootStateType} from "./components/Redux/State";
 
 export type AppPropsType = {
     state: RootStateType
-    addPost: (postMessage: string) => void
+    addPost: () => void
     changeInput: (newInput : string) => void
 }
 const App: React.FC<AppPropsType> = (props) => {
@@ -24,8 +24,8 @@ const App: React.FC<AppPropsType> = (props) => {
         props.changeInput(newInput)
     }
 
-    let addNewPostHandler = (postMessage : string) => {
-        props.addPost(postMessage)
+    let addNewPostHandler = () => {
+        props.addPost()
     }
     return (
         <BrowserRouter>

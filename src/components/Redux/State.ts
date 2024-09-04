@@ -23,7 +23,7 @@ export type PostType = {
 }
 export type ProfileType = {
     posts : PostType[]
-    addNewPost : (postMessage : string) => void
+    addNewPost : () => void
     inputValue : string
     changeInput : (newInput: string) => void
 }
@@ -71,13 +71,14 @@ export const state : RootStateType = {
 
     }
 }
-export const addPost = (postMessage : string) => {
+export const addPost = () => {
     const newPost : PostType = {
         id: v1(),
-        message : postMessage,
+        message : state.profilePage.inputValue,
         likesCount : 0,
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.inputValue = '';
     rerenderEntireTree(state)
 }
 

@@ -5,7 +5,7 @@ import {PostType} from "../../Redux/State";
 
 type MyPostsPropsType = {
     posts: PostType[];
-    addNewPost: (postMessage: string) => void
+    addNewPost: () => void
     inputValue: string
     changeInput : (newInput : string) => void
 }
@@ -19,8 +19,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         if (postMessageRef.current) {
             const newPost = postMessageRef.current.value
             if (newPost.trim() !== '') {
-                props.addNewPost(newPost)
-                props.changeInput('')
+                props.addNewPost()
             }
         }
     };

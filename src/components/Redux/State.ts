@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {rerenderEntireTree} from "../../render";
 
 export type DialogType = {
     id: string
@@ -43,6 +42,10 @@ export type RootStateType = {
     navigationPage: NavigationType
 }
 
+let rerenderEntireTree = () => {
+    console.log('State changed')
+}
+
 export const state : RootStateType = {
     dialogsPage: <DialogsPageType> {
         dialogs : <DialogType[]> [
@@ -79,10 +82,15 @@ export const addPost = () => {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.inputValue = '';
-    rerenderEntireTree(state)
+    rerenderEntireTree()
 }
 
 export const changeInput = (newInput : string) => {
     state.profilePage.inputValue = newInput
-    rerenderEntireTree(state)
+    rerenderEntireTree()
+}
+
+
+export const subscribe = (observer : () => void) => {
+    rerenderEntireTree = observer
 }

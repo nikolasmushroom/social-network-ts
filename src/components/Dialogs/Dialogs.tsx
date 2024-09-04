@@ -10,7 +10,7 @@ export const Dialogs: React.FC<DialogsPageType> = (props) => {
             <div className={classes.dialogsItems}>
                 {props.dialogs.map(dialog => {
                     return (
-                        <DialogItem name={dialog.name} id={dialog.id}/>
+                        <DialogItem image={dialog.image} name={dialog.name} id={dialog.id}/>
                     )
                 })}
             </div>

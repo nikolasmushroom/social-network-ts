@@ -10,6 +10,9 @@
 .dialog {
     padding: 10px;
     align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #ccc7c7;
 }
 .dialog.active {
     color: #9DE0CF;
@@ -23,4 +26,8 @@
 }
 .messages .message {
 
+}
+.dialogAvatar {
+    width: 40px;
+    border-radius: 50%;
 }

@@ -6,7 +6,8 @@ import {DialogType} from "../../Redux/State";
 const DialogItem : React.FC<DialogType> = (props) => {
     return (
         <div className={classes.dialog + ' ' + classes.active}>
-            <NavLink to={`/dialogs/${props.id}`}>{props.name}</NavLink>
+            <img src={props.image} alt={props.name} className={classes.dialogAvatar}/>
+            <NavLink to={`/dialogs/${props.id}`} className={classes.dialog}>{props.name}</NavLink>
         </div>
     )
 }

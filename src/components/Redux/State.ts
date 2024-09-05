@@ -28,25 +28,28 @@ export const store = {
 
     }
 },
-    rerenderEntireTree ()  {
+    getState () {
+        return this._state
+    },
+    _rerenderEntireTree ()  {
         console.log('State changed')
     },
     addPost  () {
         const newPost : PostType = {
             id: v1(),
-            message : store._state.profilePage.inputValue,
+            message : this._state.profilePage.inputValue,
             likesCount : 0,
         }
-        store._state.profilePage.posts.push(newPost)
-        store._state.profilePage.inputValue = '';
-        store.rerenderEntireTree()
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.inputValue = '';
+        this._rerenderEntireTree()
     },
     changeInput  (newInput : string) {
-        store._state.profilePage.inputValue = newInput
-        store.rerenderEntireTree()
+        this._state.profilePage.inputValue = newInput
+        this._rerenderEntireTree()
     },
     subscribe (observer : () => void) {
-        store.rerenderEntireTree = observer
+        this._rerenderEntireTree = observer
     }
 
 }

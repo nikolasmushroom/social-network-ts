@@ -28,11 +28,11 @@ export const store = {
 
     }
 },
-    getState () {
-        return this._state
-    },
     _rerenderEntireTree ()  {
         console.log('State changed')
+    },
+    getState () {
+        return this._state
     },
     addPost  () {
         const newPost : PostType = {

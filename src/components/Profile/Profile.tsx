@@ -7,7 +7,7 @@ const Profile : React.FC<ProfileType> = (props) => {
     return (
         <div className={classes.content}>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addNewPost={props.addNewPost} changeInput={props.changeInput} inputValue={props.inputValue}/>
+            <MyPosts posts={props.posts} changeInput={props.changeInput} addNewPost={props.addNewPost} inputValue={props.inputValue}/>
         </div>
     )
 }

@@ -8,7 +8,8 @@ export type ChangeInputAction =  {
     type: 'CHANGE-INPUT';
     newInput: string;
 }
-export type ActionTypes = AddPostAction | ChangeInputAction;
+export type ActionTypes =  | { type: 'ADD-POST' }
+    | { type: 'CHANGE-INPUT'; newInput: string };
 
 export const store = {
     _state: {
@@ -94,8 +95,8 @@ export type PostType = {
 export type ProfileType = {
     posts: PostType[]
     inputValue: string
-    addNewPost: () => void;
-    changeInput: (newInput: string) => void;
+    changeInput : (newValue : string) => void
+    addNewPost : () => void
 }
 export type ProfilePageType = {
     posts: PostType[]

@@ -8,12 +8,11 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
 import './App.css';
-import {RootStateType} from "./components/Redux/State";
+import {ActionTypes, RootStateType} from "./components/Redux/State";
 
 export type AppPropsType = {
     state: RootStateType
-    addPost: () => void
-    changeInput: (newInput : string) => void
+    dispatch: (action : ActionTypes) => void
 }
 const App: React.FC<AppPropsType> = (props) => {
     let dialogs = props.state.dialogsPage.dialogs
@@ -21,11 +20,11 @@ const App: React.FC<AppPropsType> = (props) => {
     let posts = props.state.profilePage.posts
     let inputValue = props.state.profilePage.inputValue
     let changeInputHandler = (newInput : string) => {
-        props.changeInput(newInput)
+        props.dispatch({type : "CHANGE-INPUT", newInput})
     }
 
     let addNewPostHandler = () => {
-        props.addPost()
+        props.dispatch({type: "ADD-POST"})
     }
     return (
         <BrowserRouter>

@@ -1,5 +1,12 @@
 import {v1} from "uuid";
 
+export  type StoreType = {
+    _state: RootStateType,
+    _rerenderEntireTree : () => void
+    getState: () => void
+    subscribe : (observer: () => void) => void
+    dispatch : (action : ActionTypes) => void
+}
 export type AddPostAction = {
     type: 'ADD-POST';
 }
@@ -11,7 +18,7 @@ export type ChangeInputAction =  {
 export type ActionTypes =  | { type: 'ADD-POST' }
     | { type: 'CHANGE-INPUT'; newInput: string };
 
-export const store = {
+export const store : StoreType  = {
     _state: {
         dialogsPage: <DialogsPageType>{
             dialogs: <DialogType[]>[

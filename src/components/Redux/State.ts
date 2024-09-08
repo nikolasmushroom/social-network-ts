@@ -1,22 +1,23 @@
 import {v1} from "uuid";
 
-export  type StoreType = {
+export type StoreType = {
     _state: RootStateType,
-    _rerenderEntireTree : () => void
-    getState: () => void
-    subscribe : (observer: () => void) => void
+    _onChange : () => void
+    getState: () => RootStateType
+    subscribe : (callback: () => void) => void
     dispatch : (action : ActionTypes) => void
 }
-export type AddPostAction = {
-    type: 'ADD-POST';
-}
 
-export type ChangeInputAction =  {
-    type: 'CHANGE-INPUT';
-    newInput: string;
+export type ActionTypes =  AddPostActionType | ChangeInputActionType;
+
+export type AddPostActionType = {
+    type : 'ADD-POST',
+    inputValue : string
 }
-export type ActionTypes =  | { type: 'ADD-POST' }
-    | { type: 'CHANGE-INPUT'; newInput: string };
+export type ChangeInputActionType = {
+    type : 'CHANGE-INPUT',
+    newInput : string
+}
 
 export const store : StoreType  = {
     _state: {
@@ -53,29 +54,29 @@ export const store : StoreType  = {
         },
         navigationPage: <NavigationType>{}
     },
-    _rerenderEntireTree() {
+    _onChange() {
         console.log('State changed')
     },
     getState() {
         return this._state
     },
-    subscribe(observer: () => void) {
-        this._rerenderEntireTree = observer
+    subscribe(callback) {
+        this._onChange = callback
     },
 
     dispatch(action : ActionTypes) {
         if (action.type === 'ADD-POST') {
             const newPost: PostType = {
                 id: v1(),
-                message: this._state.profilePage.inputValue,
+                message: action.inputValue,
                 likesCount: 0,
             }
             this._state.profilePage.posts.push(newPost)
             this._state.profilePage.inputValue = '';
-            this._rerenderEntireTree()
+            this._onChange()
         }else if (action.type === 'CHANGE-INPUT') {
             this._state.profilePage.inputValue = action.newInput
-            this._rerenderEntireTree()
+            this._onChange()
         }
     }
 }
@@ -100,6 +101,7 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
+    dispatch : (ActionTypes : ActionTypes) => void
     posts: PostType[]
     inputValue: string
     changeInput : (newValue : string) => void

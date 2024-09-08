@@ -8,23 +8,25 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
 import './App.css';
-import {ActionTypes, RootStateType} from "./components/Redux/State";
+import {RootStateType} from "./components/Redux/State";
+import {store} from "./components/Redux/State";
+import {ActionTypes} from "./components/Redux/State";
 
 export type AppPropsType = {
-    state: RootStateType
+    store: RootStateType
     dispatch: (action : ActionTypes) => void
 }
 const App: React.FC<AppPropsType> = (props) => {
-    let dialogs = props.state.dialogsPage.dialogs
-    let messages = props.state.dialogsPage.messages
-    let posts = props.state.profilePage.posts
-    let inputValue = props.state.profilePage.inputValue
+    let dialogs = props.store.dialogsPage.dialogs
+    let messages = props.store.dialogsPage.messages
+    let posts = props.store.profilePage.posts
+    let inputValue = props.store.profilePage.inputValue
     let changeInputHandler = (newInput : string) => {
         props.dispatch({type : "CHANGE-INPUT", newInput})
     }
 
     let addNewPostHandler = () => {
-        props.dispatch({type: "ADD-POST"})
+        props.dispatch({type: "ADD-POST", inputValue})
     }
     return (
         <BrowserRouter>
@@ -41,6 +43,7 @@ const App: React.FC<AppPropsType> = (props) => {
                             <Route path={'/profile'}
                                    element={<Profile
                                        posts={posts}
+                                       dispatch={props.dispatch.bind(store)}
                                        addNewPost={addNewPostHandler}
                                        inputValue={inputValue}
                                        changeInput={changeInputHandler}

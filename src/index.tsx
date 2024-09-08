@@ -6,10 +6,9 @@ import {store} from "./components/Redux/State";
 
 const rerenderEntireTree = () => {
     ReactDOM.render(
-        <App state={store.getState()} dispatch={store.dispatch.bind(store)}/>,
+        <App store={store.getState()} dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root')
     );
 }
 rerenderEntireTree()
-
 store.subscribe(rerenderEntireTree)

@@ -104,8 +104,6 @@ export type ProfileType = {
     dispatch : (ActionTypes : ActionTypes) => void
     posts: PostType[]
     inputValue: string
-    changeInput : (newValue : string) => void
-    addNewPost : () => void
 }
 export type ProfilePageType = {
     posts: PostType[]

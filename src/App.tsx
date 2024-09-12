@@ -21,13 +21,13 @@ const App: React.FC<AppPropsType> = (props) => {
     let messages = props.store.dialogsPage.messages
     let posts = props.store.profilePage.posts
     let inputValue = props.store.profilePage.inputValue
-    let changeInputHandler = (newInput : string) => {
-        props.dispatch({type : "CHANGE-INPUT", newInput})
-    }
-
-    let addNewPostHandler = () => {
-        props.dispatch({type: "ADD-POST", inputValue})
-    }
+    // let changeInputHandler = (newInput : string) => {
+    //     props.dispatch({type : "CHANGE-INPUT", newInput})
+    // }
+    //
+    // let addNewPostHandler = () => {
+    //     props.dispatch({type: "ADD-POST", inputValue})
+    // }
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -44,9 +44,7 @@ const App: React.FC<AppPropsType> = (props) => {
                                    element={<Profile
                                        posts={posts}
                                        dispatch={props.dispatch.bind(store)}
-                                       addNewPost={addNewPostHandler}
                                        inputValue={inputValue}
-                                       changeInput={changeInputHandler}
                                    />}/>
                             <Route path={'/news'} element={<News/>}/>
                             <Route path={'/music'} element={<Music/>}/>

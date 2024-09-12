@@ -1,13 +1,12 @@
 import React, {KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {PostType} from "../../Redux/State";
+import {ActionTypes, PostType} from "../../Redux/State";
 
 type MyPostsPropsType = {
     posts: PostType[];
-    addNewPost: () => void
     inputValue: string
-    changeInput : (newInput : string) => void
+    dispatch: (action : ActionTypes) => void
 }
 
 export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
@@ -19,7 +18,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         if (postMessageRef.current) {
             const newPost = postMessageRef.current.value
             if (newPost.trim() !== '') {
-                props.addNewPost()
+                props.dispatch({type : 'ADD-POST', inputValue : props.inputValue})
             }
         }
     };
@@ -47,7 +46,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                 ref={postMessageRef}
                 value={props.inputValue}
                 // onChange={onChangeCurrentInput}
-                onChange={(e) => props.changeInput(e.currentTarget.value)}
+                onChange={(e) => props.dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})}
                 onKeyDown={onKeyDownHandler}
             />
             <button onClick={addNewPost} className={s.button}>Add new post</button>

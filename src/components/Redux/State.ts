@@ -4,8 +4,6 @@ export type StoreType = {
     _state: RootStateType,
     _onChange: () => void
     getState: () => RootStateType
-    _addNewPost: () => void
-    _updateNewInput: (newText: ChangeInputActionType) => void
     subscribe: (callback: () => void) => void
     dispatch: (action: ActionTypes) => void
 }
@@ -65,35 +63,19 @@ export const store: StoreType = {
     subscribe(callback) {
         this._onChange = callback
     },
-    _addNewPost() {
-        const newPost: PostType = {
-            id: v1(),
-            message: this._state.profilePage.inputValue,
-            likesCount: 0,
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.inputValue = '';
-        this._onChange()
-    },
-    _updateNewInput(newText: ChangeInputActionType) {
-        this._state.profilePage.inputValue = newText.newInput
-        this._onChange()
-    },
     dispatch(action: ActionTypes) {
         if (action.type === 'ADD-POST') {
-            this._addNewPost()
-            // const newPost: PostType = {
-            //     id: v1(),
-            //     message: action.inputValue,
-            //     likesCount: 0,
-            // }
-            // this._state.profilePage.posts.push(newPost)
-            // this._state.profilePage.inputValue = '';
-            // this._onChange()
+            const newPost: PostType = {
+                id: v1(),
+                message: action.inputValue,
+                likesCount: 0,
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.inputValue = '';
+            this._onChange()
         } else if (action.type === 'CHANGE-INPUT') {
-            this._updateNewInput(action)
-            // this._state.profilePage.inputValue = action.newInput
-            // this._onChange()
+            this._state.profilePage.inputValue = action.newInput
+            this._onChange()
         }
     }
 }

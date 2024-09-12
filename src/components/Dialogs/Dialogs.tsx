@@ -22,6 +22,10 @@ export const Dialogs: React.FC<DialogsPageType> = (props) => {
                         )
                     })}
                 </div>
+                <div>
+                    <textarea onChange={(e) => props.dispatch({type : 'UPDATE-NEW-MESSAGE', newMessage : e.currentTarget.value})}></textarea>
+                    <button onClick={() => props.dispatch({type : 'SEND-MESSAGE'})}>Send Message</button>
+                </div>
             </div>
         </div>
     )

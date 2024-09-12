@@ -8,7 +8,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = AddPostActionType | ChangeInputActionType;
+export type ActionTypes = AddPostActionType | ChangeInputActionType | UpdateNewMessageType | SendMessage;
 
 export type AddPostActionType = {
     type: 'ADD-POST',
@@ -17,6 +17,13 @@ export type AddPostActionType = {
 export type ChangeInputActionType = {
     type: 'CHANGE-INPUT',
     newInput: string
+}
+export type UpdateNewMessageType = {
+    type: 'UPDATE-NEW-MESSAGE',
+    newMessage: string
+}
+export type SendMessage = {
+    type : 'SEND-MESSAGE'
 }
 
 export const store: StoreType = {
@@ -41,7 +48,8 @@ export const store: StoreType = {
                 {id: v1(), message: 'How is your day?'},
                 {id: v1(), message: 'How are you?'},
                 {id: v1(), message: 'Whats wrong with you?'},
-            ]
+            ],
+            newMessageText : ''
         },
         profilePage: {
             posts: <PostType[]>[
@@ -76,6 +84,15 @@ export const store: StoreType = {
         } else if (action.type === 'CHANGE-INPUT') {
             this._state.profilePage.inputValue = action.newInput
             this._onChange()
+        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
+            this._state.dialogsPage.newMessageText = action.newMessage
+        } else if (action.type === 'SEND-MESSAGE') {
+            let text = this._state.dialogsPage.newMessageText
+            this._state.dialogsPage.newMessageText = '';
+            if(text){
+                this._state.dialogsPage.messages.push( {id: v1(), message: text})
+                this._onChange();
+            }
         }
     }
 }
@@ -92,6 +109,8 @@ export type MessageType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
+    dispatch:  (ActionTypes: ActionTypes) => void
+    newMessageText ? : string
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type PostType = {

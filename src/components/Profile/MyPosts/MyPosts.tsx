@@ -1,4 +1,4 @@
-import React, {KeyboardEvent} from "react";
+import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {ActionTypes, PostType} from "../../Redux/State";
@@ -13,7 +13,6 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
     const postMessageRef  = React.createRef<HTMLInputElement>()
     // const [currentInput, setCurrentInput] = useState<string>('')
 
-
     const addNewPost = () => {
         if (postMessageRef.current) {
             const newPost = postMessageRef.current.value
@@ -22,6 +21,9 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             }
         }
     };
+    const onChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
+        props.dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})
+    }
     // const addNewPost = () => {
     //     {currentInput && currentInput.trim() !== '' &&   props.addNewPost(currentInput.trim())
     //         setCurrentInput('')
@@ -46,7 +48,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
                 ref={postMessageRef}
                 value={props.inputValue}
                 // onChange={onChangeCurrentInput}
-                onChange={(e) => props.dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})}
+                onChange={onChangeInput}
                 onKeyDown={onKeyDownHandler}
             />
             <button onClick={addNewPost} className={s.button}>Add new post</button>

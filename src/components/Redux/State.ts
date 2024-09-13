@@ -23,7 +23,7 @@ export type UpdateNewMessageType = {
     newMessage: string
 }
 export type SendMessage = {
-    type : 'SEND-MESSAGE'
+    type: 'SEND-MESSAGE'
 }
 
 export const store: StoreType = {
@@ -49,7 +49,7 @@ export const store: StoreType = {
                 {id: v1(), message: 'How are you?'},
                 {id: v1(), message: 'Whats wrong with you?'},
             ],
-            newMessageText : ''
+            newMessageText: ''
         },
         profilePage: {
             posts: <PostType[]>[
@@ -72,27 +72,38 @@ export const store: StoreType = {
         this._onChange = callback
     },
     dispatch(action: ActionTypes) {
-        if (action.type === 'ADD-POST') {
-            const newPost: PostType = {
-                id: v1(),
-                message: action.inputValue,
-                likesCount: 0,
+        switch (action.type) {
+            case 'ADD-POST': {
+                const newPost: PostType = {
+                    id: v1(),
+                    message: action.inputValue,
+                    likesCount: 0,
+                }
+                this._state.profilePage.posts.push(newPost)
+                this._state.profilePage.inputValue = ''
+                this._onChange()
+                break
             }
-            this._state.profilePage.posts.push(newPost)
-            this._state.profilePage.inputValue = '';
-            this._onChange()
-        } else if (action.type === 'CHANGE-INPUT') {
-            this._state.profilePage.inputValue = action.newInput
-            this._onChange()
-        } else if (action.type === 'UPDATE-NEW-MESSAGE') {
-            this._state.dialogsPage.newMessageText = action.newMessage
-        } else if (action.type === 'SEND-MESSAGE') {
-            let text = this._state.dialogsPage.newMessageText
-            this._state.dialogsPage.newMessageText = '';
-            if(text){
-                this._state.dialogsPage.messages.push( {id: v1(), message: text})
-                this._onChange();
+            case 'CHANGE-INPUT': {
+                this._state.profilePage.inputValue = action.newInput
+                this._onChange()
+                break
             }
+            case 'UPDATE-NEW-MESSAGE': {
+                this._state.dialogsPage.newMessageText = action.newMessage
+                break
+            }
+            case 'SEND-MESSAGE': {
+                let text = this._state.dialogsPage.newMessageText
+                this._state.dialogsPage.newMessageText = ''
+                if (text) {
+                    this._state.dialogsPage.messages.push({id: v1(), message: text})
+                    this._onChange()
+                }
+                break
+            }
+            default:
+                break
         }
     }
 }
@@ -109,8 +120,8 @@ export type MessageType = {
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
-    dispatch:  (ActionTypes: ActionTypes) => void
-    newMessageText ? : string
+    dispatch: (ActionTypes: ActionTypes) => void
+    newMessageText?: string
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type PostType = {

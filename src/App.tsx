@@ -21,13 +21,6 @@ const App: React.FC<AppPropsType> = (props) => {
     let messages = props.store.dialogsPage.messages
     let posts = props.store.profilePage.posts
     let inputValue = props.store.profilePage.inputValue
-    // let changeInputHandler = (newInput : string) => {
-    //     props.dispatch({type : "CHANGE-INPUT", newInput})
-    // }
-    //
-    // let addNewPostHandler = () => {
-    //     props.dispatch({type: "ADD-POST", inputValue})
-    // }
     return (
         <BrowserRouter>
             <div className='app-wrapper'>

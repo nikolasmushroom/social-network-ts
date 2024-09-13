@@ -82,7 +82,7 @@ export const store: StoreType = {
                 this._state.profilePage.posts.push(newPost)
                 this._state.profilePage.inputValue = ''
                 this._onChange()
-                break
+                return;
             }
             case 'CHANGE-INPUT': {
                 this._state.profilePage.inputValue = action.newInput
@@ -91,7 +91,7 @@ export const store: StoreType = {
             }
             case 'UPDATE-NEW-MESSAGE': {
                 this._state.dialogsPage.newMessageText = action.newMessage
-                break
+                return;
             }
             case 'SEND-MESSAGE': {
                 let text = this._state.dialogsPage.newMessageText
@@ -100,10 +100,10 @@ export const store: StoreType = {
                     this._state.dialogsPage.messages.push({id: v1(), message: text})
                     this._onChange()
                 }
-                break
+                return;
             }
             default:
-                break
+                return
         }
     }
 }

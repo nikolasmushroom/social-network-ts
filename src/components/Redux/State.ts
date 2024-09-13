@@ -1,4 +1,7 @@
 import {v1} from "uuid";
+import {profileReducer} from "./profile-reducer";
+import {dialogsReducer} from "./dialogs-reducer";
+import {sidebarReducer} from "./sidebar-reducer";
 
 export type StoreType = {
     _state: RootStateType,
@@ -72,39 +75,12 @@ export const store: StoreType = {
         this._onChange = callback
     },
     dispatch(action: ActionTypes) {
-        switch (action.type) {
-            case 'ADD-POST': {
-                const newPost: PostType = {
-                    id: v1(),
-                    message: action.inputValue,
-                    likesCount: 0,
-                }
-                this._state.profilePage.posts.push(newPost)
-                this._state.profilePage.inputValue = ''
-                this._onChange()
-                return;
-            }
-            case 'CHANGE-INPUT': {
-                this._state.profilePage.inputValue = action.newInput
-                this._onChange()
-                break
-            }
-            case 'UPDATE-NEW-MESSAGE': {
-                this._state.dialogsPage.newMessageText = action.newMessage
-                return;
-            }
-            case 'SEND-MESSAGE': {
-                let text = this._state.dialogsPage.newMessageText
-                this._state.dialogsPage.newMessageText = ''
-                if (text) {
-                    this._state.dialogsPage.messages.push({id: v1(), message: text})
-                    this._onChange()
-                }
-                return;
-            }
-            default:
-                return
-        }
+
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.navigationPage = sidebarReducer(this._state.navigationPage, action);
+
+        this._onChange()
     }
 }
 export type DialogType = {

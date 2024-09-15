@@ -3,12 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from "./App";
 import {store} from "./components/Redux/redux-store";
+import {RootStateType} from "./components/Redux/store";
 
-const rerenderEntireTree = () => {
+const rerenderEntireTree = (state : RootStateType) => {
     ReactDOM.render(
         <App store={store.getState()} dispatch={store.dispatch.bind(store)}/>,
         document.getElementById('root')
     );
 }
-rerenderEntireTree()
-store.subscribe(rerenderEntireTree)
+rerenderEntireTree(store.getState())
+store.subscribe(() => {
+    rerenderEntireTree(store.getState())
+})

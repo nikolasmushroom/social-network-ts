@@ -17,13 +17,13 @@ export const profileReducer = (state = initialState, action: ActionTypes) => {
                 message: action.inputValue,
                 likesCount: 0,
             }
-            state.posts.push(newPost)
-            state.inputValue = '';
-            return state
+            return {...state, posts : [...state.posts, newPost], inputValue : ''}
+            // state.posts.push(newPost)
+            // state.inputValue = '';
         }
         case 'CHANGE-INPUT' : {
-            state.inputValue = action.newInput
-            return state
+            return {...state, inputValue : action.newInput}
+            // state.inputValue = action.newInput
         }
     }
     return state;

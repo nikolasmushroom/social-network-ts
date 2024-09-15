@@ -1,6 +1,8 @@
 import {ActionTypes, DialogsPageType, DialogType, MessageType} from "./store";
 import {v1} from "uuid";
-const initialState : DialogsPageType = {
+import message from "../Dialogs/Message/Message";
+
+const initialState: DialogsPageType = {
     dialogs: <DialogType[]>[
         {
             id: v1(),
@@ -9,7 +11,8 @@ const initialState : DialogsPageType = {
         },
         {
             id: v1(),
-            image: 'https://cdnstorage.sendbig.com/unreal/female.webp', name: 'Jane'},
+            image: 'https://cdnstorage.sendbig.com/unreal/female.webp', name: 'Jane'
+        },
         {id: v1(), image: 'https://live.staticflickr.com/65535/50999002523_08e4353b95.jpg', name: 'Vlad'},
         {
             id: v1(),
@@ -24,21 +27,29 @@ const initialState : DialogsPageType = {
         {id: v1(), message: 'Whats wrong with you?'},
     ],
     newMessageText: '',
-    dispatch: action => {},
+    dispatch: action => {
+    },
 }
-export const dialogsReducer = (state = initialState, action: ActionTypes) => {
+export const dialogsReducer = (state : DialogsPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE' : {
-            state.newMessageText = action.newMessage
-            return state
+            return {...state, newMessageText: action.newMessage}
+            // state.newMessageText = action.newMessage
         }
         case 'SEND-MESSAGE' : {
-            let text = state.newMessageText
-            state.newMessageText = ''
-            if (text) {
-                state.messages.push({id: v1(), message: text})
+            let text  = state.newMessageText
+            if(text){
+                return {...state, newMessageText: '', messages : [...state.messages,  {id: v1(), message: text}]} ;
             }
-            return state
+            return {
+                ...state,
+                newMessageText: ''
+            };
+            // state.newMessageText = ''
+            // if (text) {
+            //     state.messages.push({id: v1(), message: text})
+            // }
+            // return state
         }
     }
     return state;

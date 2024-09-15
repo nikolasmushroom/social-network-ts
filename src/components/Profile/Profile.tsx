@@ -2,7 +2,7 @@ import React from "react";
 import classes from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MyPosts}  from "./MyPosts/MyPosts";
-import {ProfileType} from "../Redux/State";
+import {ProfileType} from "../Redux/store";
 const Profile : React.FC<ProfileType> = (props) => {
     return (
         <div className={classes.content}>

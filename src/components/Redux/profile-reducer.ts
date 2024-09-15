@@ -1,4 +1,4 @@
-import {ActionTypes, PostType, ProfilePageType} from "./State";
+import {ActionTypes, PostType, ProfilePageType} from "./store";
 import {v1} from "uuid";
 
 export const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
@@ -11,12 +11,12 @@ export const profileReducer = (state: ProfilePageType, action: ActionTypes) => {
             }
             state.posts.push(newPost)
             state.inputValue = '';
-            return
+            return state
         }
         case 'CHANGE-INPUT' : {
             state.inputValue = action.newInput
-            return
+            return state
         }
     }
-    return state
+    return state;
 }

@@ -1,11 +1,11 @@
-import {ActionTypes, DialogsPageType} from "./State";
+import {ActionTypes, DialogsPageType} from "./store";
 import {v1} from "uuid";
 
 export const dialogsReducer = (state: DialogsPageType, action: ActionTypes) => {
     switch (action.type) {
         case 'UPDATE-NEW-MESSAGE' : {
             state.newMessageText = action.newMessage
-            return
+            return state
         }
         case 'SEND-MESSAGE' : {
             let text = state.newMessageText
@@ -13,8 +13,8 @@ export const dialogsReducer = (state: DialogsPageType, action: ActionTypes) => {
             if (text) {
                 state.messages.push({id: v1(), message: text})
             }
-            return
+            return state
         }
     }
-    return state
+    return state;
 }

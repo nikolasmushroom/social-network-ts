@@ -8,9 +8,9 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
 import './App.css';
-import {RootStateType} from "./components/Redux/State";
-import {store} from "./components/Redux/State";
-import {ActionTypes} from "./components/Redux/State";
+import {RootStateType} from "./components/Redux/store";
+import {store} from "./components/Redux/store";
+import {ActionTypes} from "./components/Redux/store";
 
 export type AppPropsType = {
     store: RootStateType

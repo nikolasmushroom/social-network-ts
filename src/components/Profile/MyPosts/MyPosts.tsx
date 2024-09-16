@@ -9,7 +9,7 @@ type MyPostsPropsType = {
     dispatch: (action : ActionTypes) => void
 }
 
-export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
+export const MyPosts = ({posts, inputValue, dispatch} : MyPostsPropsType) => {
     const postMessageRef  = React.createRef<HTMLInputElement>()
     // const [currentInput, setCurrentInput] = useState<string>('')
 
@@ -17,12 +17,12 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
         if (postMessageRef.current) {
             const newPost = postMessageRef.current.value
             if (newPost.trim() !== '') {
-                props.dispatch({type : 'ADD-POST', inputValue : props.inputValue})
+                dispatch({type : 'ADD-POST', inputValue : inputValue})
             }
         }
     };
     const onChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
-        props.dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})
+        dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})
     }
     // const addNewPost = () => {
     //     {currentInput && currentInput.trim() !== '' &&   props.addNewPost(currentInput.trim())
@@ -46,7 +46,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             <input
                 className={s.input}
                 ref={postMessageRef}
-                value={props.inputValue}
+                value={inputValue}
                 // onChange={onChangeCurrentInput}
                 onChange={onChangeInput}
                 onKeyDown={onKeyDownHandler}
@@ -54,7 +54,7 @@ export const MyPosts: React.FC<MyPostsPropsType> = (props) => {
             <button onClick={addNewPost} className={s.button}>Add new post</button>
             <h2>New posts</h2>
             <div className={s.posts}>
-                {props.posts.map((post) => <Post key={post.id} id={post.id} message={post.message}
+                {posts.map((post) => <Post key={post.id} id={post.id} message={post.message}
                                                  likesCount={post.likesCount}/>)}
             </div>
         </div>

@@ -9,18 +9,17 @@ import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
 import './App.css';
 import {RootStateType} from "./components/Redux/store";
-import {store} from "./components/Redux/store";
 import {ActionTypes} from "./components/Redux/store";
 
 export type AppPropsType = {
     store: RootStateType
     dispatch: (action : ActionTypes) => void
 }
-const App: React.FC<AppPropsType> = (props) => {
-    let dialogs = props.store.dialogsPage.dialogs
-    let messages = props.store.dialogsPage.messages
-    let posts = props.store.profilePage.posts
-    let inputValue = props.store.profilePage.inputValue
+const App: React.FC<AppPropsType> = ({store, dispatch}) => {
+    let dialogs = store.dialogsPage.dialogs
+    let messages = store.dialogsPage.messages
+    let posts = store.profilePage.posts
+    let inputValue = store.profilePage.inputValue
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -32,12 +31,12 @@ const App: React.FC<AppPropsType> = (props) => {
                             <Route path={'/dialogs'}
                                    element={<Dialogs dialogs={dialogs}
                                                      messages={messages}
-                                                     dispatch={props.dispatch}
+                                                     dispatch={dispatch}
                                    />}/>
                             <Route path={'/profile'}
                                    element={<Profile
                                        posts={posts}
-                                       dispatch={props.dispatch.bind(store)}
+                                       dispatch={dispatch.bind(store)}
                                        inputValue={inputValue}
                                    />}/>
                             <Route path={'/news'} element={<News/>}/>

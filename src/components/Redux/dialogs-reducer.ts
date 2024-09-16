@@ -1,6 +1,8 @@
-import {ActionTypes, DialogsPageType, DialogType, MessageType} from "./store";
+import {ActionTypes, DialogsPageType, DialogType, MessageType, SendMessageType, UpdateNewMessageType} from "./store";
 import {v1} from "uuid";
-import message from "../Dialogs/Message/Message";
+
+export const UPDATE_NEW_MESSAGE = 'UPDATE-NEW-MESSAGE';
+export const SEND_MESSAGE = 'SEND-MESSAGE';
 
 const initialState: DialogsPageType = {
     dialogs: <DialogType[]>[
@@ -28,18 +30,19 @@ const initialState: DialogsPageType = {
     ],
     newMessageText: '',
     dispatch: action => {
+
     },
 }
-export const dialogsReducer = (state : DialogsPageType = initialState, action: ActionTypes) => {
+export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE' : {
+        case UPDATE_NEW_MESSAGE : {
             return {...state, newMessageText: action.newMessage}
-            // state.newMessageText = action.newMessage
+            // return  state.newMessageText = action.newMessage
         }
-        case 'SEND-MESSAGE' : {
-            let text  = state.newMessageText
-            if(text){
-                return {...state, newMessageText: '', messages : [...state.messages,  {id: v1(), message: text}]} ;
+        case SEND_MESSAGE : {
+            let text = state.newMessageText
+            if (text) {
+                return {...state, newMessageText: '', messages: [...state.messages, {id: v1(), message: text}]};
             }
             return {
                 ...state,
@@ -54,3 +57,10 @@ export const dialogsReducer = (state : DialogsPageType = initialState, action: A
     }
     return state;
 }
+export const updateNewMessageActionCreator = (newMessage: string) : UpdateNewMessageType => ({
+    type: UPDATE_NEW_MESSAGE,
+    newMessage: newMessage
+})
+export const sendMessageActionCreator = () : SendMessageType  => ({
+    type : SEND_MESSAGE
+})

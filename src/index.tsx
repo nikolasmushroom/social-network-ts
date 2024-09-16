@@ -2,7 +2,7 @@ import './index.css';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from "./App";
-import {store} from "./components/Redux/redux-store";
+import store from "./components/Redux/redux-store";
 import {RootStateType} from "./components/Redux/store";
 
 const rerenderEntireTree = (state : RootStateType) => {

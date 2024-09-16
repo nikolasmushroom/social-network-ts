@@ -6,33 +6,26 @@ import {ActionTypes, PostType} from "../../Redux/store";
 type MyPostsPropsType = {
     posts: PostType[];
     inputValue: string
-    dispatch: (action : ActionTypes) => void
+    changeInputHandler: (e: ChangeEvent<HTMLInputElement>) => void
+    addPostHandler: () => void
 }
 
-export const MyPosts = ({posts, inputValue, dispatch} : MyPostsPropsType) => {
-    const postMessageRef  = React.createRef<HTMLInputElement>()
-    // const [currentInput, setCurrentInput] = useState<string>('')
+export const MyPosts = ({posts, inputValue, changeInputHandler, addPostHandler}: MyPostsPropsType) => {
+    const postMessageRef = React.createRef<HTMLInputElement>()
 
     const addNewPost = () => {
         if (postMessageRef.current) {
             const newPost = postMessageRef.current.value
             if (newPost.trim() !== '') {
-                dispatch({type : 'ADD-POST', inputValue : inputValue})
+                // dispatch({type: "ADD-POST", newInput : newPost})
+                addPostHandler()
             }
         }
     };
-    const onChangeInput = (e : ChangeEvent<HTMLInputElement>) => {
-        dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})
+    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
+        // dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})
+        changeInputHandler(e)
     }
-    // const addNewPost = () => {
-    //     {currentInput && currentInput.trim() !== '' &&   props.addNewPost(currentInput.trim())
-    //         setCurrentInput('')
-    //     }
-    // }
-
-    // const onChangeCurrentInput = (e: ChangeEvent<HTMLInputElement>) => {
-    //     setCurrentInput(e.currentTarget.value);
-    // };
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
@@ -55,7 +48,7 @@ export const MyPosts = ({posts, inputValue, dispatch} : MyPostsPropsType) => {
             <h2>New posts</h2>
             <div className={s.posts}>
                 {posts.map((post) => <Post key={post.id} id={post.id} message={post.message}
-                                                 likesCount={post.likesCount}/>)}
+                                           likesCount={post.likesCount}/>)}
             </div>
         </div>
     );

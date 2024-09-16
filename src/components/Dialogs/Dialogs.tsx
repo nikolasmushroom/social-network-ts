@@ -3,6 +3,7 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./Dialogitem/Dialogitem";
 import Message from "./Message/Message";
 import {DialogsPageType} from "../Redux/store";
+import {sendMessageActionCreator, updateNewMessageActionCreator} from "../Redux/dialogs-reducer";
 
 export const Dialogs: React.FC<DialogsPageType> = ({dialogs,dispatch, messages} : DialogsPageType) => {
     return (
@@ -23,8 +24,8 @@ export const Dialogs: React.FC<DialogsPageType> = ({dialogs,dispatch, messages} 
                     })}
                 </div>
                 <div>
-                    <textarea onChange={(e) => dispatch({type : 'UPDATE-NEW-MESSAGE', newMessage : e.currentTarget.value})}></textarea>
-                    <button onClick={() => dispatch({type : 'SEND-MESSAGE'})}>Send Message</button>
+                    <textarea onChange={(e) => dispatch(updateNewMessageActionCreator(e.currentTarget.value))}></textarea>
+                    <button onClick={() => dispatch(sendMessageActionCreator())}>Send Message</button>
                 </div>
             </div>
         </div>

@@ -1,7 +1,8 @@
 import {v1} from "uuid";
-import {profileReducer} from "./profile-reducer";
-import {dialogsReducer} from "./dialogs-reducer";
+import {ADD_POST, CHANGE_INPUT, profileReducer} from "./profile-reducer";
+import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
+import {ChangeEvent} from "react";
 
 export type StoreType = {
     _state: RootStateType,
@@ -11,22 +12,22 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = AddPostActionType | ChangeInputActionType | UpdateNewMessageType | SendMessage;
+export type ActionTypes = AddPostActionType | ChangeInputActionType | UpdateNewMessageType | SendMessageType;
 
 export type AddPostActionType = {
-    type: 'ADD-POST',
+    type: typeof ADD_POST,
     inputValue: string
 }
 export type ChangeInputActionType = {
-    type: 'CHANGE-INPUT',
+    type: typeof CHANGE_INPUT,
     newInput: string
 }
 export type UpdateNewMessageType = {
-    type: 'UPDATE-NEW-MESSAGE',
+    type: typeof UPDATE_NEW_MESSAGE,
     newMessage: string
 }
-export type SendMessage = {
-    type: 'SEND-MESSAGE'
+export type SendMessageType = {
+        type: typeof SEND_MESSAGE
 }
 
 export const store: StoreType = {
@@ -108,7 +109,8 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    dispatch: (ActionTypes: ActionTypes) => void
+    changeInputHandler: (newInput : string) => void
+    addPostHandler: () => void
     posts: PostType[]
     inputValue: string
 }

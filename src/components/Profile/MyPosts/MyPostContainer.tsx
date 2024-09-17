@@ -1,25 +1,21 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
-import store from "../../Redux/redux-store";
+import {RootReduxStoreType} from "../../Redux/redux-store";
 import {MyPosts} from "./MyPosts";
 import {addPostActionCreator, changeInputActionCreator} from "../../Redux/profile-reducer";
 
 type MyPostsContainerPropsType = {
-    store: any
+    store: RootReduxStoreType
 }
 
 export const MyPostsContainer = ({store}: MyPostsContainerPropsType) => {
     const postMessageRef = React.createRef<HTMLInputElement>()
     const state = store.getState()
     const addNewPost = () => {
-        if (postMessageRef.current) {
-            const newPost = postMessageRef.current.value
-            if (newPost.trim() !== '') {
-                store.dispatch(addPostActionCreator(state.profilePage.inputValue))
-            }
-        }
+        store.dispatch(addPostActionCreator(state.profilePage.inputValue))
+
     };
     const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-        let newInputValue  = e.currentTarget.value
+        let newInputValue = e.currentTarget.value
         store.dispatch(changeInputActionCreator(newInputValue))
     }
 

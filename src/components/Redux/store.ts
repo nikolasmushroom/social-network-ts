@@ -2,7 +2,7 @@ import {v1} from "uuid";
 import {ADD_POST, CHANGE_INPUT, profileReducer} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
-import {ChangeEvent} from "react";
+import {RootReduxStateType, RootReduxStoreType} from "./redux-store";
 
 export type StoreType = {
     _state: RootStateType,
@@ -109,15 +109,13 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    changeInputHandler: (newInput : string) => void
-    addPostHandler: () => void
-    posts: PostType[]
-    inputValue: string
+    store : RootReduxStoreType
 }
 export type ProfilePageType = {
     posts: PostType[]
     inputValue: string
 }
+
 // --------------------------------------------------------------------------------------------------------------------//
 export type NavigationType = {}
 // --------------------------------------------------------------------------------------------------------------------//

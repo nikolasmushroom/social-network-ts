@@ -1,4 +1,4 @@
-import {ActionTypes, AddPostActionType, ChangeInputActionType, PostType, ProfilePageType} from "./store";
+import {ActionTypes, AddPostActionType, ChangeInputActionType, PostType, ProfilePageType, RootStateType} from "./store";
 import {v1} from "uuid";
 
 export const ADD_POST = "ADD-POST";
@@ -18,7 +18,7 @@ export const profileReducer = (state = initialState, action: ActionTypes) => {
         case ADD_POST:
             return {
                 ...state,
-                posts: [...state.posts, {id: new Date().toISOString(), message: action.inputValue, likesCount: 0}],
+                posts: [...state.posts, {id: v1(), message: action.inputValue, likesCount: 0}],
                 inputValue: ''
             };
         case CHANGE_INPUT:

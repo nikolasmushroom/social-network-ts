@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {ActionTypes, PostType} from "../../Redux/store";
+import {PostType} from "../../Redux/store";
 
 type MyPostsPropsType = {
     posts: PostType[];
@@ -14,13 +14,8 @@ export const MyPosts = ({posts, inputValue, changeInputHandler, addPostHandler}:
     const postMessageRef = React.createRef<HTMLInputElement>()
 
     const addNewPost = () => {
-        if (postMessageRef.current) {
-            const newPost = postMessageRef.current.value
-            if (newPost.trim() !== '') {
-                // dispatch({type: "ADD-POST", newInput : newPost})
-                addPostHandler()
-            }
-        }
+        // dispatch({type: "ADD-POST", newInput : newPost})
+        addPostHandler()
     };
     const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
         // dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})

@@ -29,9 +29,6 @@ const initialState: DialogsPageType = {
         {id: v1(), message: 'Whats wrong with you?'},
     ],
     newMessageText: '',
-    dispatch: action => {
-
-    },
 }
 export const dialogsReducer = (state: DialogsPageType = initialState, action: ActionTypes) => {
     switch (action.type) {

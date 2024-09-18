@@ -7,7 +7,7 @@ const  Profile = ({store} : ProfileType) => {
     return (
         <div className={classes.content}>
             <ProfileInfo/>
-            <MyPostsContainer store={store}/>
+            <MyPostsContainer/>
         </div>
     )
 }

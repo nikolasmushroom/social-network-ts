@@ -104,11 +104,10 @@ export type DialogsPageType = {
     messages: MessageType[]
     newMessageText?: string
 }
+
 export type DialogsContainerType = {
-    updateNewMessage: (e : ChangeEvent<HTMLTextAreaElement>) => void
+    updateNewMessage: (body : string) => void
     sendMessage : () => void
-    dialogs: DialogType[]
-    messages: MessageType[]
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type PostType = {

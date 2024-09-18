@@ -3,7 +3,7 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./Dialogitem/Dialogitem";
 import Message from "./Message/Message";
 import {DialogsContainerType} from "../Redux/store";
-export const Dialogs = ({dialogs , messages, updateNewMessage, sendMessage} : DialogsContainerType) => {
+export const Dialogs = ({dialogs , messages, updateNewMessage, sendMessage} : any) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
@@ -23,7 +23,7 @@ export const Dialogs = ({dialogs , messages, updateNewMessage, sendMessage} : Di
                     })}
                 </div>
                 <div>
-                    <textarea onChange={(e) => {updateNewMessage(e)}}></textarea>
+                    <textarea onChange={(e) => {updateNewMessage(e.currentTarget.value)}}></textarea>
                     <button onClick={sendMessage}>Send Message</button>
                 </div>
             </div>

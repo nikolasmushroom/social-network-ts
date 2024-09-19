@@ -5,15 +5,15 @@ import App from "./App";
 import store, {RootReduxStoreType} from "./components/Redux/redux-store";
 import {Provider} from "react-redux";
 
-const rerenderEntireTree = (state : RootReduxStoreType) => {
+const rerenderEntireTree = () => {
     ReactDOM.render(
         <Provider store={store}>
-            <App store={state} dispatch={store.dispatch.bind(store)}/>
+            <App/>
         </Provider>,
         document.getElementById('root')
     );
 }
-rerenderEntireTree(store)
+rerenderEntireTree()
 store.subscribe(() => {
-    rerenderEntireTree(store)
+    rerenderEntireTree()
 })

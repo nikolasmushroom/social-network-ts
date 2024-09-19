@@ -7,14 +7,8 @@ import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
 import Profile from "./components/Profile/Profile";
 import './App.css';
-import {ActionTypes} from "./components/Redux/store";
-import {RootReduxStoreType} from "./components/Redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
 
-export type AppPropsType = {
-    store: RootReduxStoreType
-    dispatch: (action: ActionTypes) => void
-}
 const App = () => {
     return (
         <BrowserRouter>

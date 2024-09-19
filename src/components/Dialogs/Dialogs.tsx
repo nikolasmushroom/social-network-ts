@@ -3,12 +3,12 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./Dialogitem/Dialogitem";
 import Message from "./Message/Message";
 import {DialogsContainerType} from "../Redux/store";
-export const Dialogs = ({dialogs , messages, updateNewMessage, sendMessage} : any) => {
+export const Dialogs = ({dialogs , messages, updateNewMessage, sendMessage} : DialogsContainerType) => {
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
 
-                {dialogs.map(dialog => {
+                {dialogs.map((dialog) => {
                     return (
                         <DialogItem key={dialog.id} image={dialog.image} name={dialog.name} id={dialog.id}/>
                     )

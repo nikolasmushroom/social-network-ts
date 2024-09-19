@@ -1,7 +1,7 @@
 import {ActionTypes} from "../Redux/store";
 import {sendMessageActionCreator, updateNewMessageActionCreator} from "../Redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
-import {connect, ConnectedProps} from "react-redux";
+import {connect} from "react-redux";
 import {RootReduxStateType} from "../Redux/redux-store";
 
 
@@ -11,7 +11,7 @@ const mapStateToProps = (state : RootReduxStateType) => {
         messages: state.dialogsPage.messages,
     }
 }
-const mapDispatchToPRops = (dispatch : (action : ActionTypes) => void) => {
+const mapDispatchToProps = (dispatch : (action : ActionTypes) => void) => {
     return {
         updateNewMessage : (body : string) => {
             dispatch(updateNewMessageActionCreator(body))
@@ -21,4 +21,4 @@ const mapDispatchToPRops = (dispatch : (action : ActionTypes) => void) => {
         }
     }
 }
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToPRops) (Dialogs);
+export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps) (Dialogs);

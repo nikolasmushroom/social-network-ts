@@ -6,25 +6,23 @@ import {PostType} from "../../Redux/store";
 type MyPostsPropsType = {
     posts: PostType[];
     inputValue: string
-    changeInputHandler: (e: ChangeEvent<HTMLInputElement>) => void
-    addPostHandler: () => void
+    onChangeInput: (text : string) => void
+    addNewPost: (inputValue : string) => void
 }
 
-export const MyPosts = ({posts, inputValue, changeInputHandler, addPostHandler}: MyPostsPropsType) => {
+export const MyPosts = ({posts, inputValue, onChangeInput, addNewPost}: MyPostsPropsType) => {
     const postMessageRef = React.createRef<HTMLInputElement>()
 
-    const addNewPost = () => {
-        // dispatch({type: "ADD-POST", newInput : newPost})
-        addPostHandler()
+    const addPostHandler = () => {
+        addNewPost(inputValue)
     };
-    const onChangeInput = (e: ChangeEvent<HTMLInputElement>) => {
-        // dispatch({type: "CHANGE-INPUT", newInput : e.currentTarget.value})
-        changeInputHandler(e)
+    const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        onChangeInput(e.currentTarget.value)
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            addNewPost();
+            addPostHandler();
         }
     };
 
@@ -35,11 +33,10 @@ export const MyPosts = ({posts, inputValue, changeInputHandler, addPostHandler}:
                 className={s.input}
                 ref={postMessageRef}
                 value={inputValue}
-                // onChange={onChangeCurrentInput}
-                onChange={onChangeInput}
+                onChange={changeInputHandler}
                 onKeyDown={onKeyDownHandler}
             />
-            <button onClick={addNewPost} className={s.button}>Add new post</button>
+            <button onClick={addPostHandler} className={s.button}>Add new post</button>
             <h2>New posts</h2>
             <div className={s.posts}>
                 {posts.map((post) => <Post key={post.id} id={post.id} message={post.message}

@@ -3,7 +3,6 @@ import {ADD_POST, CHANGE_INPUT, profileReducer} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {RootReduxStoreType} from "./redux-store";
-import {ChangeEvent} from "react";
 
 export type StoreType = {
     _state: RootStateType,
@@ -96,9 +95,6 @@ export type MessageType = {
     id: string
     message: string
 }
-export type DialogsType = {
-    store : RootReduxStoreType
-}
 export type DialogsPageType = {
     dialogs: DialogType[]
     messages: MessageType[]
@@ -106,6 +102,8 @@ export type DialogsPageType = {
 }
 
 export type DialogsContainerType = {
+    dialogs: DialogType[]
+    messages : MessageType[]
     updateNewMessage: (body : string) => void
     sendMessage : () => void
 }

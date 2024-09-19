@@ -15,7 +15,7 @@ export type AppPropsType = {
     store: RootReduxStoreType
     dispatch: (action: ActionTypes) => void
 }
-const App = ({store} : AppPropsType) => {
+const App = () => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
@@ -25,11 +25,10 @@ const App = ({store} : AppPropsType) => {
                     <div className='content'>
                         <Routes>
                             <Route path={'/dialogs'}
-                                   element={<DialogsContainer store={store}
+                                   element={<DialogsContainer
                                    />}/>
                             <Route path={'/profile'}
                                    element={<Profile
-                                       store={store}
                                    />}/>
                             <Route path={'/news'} element={<News/>}/>
                             <Route path={'/music'} element={<Music/>}/>

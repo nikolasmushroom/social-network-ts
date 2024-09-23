@@ -1,6 +1,6 @@
 import React from "react";
 import classes from './ProfileInfo.module.css';
-import background from '../../../asserts/images/background-image.png'
+import background from '../../../asserts/images/background-profile.jpg'
 
 const ProfileInfo: React.FC = () => {
     return (

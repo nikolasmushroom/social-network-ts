@@ -3,6 +3,7 @@ import {ADD_POST, CHANGE_INPUT, profileReducer} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {RootReduxStoreType} from "./redux-store";
+import {SET_USERS, TOGGLE_FOLLOW_SOMEONE} from "./users-reducer";
 
 export type StoreType = {
     _state: RootStateType,
@@ -12,7 +13,7 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = AddPostActionType | ChangeInputActionType | UpdateNewMessageType | SendMessageType;
+export type ActionTypes = AddPostActionType | ChangeInputActionType | UpdateNewMessageType | SendMessageType | toFollowSomeoneType | setUsersActionType;
 
 export type AddPostActionType = {
     type: typeof ADD_POST,
@@ -28,6 +29,14 @@ export type UpdateNewMessageType = {
 }
 export type SendMessageType = {
         type: typeof SEND_MESSAGE
+}
+export type toFollowSomeoneType = {
+    type: typeof TOGGLE_FOLLOW_SOMEONE
+    id : string
+}
+export type setUsersActionType = {
+    type : typeof SET_USERS
+    users : UserType[]
 }
 
 export const store: StoreType = {
@@ -104,6 +113,7 @@ export type DialogsPageType = {
 export type DialogsContainerType = {
     dialogs: DialogType[]
     messages : MessageType[]
+    newMessageText : string
     updateNewMessage: (body : string) => void
     sendMessage : () => void
 }
@@ -124,7 +134,14 @@ export type ProfilePageType = {
 // --------------------------------------------------------------------------------------------------------------------//
 export type NavigationType = {}
 // --------------------------------------------------------------------------------------------------------------------//
-
+export type UserType = {
+    id: string
+    status: string
+    image : string
+    name: string
+    location: {city: string, country: string}
+    followed : boolean
+}
 export type RootStateType = {
     dialogsPage: DialogsPageType
     profilePage: ProfilePageType

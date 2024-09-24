@@ -9,12 +9,13 @@ const mapStateToProps = (state : RootReduxStateType) => {
     return {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
+        newMessageText : state.dialogsPage.newMessageText || '',
     }
 }
 const mapDispatchToProps = (dispatch : (action : ActionTypes) => void) => {
     return {
-        updateNewMessage : (body : string) => {
-            dispatch(updateNewMessageActionCreator(body))
+        updateNewMessage : (value : string) => {
+            dispatch(updateNewMessageActionCreator(value))
         },
         sendMessage : () => {
             dispatch(sendMessageActionCreator())

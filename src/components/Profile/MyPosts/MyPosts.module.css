@@ -30,8 +30,6 @@ h2 {
 .button:hover {
     cursor: pointer;
     background-color: #ccc7c7;
-    width: 103px;
-    height: 28px;
     transition: all 0.2s ease;
 }
 .postBlock {

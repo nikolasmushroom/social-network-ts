@@ -1,0 +1,84 @@
+.users {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-left: 40px;
+}
+
+.user {
+    display: flex;
+    padding-bottom: 30px;
+}
+
+.imageAndButton {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 0 10px;
+}
+
+.imageAndButton img {
+    margin: 10px auto;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.userProfile {
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc7c7;
+    border-radius: 40px;
+}
+
+.imageAndButton button {
+    width: 100px;
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    font-family: "Bowlby One", sans-serif;
+    font-weight: bold;
+    background-color: #e1dada;
+    margin: 0 0 0 5px;
+    transition: all 500ms ease;
+}
+
+.imageAndButton button:hover {
+    cursor: pointer;
+    background-color: #ccc7c7;
+    transition: all 0.2s ease;
+}
+
+.nameAndStatus {
+    margin: 10px 0 20px 30px;
+}
+
+.userName {
+    font-family: "Bowlby One", sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    padding-bottom: 35px;
+}
+
+.userStatus {
+    font-family: "Bowlby One", sans-serif;
+    font-size: 15px;
+}
+
+.location {
+    margin: 10px 30px 20px 0;;
+
+}
+
+.userCountry {
+    font-family: "Bowlby One", sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+    padding-bottom: 20px;
+}
+.userCity {
+    font-family: "Bowlby One", sans-serif;
+    font-weight: bold;
+    font-size: 17px;
+}

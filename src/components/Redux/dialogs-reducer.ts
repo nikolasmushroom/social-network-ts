@@ -41,18 +41,17 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
             if (text) {
                 return {...state, newMessageText: '', messages: [...state.messages, {id: v1(), message: text}]};
             }
-            return {
-                ...state,
-                newMessageText: ''
-            };
             // state.newMessageText = ''
             // if (text) {
             //     state.messages.push({id: v1(), message: text})
             // }
             // return state
         }
+        return {
+            ...state, newMessageText: ''
+        }
+        default : return state
     }
-    return state;
 }
 export const updateNewMessageActionCreator = (newMessage: string) : UpdateNewMessageType => ({
     type: UPDATE_NEW_MESSAGE,

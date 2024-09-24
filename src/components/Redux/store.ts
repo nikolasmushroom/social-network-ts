@@ -13,7 +13,13 @@ export type StoreType = {
     dispatch: (action: ActionTypes) => void
 }
 
-export type ActionTypes = AddPostActionType | ChangeInputActionType | UpdateNewMessageType | SendMessageType | toFollowSomeoneType | setUsersActionType;
+export type ActionTypes =
+    AddPostActionType
+    | ChangeInputActionType
+    | UpdateNewMessageType
+    | SendMessageType
+    | toFollowSomeoneType
+    | setUsersActionType;
 
 export type AddPostActionType = {
     type: typeof ADD_POST,
@@ -28,15 +34,15 @@ export type UpdateNewMessageType = {
     newMessage: string
 }
 export type SendMessageType = {
-        type: typeof SEND_MESSAGE
+    type: typeof SEND_MESSAGE
 }
 export type toFollowSomeoneType = {
     type: typeof TOGGLE_FOLLOW_SOMEONE
-    id : string
+    id: string
 }
 export type setUsersActionType = {
-    type : typeof SET_USERS
-    users : UserType[]
+    type: typeof SET_USERS
+    users: UserType[]
 }
 
 export const store: StoreType = {
@@ -50,7 +56,8 @@ export const store: StoreType = {
                 },
                 {
                     id: v1(),
-                    image: 'https://cdnstorage.sendbig.com/unreal/female.webp', name: 'Jane'},
+                    image: 'https://cdnstorage.sendbig.com/unreal/female.webp', name: 'Jane'
+                },
                 {id: v1(), image: 'https://live.staticflickr.com/65535/50999002523_08e4353b95.jpg', name: 'Vlad'},
                 {
                     id: v1(),
@@ -112,10 +119,10 @@ export type DialogsPageType = {
 
 export type DialogsContainerType = {
     dialogs: DialogType[]
-    messages : MessageType[]
-    newMessageText : string
-    updateNewMessage: (body : string) => void
-    sendMessage : () => void
+    messages: MessageType[]
+    newMessageText: string
+    updateNewMessage: (body: string) => void
+    sendMessage: () => void
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type PostType = {
@@ -124,7 +131,7 @@ export type PostType = {
     likesCount: number
 }
 export type ProfileType = {
-    store : RootReduxStoreType
+    store: RootReduxStoreType
 }
 export type ProfilePageType = {
     posts: PostType[]
@@ -136,11 +143,11 @@ export type NavigationType = {}
 // --------------------------------------------------------------------------------------------------------------------//
 export type UserType = {
     id: string
-    status: string
-    image : string
     name: string
-    location: {city: string, country: string}
-    followed : boolean
+    status: string
+    photos: { small: string, large: string }
+    followed: boolean
+    // location: {city: string, country: string}
 }
 export type RootStateType = {
     dialogsPage: DialogsPageType

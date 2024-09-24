@@ -1,7 +1,8 @@
 import {UserType} from "../Redux/store";
 import styles from './Users.module.css'
-import {v1} from "uuid";
-import avatar from "../../asserts/avatars/AvatarPhoto.jpg";
+import avatar from "../../asserts/avatars/defaultUserImage.png";
+import axios from "axios";
+import {useEffect} from "react";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -9,47 +10,20 @@ export type UsersPropsType = {
     setUsers: (users: UserType[]) => void
 }
 const Users = ({users, toggleFollow, setUsers}: UsersPropsType) => {
-    if(!users.length){
-        setUsers([
-            {
-                id: v1(),
-                image: avatar,
-                followed: true,
-                status: 'I very good',
-                name: 'Vlad K.',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: v1(),
-                image: avatar,
-                followed: true,
-                status: 'I like donats',
-                name: 'Viktor L.',
-                location: {city: 'Minsk', country: 'Belarus'}
-            },
-            {
-                id: v1(),
-                image: avatar,
-                followed: true,
-                status: 'i like sport',
-                name: 'Andreas L.',
-                location: {city: 'Cologne', country: 'Germany'}
-            },
-            {
-                id: v1(),
-                image: avatar,
-                followed: false,
-                status: 'I like books',
-                name: 'Jaume M-S.',
-                location: {city: 'Madrid', country: 'Spain'}
-            },
-        ])
-    }
+
+    useEffect(() => {
+        if(!users.length){
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                setUsers(response.data.items)
+            })
+        }
+    }, [])
+
     return (
         <div className={styles.users}>
-            {users.map(u => <div className={styles.user}>
+            {users.map(u => <div className={styles.user} key={u.id}>
                 <div className={styles.imageAndButton}>
-                    <img src={u.image} alt="avatar"/>
+                    <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
                     <button onClick={() => toggleFollow(u.id)}>{u.followed ? 'Unfollow' : 'Follow'}</button>
                 </div>
                 <div className={styles.userProfile}>
@@ -58,8 +32,8 @@ const Users = ({users, toggleFollow, setUsers}: UsersPropsType) => {
                         <div className={styles.userStatus}>{u.status}</div>
                     </div>
                     <div className={styles.location}>
-                        <div className={styles.userCountry}>{u.location.country},</div>
-                        <div className={styles.userCity}>{u.location.city}</div>
+                        <div className={styles.userCountry}>{'Belarus,'}</div>
+                        <div className={styles.userCity}>{'Minsk'}</div>
                     </div>
                 </div>
             </div>)}

@@ -29,7 +29,7 @@
     display: flex;
     justify-content: space-between;
     border: 1px solid #ccc7c7;
-    border-radius: 40px;
+    border-radius: 30px;
 }
 
 .imageAndButton button {

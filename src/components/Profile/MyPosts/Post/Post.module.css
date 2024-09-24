@@ -1,5 +1,21 @@
+.item {
+    display: flex;
+    border: 1px solid #ccc7c7;
+    border-radius: 25px;
+    width: 300px;
+    margin-top: 25px;
+}
+.imageAndLikes {
+    padding: 10px;
+}
 .item img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
+}
+.likes {
+    margin: 5px;
+}
+.post {
+    padding: 40px 0 0 50px;
 }

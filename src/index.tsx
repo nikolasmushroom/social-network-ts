@@ -11,6 +11,8 @@ if(container){
     root.render( <Provider store={store}>
         <App/>
     </Provider>)
+}else{
+    console.error("Element with id 'root' not found.");
 }
 
 

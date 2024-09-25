@@ -1,4 +1,5 @@
-import Users from "./Users";
+// import Users from "./Users";
+import Users from "./UsersClassComponent";
 import {connect} from "react-redux";
 import {RootReduxStateType} from "../Redux/redux-store";
 import {ActionTypes, UserType} from "../Redux/store";

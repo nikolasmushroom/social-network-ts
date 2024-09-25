@@ -11,13 +11,13 @@ export type UsersPropsType = {
 }
 const Users = ({users, toggleFollow, setUsers}: UsersPropsType) => {
 
-    useEffect(() => {
-        if(!users.length){
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                setUsers(response.data.items)
-            })
-        }
-    }, [])
+    // useEffect(() => {
+    //     if(!users.length){
+    //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+    //             setUsers(response.data.items)
+    //         })
+    //     }
+    // }, [])
 
     return (
         <div className={styles.users}>

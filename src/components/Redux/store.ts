@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {ADD_POST, CHANGE_INPUT, profileReducer} from "./profile-reducer";
+import {ADD_POST, CHANGE_INPUT, profileReducer, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {RootReduxStoreType} from "./redux-store";
@@ -19,7 +19,10 @@ export type ActionTypes =
     | UpdateNewMessageType
     | SendMessageType
     | toFollowSomeoneType
-    | setUsersActionType;
+    | setUsersActionType
+    | setCurrentPageType
+    | setTotalUsersCountType
+    ;
 
 export type AddPostActionType = {
     type: typeof ADD_POST,
@@ -43,6 +46,14 @@ export type toFollowSomeoneType = {
 export type setUsersActionType = {
     type: typeof SET_USERS
     users: UserType[]
+}
+export type setCurrentPageType = {
+    type: typeof SET_CURRENT_PAGE
+    page: number
+}
+export type setTotalUsersCountType = {
+    type: typeof SET_TOTAL_USERS_COUNT,
+    totalUsersCount: number
 }
 
 export const store: StoreType = {

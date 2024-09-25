@@ -3,6 +3,8 @@ import {v1} from "uuid";
 
 export const ADD_POST = "ADD-POST";
 export const CHANGE_INPUT = "CHANGE-INPUT";
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 
 const initialState = {
     posts: <PostType[]>[

@@ -6,8 +6,13 @@ import {useEffect} from "react";
 
 export type UsersPropsType = {
     users: UserType[]
+    pageSize : number
+    totalUsersCount : number
+    currentPage : number
     toggleFollow: (userId: string) => void
     setUsers: (users: UserType[]) => void
+    setCurrentPage: (page: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
 }
 const Users = ({users, toggleFollow, setUsers}: UsersPropsType) => {
 

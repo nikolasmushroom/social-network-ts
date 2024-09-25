@@ -5,21 +5,21 @@ import axios from "axios";
 import React, {useEffect} from "react";
 import {UsersPropsType} from "./Users";
 class Users extends React.Component<UsersPropsType> {
-    // constructor(props : UsersPropsType) {
-    //     super(props);
-    //     if (!this.props.users.length) {
-    //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-    //             this.props.setUsers(response.data.items)
-    //         })
-    //     }
-    // }
-    componentDidMount() {
-            if (!this.props.users.length) {
-                axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-                    this.props.setUsers(response.data.items)
-                })
-            }
+    constructor(props : UsersPropsType) {
+        super(props);
+        if (!this.props.users.length) {
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                this.props.setUsers(response.data.items)
+            })
+        }
     }
+    // componentDidMount() {
+    //         if (!this.props.users.length) {
+    //             axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+    //                 this.props.setUsers(response.data.items)
+    //             })
+    //         }
+    // }
 
     render() {
         return (

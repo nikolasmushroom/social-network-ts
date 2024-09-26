@@ -27,10 +27,26 @@ class Users extends React.Component<UsersPropsType> {
     changeMaxCount = (newCount: number) => {
         this.props.setMaxCount(newCount)
     }
-
     render() {
         let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
         let pages: Array<number> = []
+        const onPageChange = (changeDirection : string) => {
+            if(changeDirection === '=>'){
+                return <span onClick={() => {
+                    {
+                        this.props.setMaxCount(this.props.maxCount + 10)
+                    }
+                }}>{changeDirection}</span>
+            }
+            if(changeDirection === '<='){
+                return <span onClick={() => {
+                    {
+                        this.props.setMaxCount(this.props.maxCount - 10)
+                    }
+                }}>{changeDirection}</span>
+            }
+
+        }
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i);
         }
@@ -54,11 +70,7 @@ class Users extends React.Component<UsersPropsType> {
                     </div>
                 </div>)}
                 <div>
-                    {this.props.maxCount !== 10 && <span onClick={() => {
-                        {
-                            this.props.setMaxCount(this.props.maxCount - 10)
-                        }
-                    }}>{'<='}</span>}
+                    {this.props.maxCount !== 10 && onPageChange('<=')}
                     {pages.map(page => {
                         if (page <= this.props.maxCount && page > this.props.maxCount - 10) {
                             return (
@@ -73,11 +85,7 @@ class Users extends React.Component<UsersPropsType> {
                             )
                         }
                     })}
-                    {this.props.maxCount !== pages[pages.length - 1] && <span onClick={() => {
-                        {
-                            this.props.setMaxCount(this.props.maxCount + 10)
-                        }
-                    }}>{'=>'}</span>}
+                    {this.props.maxCount !== pages[pages.length - 1] && onPageChange('=>')}
 
                 </div>
             </div>

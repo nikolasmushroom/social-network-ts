@@ -82,6 +82,9 @@
     font-weight: bold;
     font-size: 17px;
 }
-.selectedPage {
+.page {
+    padding: 5px;
+}
+.page.selectedPage {
     font-weight: bold;
 }

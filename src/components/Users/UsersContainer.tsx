@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {RootReduxStateType} from "../Redux/redux-store";
 import {ActionTypes, UserType} from "../Redux/store";
 import {
-    changeCurrentPageActionCreator,
+    changeCurrentPageActionCreator, setMaxCountActionCreator,
     setTotalUsersCountActionCreator,
     setUsersActionCreator,
     toggleFollowActionCreator
@@ -16,6 +16,7 @@ const mapStateToProps = (state: RootReduxStateType) => {
         pageSize: state.usersPage?.pageSize,
         totalUsersCount: state.usersPage?.totalUsersCount,
         currentPage : state.usersPage?.currentPage,
+        maxCount : state.usersPage?.maxCount
     }
 }
 const mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
@@ -23,7 +24,8 @@ const mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
         toggleFollow: (userId: string) => dispatch(toggleFollowActionCreator(userId)),
         setUsers: (users: UserType[]) => dispatch(setUsersActionCreator(users)),
         setCurrentPage: (page : number) => dispatch(changeCurrentPageActionCreator(page)),
-        setTotalUsersCount : (totalUsersCount: number) => dispatch(setTotalUsersCountActionCreator(totalUsersCount))
+        setTotalUsersCount : (totalUsersCount: number) => dispatch(setTotalUsersCountActionCreator(totalUsersCount)),
+        setMaxCount : (newCount : number) => dispatch(setMaxCountActionCreator(newCount))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

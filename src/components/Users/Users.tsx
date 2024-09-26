@@ -9,20 +9,22 @@ export type UsersPropsType = {
     pageSize : number
     totalUsersCount : number
     currentPage : number
+    maxCount : number
     toggleFollow: (userId: string) => void
     setUsers: (users: UserType[]) => void
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
+    setMaxCount : (newCount : number) => void
 }
 const Users = ({users, toggleFollow, setUsers}: UsersPropsType) => {
 
-    // useEffect(() => {
-    //     if(!users.length){
-    //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-    //             setUsers(response.data.items)
-    //         })
-    //     }
-    // }, [])
+    useEffect(() => {
+        if(!users.length){
+            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                setUsers(response.data.items)
+            })
+        }
+    }, [])
 
     return (
         <div className={styles.users}>

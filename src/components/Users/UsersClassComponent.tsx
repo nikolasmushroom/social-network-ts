@@ -1,8 +1,7 @@
-import {UserType} from "../Redux/store";
 import styles from './Users.module.css'
 import avatar from "../../asserts/avatars/defaultUserImage.png";
 import axios from "axios";
-import React, {useEffect} from "react";
+import React from "react";
 import {UsersPropsType} from "./Users";
 
 class Users extends React.Component<UsersPropsType> {
@@ -14,6 +13,7 @@ class Users extends React.Component<UsersPropsType> {
             })
         }
     }
+
     // componentDidUpdate(prevProps: Readonly<UsersPropsType>, prevState: Readonly<{}>, snapshot?: any) {
     //     if(prevProps.currentPage !== this.props.currentPage){
     //         axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
@@ -21,12 +21,16 @@ class Users extends React.Component<UsersPropsType> {
     //         })
     //     }
     // }
-    onPageChanged = (page : number) => {
+    onPageChanged = (page: number) => {
         this.props.setCurrentPage(page)
     }
+    changeMaxCount = (newCount: number) => {
+        this.props.setMaxCount(newCount)
+    }
+
     render() {
         let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
-        let pages = []
+        let pages: Array<number> = []
         for (let i = 1; i <= pagesCount; i++) {
             pages.push(i);
         }
@@ -50,14 +54,31 @@ class Users extends React.Component<UsersPropsType> {
                     </div>
                 </div>)}
                 <div>
-                    {pages.map(page => <span key={page}
-                        onClick={(e) => {
-                            this.onPageChanged(page);
-                            axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
-                                this.props.setUsers(response.data.items)
-                            })
-                        }}
-                        className={this.props.currentPage === page ? styles.selectedPage : ''}>{page}</span>)}
+                    {this.props.maxCount !== 10 && <span onClick={() => {
+                        {
+                            this.props.setMaxCount(this.props.maxCount - 10)
+                        }
+                    }}>{'<='}</span>}
+                    {pages.map(page => {
+                        if (page <= this.props.maxCount && page > this.props.maxCount - 10) {
+                            return (
+                                <span key={page}
+                                      onClick={() => {
+                                          this.onPageChanged(page);
+                                          axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${this.props.pageSize}`).then(response => {
+                                              this.props.setUsers(response.data.items)
+                                          })
+                                      }}
+                                      className={this.props.currentPage === page ? `${styles.page} ${styles.selectedPage}` : `${styles.page}`}>{page}</span>
+                            )
+                        }
+                    })}
+                    {this.props.maxCount !== pages[pages.length - 1] && <span onClick={() => {
+                        {
+                            this.props.setMaxCount(this.props.maxCount + 10)
+                        }
+                    }}>{'=>'}</span>}
+
                 </div>
             </div>
         )

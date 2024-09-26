@@ -1,21 +1,25 @@
 import {
     ActionTypes,
-    setCurrentPageType,
+    setCurrentPageType, setMaxCountType,
     setTotalUsersCountType,
     setUsersActionType,
     toFollowSomeoneType,
     UserType
 } from "./store";
-import {SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT} from "./profile-reducer";
 
 export const TOGGLE_FOLLOW_SOMEONE = 'FOLLOW_SOMEONE';
 export const SET_USERS = 'SET_USERS'
+export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
+export const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+
+export const SET_MAX_COUNT = 'SET_MAX_COUNT';
 
 const initialState = {
     users: <UserType[]>[],
     pageSize: 5,
     totalUsersCount: 0,
-    currentPage : 2,
+    currentPage : 1,
+    maxCount : 10,
 }
 export const usersReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
@@ -27,6 +31,8 @@ export const usersReducer = (state = initialState, action: ActionTypes) => {
             return {...state, currentPage: action.page}
         case SET_TOTAL_USERS_COUNT :
             return {...state, totalUsersCount: action.totalUsersCount}
+        case SET_MAX_COUNT :
+            return {...state, maxCount: action.newCount}
         default:
             return state;
     }
@@ -47,4 +53,8 @@ export const changeCurrentPageActionCreator = (page : number): setCurrentPageTyp
 export const setTotalUsersCountActionCreator = (totalUsersCount : number) : setTotalUsersCountType => ({
     type : SET_TOTAL_USERS_COUNT,
     totalUsersCount : totalUsersCount
+})
+export const setMaxCountActionCreator = (newCount : number) : setMaxCountType => ({
+    type : SET_MAX_COUNT,
+    newCount : newCount
 })

@@ -1,9 +1,15 @@
 import {v1} from "uuid";
-import {ADD_POST, CHANGE_INPUT, profileReducer, SET_CURRENT_PAGE, SET_TOTAL_USERS_COUNT} from "./profile-reducer";
+import {ADD_POST, CHANGE_INPUT, profileReducer,} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {RootReduxStoreType} from "./redux-store";
-import {SET_USERS, TOGGLE_FOLLOW_SOMEONE} from "./users-reducer";
+import {
+    SET_CURRENT_PAGE,
+    SET_MAX_COUNT,
+    SET_TOTAL_USERS_COUNT,
+    SET_USERS,
+    TOGGLE_FOLLOW_SOMEONE
+} from "./users-reducer";
 
 export type StoreType = {
     _state: RootStateType,
@@ -22,6 +28,7 @@ export type ActionTypes =
     | setUsersActionType
     | setCurrentPageType
     | setTotalUsersCountType
+    | setMaxCountType
     ;
 
 export type AddPostActionType = {
@@ -54,6 +61,10 @@ export type setCurrentPageType = {
 export type setTotalUsersCountType = {
     type: typeof SET_TOTAL_USERS_COUNT,
     totalUsersCount: number
+}
+export type setMaxCountType = {
+    type : typeof SET_MAX_COUNT,
+    newCount : number
 }
 
 export const store: StoreType = {

@@ -77,14 +77,21 @@
     font-size: 17px;
     padding-bottom: 20px;
 }
+
 .userCity {
     font-family: "Bowlby One", sans-serif;
     font-weight: bold;
     font-size: 17px;
 }
+
 .page {
     padding: 5px;
 }
+
 .page.selectedPage {
     font-weight: bold;
+}
+
+.pageChangers {
+    cursor: pointer;
 }

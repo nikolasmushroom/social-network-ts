@@ -31,15 +31,15 @@ class Users extends React.Component<UsersPropsType> {
         let pagesCount = Math.ceil(this.props.totalUsersCount / this.props.pageSize);
         let pages: Array<number> = []
         const onPageChange = (changeDirection : string) => {
-            if(changeDirection === 'show before'){
-                return <span onClick={() => {
+            if(changeDirection === '=>'){
+                return <span className={styles.pageChangers} onClick={() => {
                     {
                         this.props.setMaxCount(this.props.maxCount + 10)
                     }
                 }}>{changeDirection}</span>
             }
             if(changeDirection === '<='){
-                return <span onClick={() => {
+                return <span className={styles.pageChangers} onClick={() => {
                     {
                         this.props.setMaxCount(this.props.maxCount - 10)
                     }
@@ -85,7 +85,7 @@ class Users extends React.Component<UsersPropsType> {
                             )
                         }
                     })}
-                    {this.props.maxCount !== pages[pages.length - 1] && onPageChange('show more')}
+                    {this.props.maxCount !== pages[pages.length - 1] && onPageChange('=>')}
 
                 </div>
             </div>

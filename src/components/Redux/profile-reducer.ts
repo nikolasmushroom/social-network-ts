@@ -1,10 +1,10 @@
-import {ActionTypes, AddPostActionType, ChangeInputActionType, PostType} from "./store";
+import {ActionTypes, AddPostActionType, ChangeInputActionType, PostType, ProfilePageType} from "./store";
 import {v1} from "uuid";
 
 export const ADD_POST = "ADD-POST";
 export const CHANGE_INPUT = "CHANGE-INPUT";
 
-const initialState = {
+const initialState : ProfilePageType = {
     posts: <PostType[]>[
         {id: v1(), message: 'Hello, its me', likesCount: 12},
         {id: v1(), message: 'My favorite color is red', likesCount: 5},
@@ -13,7 +13,7 @@ const initialState = {
     ],
     inputValue: '',
 }
-export const profileReducer = (state = initialState, action: ActionTypes) => {
+export const profileReducer = (state : ProfilePageType  = initialState, action: ActionTypes) => {
     switch (action.type) {
         case ADD_POST:
             return {

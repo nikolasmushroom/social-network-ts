@@ -8,7 +8,7 @@ import {
     SET_MAX_COUNT,
     SET_TOTAL_USERS_COUNT,
     SET_USERS,
-    TOGGLE_FOLLOW_SOMEONE
+    TOGGLE_FOLLOW_SOMEONE, TOGGLE_IS_FETCHING
 } from "./users-reducer";
 
 export type StoreType = {
@@ -29,6 +29,7 @@ export type ActionTypes =
     | setCurrentPageType
     | setTotalUsersCountType
     | setMaxCountType
+    | toggleIsFetchingType
     ;
 
 export type AddPostActionType = {
@@ -65,6 +66,10 @@ export type setTotalUsersCountType = {
 export type setMaxCountType = {
     type : typeof SET_MAX_COUNT,
     newCount : number
+}
+export type toggleIsFetchingType = {
+    type: typeof TOGGLE_IS_FETCHING,
+    isFetching: boolean
 }
 
 export const store: StoreType = {

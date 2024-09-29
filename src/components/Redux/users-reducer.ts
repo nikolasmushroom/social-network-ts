@@ -3,7 +3,7 @@ import {
     setCurrentPageType, setMaxCountType,
     setTotalUsersCountType,
     setUsersActionType,
-    toFollowSomeoneType,
+    toFollowSomeoneType, toggleIsFetchingType,
     UserType
 } from "./store";
 
@@ -11,11 +11,13 @@ export const TOGGLE_FOLLOW_SOMEONE = 'FOLLOW_SOMEONE';
 export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
+export const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 
 export const SET_MAX_COUNT = 'SET_MAX_COUNT';
 
 const initialState = {
     users: <UserType[]>[],
+    isFetching: false,
     pageSize: 5,
     totalUsersCount: 0,
     currentPage : 1,
@@ -33,28 +35,34 @@ export const usersReducer = (state = initialState, action: ActionTypes) => {
             return {...state, totalUsersCount: action.totalUsersCount}
         case SET_MAX_COUNT :
             return {...state, maxCount: action.newCount}
+        case TOGGLE_IS_FETCHING :
+            return {...state, isFetching: action.isFetching}
         default:
             return state;
     }
 };
 
-export const toggleFollowActionCreator = (userId: string): toFollowSomeoneType => ({
+export const toggleFollow = (userId: string): toFollowSomeoneType => ({
     type: TOGGLE_FOLLOW_SOMEONE,
     id: userId,
 })
-export const setUsersActionCreator = (users: UserType[]): setUsersActionType => ({
+export const setUsers = (users: UserType[]): setUsersActionType => ({
     type: SET_USERS,
     users: users
 })
-export const changeCurrentPageActionCreator = (page : number): setCurrentPageType => ({
+export const setCurrentPage = (page : number): setCurrentPageType => ({
     type: SET_CURRENT_PAGE,
     page: page
 })
-export const setTotalUsersCountActionCreator = (totalUsersCount : number) : setTotalUsersCountType => ({
+export const setTotalUsersCount = (totalUsersCount : number) : setTotalUsersCountType => ({
     type : SET_TOTAL_USERS_COUNT,
     totalUsersCount : totalUsersCount
 })
-export const setMaxCountActionCreator = (newCount : number) : setMaxCountType => ({
+export const setMaxCount= (newCount : number) : setMaxCountType => ({
     type : SET_MAX_COUNT,
     newCount : newCount
+})
+export const toggleIsFetching = (isFetching : boolean) : toggleIsFetchingType => ({
+    type : TOGGLE_IS_FETCHING,
+    isFetching : isFetching
 })

@@ -99,16 +99,6 @@ const mapStateToProps = (state: RootReduxStateType) => {
         maxCount: state.usersPage?.maxCount
     }
 }
-// const mapDispatchToProps = (dispatch: (action: ActionTypes) => void) => {
-//     return {
-//         toggleFollow: (userId: string) => dispatch(toggleFollowActionCreator(userId)),
-//         setUsers: (users: UserType[]) => dispatch(setUsersActionCreator(users)),
-//         setCurrentPage: (page: number) => dispatch(changeCurrentPageActionCreator(page)),
-//         setTotalUsersCount: (totalUsersCount: number) => dispatch(setTotalUsersCountActionCreator(totalUsersCount)),
-//         setMaxCount: (newCount: number) => dispatch(setMaxCountActionCreator(newCount)),
-//         toggleIsFetching: (isFetching: boolean) => dispatch(toggleIsFetchingActionCreator(isFetching))
-//     }
-// }
 export default connect(mapStateToProps, {
     toggleFollow,
     setUsers,

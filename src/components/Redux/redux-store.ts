@@ -9,12 +9,15 @@ export type RootReduxStateType = ReturnType<typeof store.getState>
 export type RootReduxStoreType = typeof store
 
 
-let reducers = combineReducers({
+let RootReducerState = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     navigationPage: sidebarReducer,
     usersPage: usersReducer,
 })
-const store = configureStore ({reducer : reducers})
 
+const store = configureStore({reducer : RootReducerState})
+
+// @ts-ignore
+window.store = store
 export default store

@@ -2,7 +2,6 @@ import {v1} from "uuid";
 import {ADD_POST, CHANGE_INPUT, profileReducer,} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
-import {RootReduxStoreType} from "./redux-store";
 import {
     SET_CURRENT_PAGE,
     SET_MAX_COUNT,
@@ -156,9 +155,6 @@ export type PostType = {
     id: string
     message: string
     likesCount: number
-}
-export type ProfileType = {
-    store: RootReduxStoreType
 }
 export type ProfilePageType = {
     posts: PostType[]

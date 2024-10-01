@@ -86,6 +86,7 @@
 
 .page {
     padding: 5px;
+    cursor: pointer;
 }
 
 .page.selectedPage {

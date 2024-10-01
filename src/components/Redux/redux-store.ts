@@ -5,8 +5,7 @@ import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./users-reducer";
 import {configureStore} from "@reduxjs/toolkit";
 
-export type RootReduxStateType = ReturnType<typeof store.getState>
-export type RootReduxStoreType = typeof store
+export type RootReduxStateType = ReturnType<typeof RootReducerState>
 
 
 let RootReducerState = combineReducers({

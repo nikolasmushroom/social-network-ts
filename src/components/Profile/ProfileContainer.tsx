@@ -32,4 +32,5 @@ const mapStateToProps = (state : RootReduxStateType) => {
         profile: state.profilePage.profile,
     }
 }
+
 export default connect(mapStateToProps, {setUserProfileActionCreator})(ProfileContainer)

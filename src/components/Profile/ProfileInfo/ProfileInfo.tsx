@@ -1,17 +1,34 @@
 import React from "react";
 import classes from './ProfileInfo.module.css';
 import background from '../../../asserts/images/background-profile.jpg'
-
-const ProfileInfo: React.FC = () => {
+import {ProfileType} from "../../Redux/store";
+import {Preloader} from "../../common/Preloader";
+export type ProfileInfoPropsType = {
+    profile? : ProfileType
+}
+const ProfileInfo = ({profile} : ProfileInfoPropsType) => {
+    if(!profile){
+        return <Preloader/>
+    }
     return (
         <div className={classes.content}>
-            <div className={classes.img}>
+            <div className={classes.background}>
                 <img
                     src={background}
                     alt="background"/>
             </div>
             <div className={classes.descriptionBlock}>
-                ava + des
+                <img className={classes.avatarImage} src={profile.photos.large} alt="avatar"/>
+                <div className={classes.about}>
+                    <div className={classes.fullNameAndAboutMe}>
+                        <div className={classes.fullName}>{profile.fullName}</div>
+                        <div className={classes.aboutMe}>{profile.aboutMe}</div>
+                    </div>
+                    <div className={classes.jobStatus}>
+                        <div>Job status : {profile.lookingForAJob ? 'search' : 'employed'}</div>
+                        <div>Description : {profile.lookingForAJobDescription}</div>
+                    </div>
+                </div>
             </div>
         </div>
     )

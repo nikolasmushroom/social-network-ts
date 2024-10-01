@@ -1,7 +1,6 @@
-import {v1} from "uuid";
-import {ADD_POST, CHANGE_INPUT, profileReducer,} from "./profile-reducer";
-import {UPDATE_NEW_MESSAGE, dialogsReducer, SEND_MESSAGE} from "./dialogs-reducer";
-import {sidebarReducer} from "./sidebar-reducer";
+
+import {ADD_POST, CHANGE_INPUT, SET_USER_PROFILE,} from "./profile-reducer";
+import {UPDATE_NEW_MESSAGE, SEND_MESSAGE} from "./dialogs-reducer";
 import {
     SET_CURRENT_PAGE,
     SET_MAX_COUNT,
@@ -29,6 +28,7 @@ export type ActionTypes =
     | setTotalUsersCountType
     | setMaxCountType
     | toggleIsFetchingType
+    | setUserProfileType
     ;
 
 export type AddPostActionType = {
@@ -70,64 +70,69 @@ export type toggleIsFetchingType = {
     type: typeof TOGGLE_IS_FETCHING,
     isFetching: boolean
 }
-
-export const store: StoreType = {
-    _state: {
-        dialogsPage: <DialogsPageType>{
-            dialogs: <DialogType[]>[
-                {
-                    id: v1(),
-                    image: 'https://d2q9lphzn5ioni.cloudfront.net/uploads/2024/02/ai-generated-people-beautiful-girl.webp',
-                    name: 'Hannah'
-                },
-                {
-                    id: v1(),
-                    image: 'https://cdnstorage.sendbig.com/unreal/female.webp', name: 'Jane'
-                },
-                {id: v1(), image: 'https://live.staticflickr.com/65535/50999002523_08e4353b95.jpg', name: 'Vlad'},
-                {
-                    id: v1(),
-                    image: 'https://images.unsplash.com/photo-1712847333453-740d9665aa5d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                    name: 'Farhad'
-                },
-            ],
-            messages: <MessageType[]>[
-                {id: v1(), message: 'Hi'},
-                {id: v1(), message: 'How is your day?'},
-                {id: v1(), message: 'How are you?'},
-                {id: v1(), message: 'Whats wrong with you?'},
-            ],
-            newMessageText: ''
-        },
-        profilePage: {
-            posts: <PostType[]>[
-                {id: v1(), message: 'Hello, its me', likesCount: 12},
-                {id: v1(), message: 'My favorite color is red', likesCount: 5},
-                {id: v1(), message: 'Hello, its me', likesCount: 1},
-                {id: v1(), message: 'Hello, its me', likesCount: 2},
-            ],
-            inputValue: '',
-        },
-        navigationPage: <NavigationType>{}
-    },
-    _onChange() {
-        console.log('State changed')
-    },
-    getState() {
-        return this._state
-    },
-    subscribe(callback) {
-        this._onChange = callback
-    },
-    dispatch(action: ActionTypes) {
-
-        this._state.profilePage = profileReducer(this._state.profilePage, action);
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
-        this._state.navigationPage = sidebarReducer(this._state.navigationPage, action);
-
-        this._onChange()
-    }
+export type setUserProfileType = {
+    type: typeof SET_USER_PROFILE,
+    profile: ProfileType
 }
+
+// export const store: StoreType = {
+//     _state: {
+//         dialogsPage: <DialogsPageType>{
+//             dialogs: <DialogType[]>[
+//                 {
+//                     id: v1(),
+//                     image: 'https://d2q9lphzn5ioni.cloudfront.net/uploads/2024/02/ai-generated-people-beautiful-girl.webp',
+//                     name: 'Hannah'
+//                 },
+//                 {
+//                     id: v1(),
+//                     image: 'https://cdnstorage.sendbig.com/unreal/female.webp', name: 'Jane'
+//                 },
+//                 {id: v1(), image: 'https://live.staticflickr.com/65535/50999002523_08e4353b95.jpg', name: 'Vlad'},
+//                 {
+//                     id: v1(),
+//                     image: 'https://images.unsplash.com/photo-1712847333453-740d9665aa5d?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+//                     name: 'Farhad'
+//                 },
+//             ],
+//             messages: <MessageType[]>[
+//                 {id: v1(), message: 'Hi'},
+//                 {id: v1(), message: 'How is your day?'},
+//                 {id: v1(), message: 'How are you?'},
+//                 {id: v1(), message: 'Whats wrong with you?'},
+//             ],
+//             newMessageText: ''
+//         },
+//         profilePage: {
+//             posts: <PostType[]>[
+//                 {id: v1(), message: 'Hello, its me', likesCount: 12},
+//                 {id: v1(), message: 'My favorite color is red', likesCount: 5},
+//                 {id: v1(), message: 'Hello, its me', likesCount: 1},
+//                 {id: v1(), message: 'Hello, its me', likesCount: 2},
+//             ],
+//             inputValue: '',
+//             profile: {}
+//         },
+//         navigationPage: <NavigationType>{}
+//     },
+//     _onChange() {
+//         console.log('State changed')
+//     },
+//     getState() {
+//         return this._state
+//     },
+//     subscribe(callback) {
+//         this._onChange = callback
+//     },
+//     dispatch(action: ActionTypes) {
+//
+//         this._state.profilePage = profileReducer(this._state.profilePage, action);
+//         this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+//         this._state.navigationPage = sidebarReducer(this._state.navigationPage, action);
+//
+//         this._onChange()
+//     }
+// }
 export type DialogType = {
     id: string
     image: string
@@ -151,6 +156,27 @@ export type DialogsContainerType = {
     sendMessage: () => void
 }
 // --------------------------------------------------------------------------------------------------------------------//
+export type ProfileType = {
+    aboutMe : string,
+    contacts : {
+        "facebook": string,
+        "website": null,
+        "vk": string,
+        "twitter": string,
+        "instagram": string,
+        "youtube": null,
+        "github": string,
+        "mainLink": null
+    },
+    "lookingForAJob" : boolean,
+    "lookingForAJobDescription": string,
+    "fullName": string,
+    "userId": number,
+    "photos": {
+        "small": string,
+        "large": string
+    }
+}
 export type PostType = {
     id: string
     message: string
@@ -159,6 +185,7 @@ export type PostType = {
 export type ProfilePageType = {
     posts: PostType[]
     inputValue: string
+    profile?: ProfileType
 }
 
 // --------------------------------------------------------------------------------------------------------------------//
@@ -179,10 +206,10 @@ export type RootStateType = {
 }
 
 
-declare global {
-    interface Window {
-        store: typeof store;
-    }
-}
-
-window.store = store
+// declare global {
+//     interface Window {
+//         store: typeof store;
+//     }
+// }
+//
+// window.store = store

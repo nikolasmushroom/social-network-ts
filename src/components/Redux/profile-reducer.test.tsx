@@ -11,7 +11,7 @@ test('reducer should add right post at the end', () => {
             {id: postId1, message: '1st message', likesCount: 0},
             {id: postId2, message: '2nd message', likesCount: 0},
         ],
-        inputValue: 'New message'
+        inputValue: 'New Message',
     }
 
     const action = addPostActionCreator(startState.inputValue)
@@ -29,7 +29,7 @@ test('reducer should right update text in input', () => {
             {id: postId1, message: '1st message', likesCount: 0},
             {id: postId2, message: '2nd message', likesCount: 0},
         ],
-        inputValue: ' '
+        inputValue: ' ',
     }
 
     const action = changeInputActionCreator('New input value')

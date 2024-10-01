@@ -2,6 +2,7 @@ import {UserType} from "../Redux/store";
 import styles from './Users.module.css'
 import avatar from "../../asserts/avatars/defaultUserImage.png";
 import React from "react";
+import {NavLink} from "react-router-dom";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -60,7 +61,9 @@ export const Users = ({
         <div className={styles.users}>
             {users.map(u => <div className={styles.user} key={u.id}>
                 <div className={styles.imageAndButton}>
-                    <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
+                    <NavLink to={'/profile'}>
+                        <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
+                    </NavLink>
                     <button
                         onClick={() => toggleFollow(u.id)}>{u.followed ? 'Unfollow' : 'Follow'}</button>
                 </div>

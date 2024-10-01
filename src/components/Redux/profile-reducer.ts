@@ -1,8 +1,16 @@
-import {ActionTypes, AddPostActionType, ChangeInputActionType, PostType, ProfilePageType} from "./store";
+import {
+    ActionTypes,
+    AddPostActionType,
+    ChangeInputActionType,
+    PostType,
+    ProfilePageType, ProfileType,
+    setUserProfileType
+} from "./store";
 import {v1} from "uuid";
 
 export const ADD_POST = "ADD-POST";
 export const CHANGE_INPUT = "CHANGE-INPUT";
+export const SET_USER_PROFILE = 'SET_USER_PROFILE'
 
 const initialState : ProfilePageType = {
     posts: <PostType[]>[
@@ -12,6 +20,27 @@ const initialState : ProfilePageType = {
         {id: v1(), message: 'Hello, its me', likesCount: 2},
     ],
     inputValue: '',
+    profile: {
+        aboutMe : 'im fine',
+        contacts : {
+            "facebook": '',
+            "website": null,
+            "vk": '',
+            "twitter": '',
+            "instagram": '',
+            "youtube": null,
+            "github": '',
+            "mainLink": null
+        },
+        "lookingForAJob" : false,
+        "lookingForAJobDescription": 'string',
+        "fullName": 'string',
+        "userId": 1,
+        "photos": {
+            "small": 'string',
+            "large": 'string'
+        }
+    }
 }
 export const profileReducer = (state : ProfilePageType  = initialState, action: ActionTypes) => {
     switch (action.type) {
@@ -26,6 +55,11 @@ export const profileReducer = (state : ProfilePageType  = initialState, action: 
                 ...state,
                 inputValue: action.newInput
             };
+        case SET_USER_PROFILE:
+            return {
+                ...state, profile : action.profile
+            }
+
         default:
             return state;
     }
@@ -38,4 +72,8 @@ export const addPostActionCreator = (inputValue: string): AddPostActionType => (
 export const changeInputActionCreator = (newInput: string) : ChangeInputActionType => ({
     type: CHANGE_INPUT,
     newInput
+})
+export const setUserProfileActionCreator = (profile: ProfileType) : setUserProfileType => ({
+    type: SET_USER_PROFILE,
+    profile: profile
 })

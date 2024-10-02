@@ -1,10 +1,22 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #1a1919;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    font-size: 17px;
+    color: #ccc7c7;
+    font-family: "Bowlby One", sans-serif;
+    font-weight: 600;
+}
 .header img {
     width: 60px;
     margin: 0 0 0 35px;
 }
-.header {
-    color: #fff;
-    background-color: #1a1919;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
+.loginBlock {
+    margin: 20px 35px 0 0;
+}
+.loginBlock a {
+    color: #ccc7c7;
+    text-decoration: none;
 }

@@ -6,8 +6,9 @@ import {
     SET_MAX_COUNT,
     SET_TOTAL_USERS_COUNT,
     SET_USERS,
-    TOGGLE_FOLLOW_SOMEONE, TOGGLE_IS_FETCHING
+    TOGGLE_FOLLOW_SOMEONE, TOGGLE_IS_FETCHING,
 } from "./users-reducer";
+import {SET_USER_DATA} from "./auth-reducer";
 
 export type StoreType = {
     _state: RootStateType,
@@ -29,6 +30,7 @@ export type ActionTypes =
     | setMaxCountType
     | toggleIsFetchingType
     | setUserProfileType
+    | setUserDataACType
     ;
 
 export type AddPostActionType = {
@@ -74,7 +76,22 @@ export type setUserProfileType = {
     type: typeof SET_USER_PROFILE,
     profile: ProfileType
 }
-
+export type setUserDataACType = {
+    type: typeof SET_USER_DATA,
+    data : {
+        userId : number,
+        email : string,
+        login: string
+    }
+}
+//----------------------------------------------------------------------------------------------------------------------//
+export type HeaderStateType = {
+    userId : number,
+    email: string,
+    login: string
+    isAuth: boolean,
+}
+//---------------------------------------------------------------------------------------------------------------------//
 // export const store: StoreType = {
 //     _state: {
 //         dialogsPage: <DialogsPageType>{

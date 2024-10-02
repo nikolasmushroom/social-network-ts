@@ -61,7 +61,7 @@ export const Users = ({
         <div className={styles.users}>
             {users.map(u => <div className={styles.user} key={u.id}>
                 <div className={styles.imageAndButton}>
-                    <NavLink to={'/profile'}>
+                    <NavLink to={`/profile/${u.id}`}>
                         <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
                     </NavLink>
                     <button

@@ -1,12 +1,17 @@
-import {useLocation, useNavigate, useParams} from "react-router-dom";
-import {ProfileContainerPropsType} from "../Profile/ProfileContainer";
-import React from "react";
+import {Location, NavigateFunction, useLocation, useNavigate, useParams} from "react-router-dom";
+import React, {ComponentType} from "react";
 
-export const withRouter = (Component : any) => {
-    const ComponentWithRouterProp = (props : ProfileContainerPropsType) => {
+export type withRouterPropsType = {
+    navigate: NavigateFunction;
+    params: {[key: string]: string};
+    location: Location
+}
+
+export const withRouter = <P extends object>(Component : ComponentType<P>) => {
+    return (props: P) => {
         let navigate = useNavigate();
         let params = useParams();
         let location = useLocation();
-        return <Component {...props} navigate={navigate} params={params} location={location}/>
-    }
+        return <Component {...props} params={params} navigate={navigate} location={location}/>
+    };
 }

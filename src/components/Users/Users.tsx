@@ -3,7 +3,7 @@ import styles from './Users.module.css'
 import avatar from "../../asserts/avatars/defaultUserImage.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import axios from "axios/index";
+import axios from "axios";
 
 export type UsersPropsType = {
     users: UserType[]

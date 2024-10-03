@@ -3,6 +3,7 @@ import styles from './Users.module.css'
 import avatar from "../../asserts/avatars/defaultUserImage.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
+import axios from "axios/index";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -64,8 +65,29 @@ export const Users = ({
                     <NavLink to={`/profile/${u.id}`}>
                         <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
                     </NavLink>
-                    <button
-                        onClick={() => toggleFollow(u.id)}>{u.followed ? 'Unfollow' : 'Follow'}</button>
+                    {!u.followed
+                        ? <button
+                        onClick={() => {
+                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
+                                withCredentials : true
+                            })
+                                .then(response => {
+                                    response.data.resultCode === 0 && toggleFollow(u.id)
+                                })
+                        }
+                        }>{'Follow'}</button>
+                        : <button
+                            onClick={() => {
+                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
+                                    withCredentials : true
+                                })
+                                    .then(response => {
+                                        response.data.resultCode === 0 && toggleFollow(u.id)
+                                    })
+                            }
+                            }>{'Unfollow'}</button>
+                    }
+
                 </div>
                 <div className={styles.userProfile}>
                     <div className={styles.nameAndStatus}>

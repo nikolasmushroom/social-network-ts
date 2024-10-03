@@ -3,7 +3,7 @@ import styles from './Users.module.css'
 import avatar from "../../asserts/avatars/defaultUserImage.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -16,7 +16,7 @@ export type UsersPropsType = {
     setCurrentPage: (page: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
     setMaxCount: (newCount: number) => void
-    getUsersFromAPI: (page : number) => void
+    getUsersFromAPI: (page: number) => void
 }
 export const Users = ({
                           users,
@@ -28,14 +28,6 @@ export const Users = ({
                           maxCount,
                           getUsersFromAPI
                       }: UsersPropsType) => {
-
-    // useEffect(() => {
-    //     if(!users.length){
-    //         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-    //             setUsers(response.data.items)
-    //         })
-    //     }
-    // }, [])
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages: Array<number> = []
     const onPageChange = (changeDirection: string) => {
@@ -49,7 +41,7 @@ export const Users = ({
         if (changeDirection === '<=') {
             return <span className={styles.pageChangers} onClick={() => {
                 {
-                  setMaxCount(maxCount - 10)
+                    setMaxCount(maxCount - 10)
                 }
             }}>{changeDirection}</span>
         }
@@ -57,6 +49,12 @@ export const Users = ({
     }
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
+    }
+    const changeFollowStatus = (u: UserType, followStatus : boolean) => {
+        usersAPI.changeFollowStatus(u.id, followStatus)
+            .then(data => {
+                data.resultCode === 0 && toggleFollow(u.id)
+            })
     }
     return (
         <div className={styles.users}>
@@ -67,29 +65,14 @@ export const Users = ({
                     </NavLink>
                     {!u.followed
                         ? <button
-                        onClick={() => {
-                            axios.post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {}, {
-                                withCredentials : true,
-                                headers: {
-                                    'API-KEY' : ''
-                                }
-                            })
-                                .then(response => {
-                                    response.data.resultCode === 0 && toggleFollow(u.id)
-                                })
-                        }
-                        }>{'Follow'}</button>
+                            onClick={() => {
+                                changeFollowStatus(u, u.followed)
+                            }
+                            }>{'Follow'}</button>
                         : <button
                             onClick={() => {
-                                axios.delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {
-                                    withCredentials : true,
-                                    headers: {
-                                        'API-KEY' : ''
-                                    }
-                                })
-                                    .then(response => {
-                                        response.data.resultCode === 0 && toggleFollow(u.id)
-                                    })
+                                changeFollowStatus(u, u.followed)
+
                             }
                             }>{'Unfollow'}</button>
                     }

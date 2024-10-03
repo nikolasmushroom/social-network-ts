@@ -13,7 +13,7 @@ import {
 } from "../Redux/users-reducer";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader";
-import {getUsers} from "../../api/api";
+import {usersAPI} from "../../api/api";
 
 export type UsersClassPropsType = {
     users: UserType[]
@@ -31,32 +31,26 @@ export type UsersClassPropsType = {
 }
 
 class UsersContainer extends React.Component<UsersClassPropsType> {
+    getUser(){
+        this.props.toggleIsFetching(true)
+        usersAPI.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
+                this.props.setUsers(data.items)
+                this.props.setTotalUsersCount(data.totalCount)
+            })
+            .finally(() => {
+                this.props.toggleIsFetching(false);
+            })
+    }
     componentDidMount = () => {
-        {
             if (!this.props.users.length) {
-                getUsers(this.props.currentPage, this.props.pageSize)
-                    .then(response => {
-                        this.props.setUsers(response.data.items)
-                        this.props.setTotalUsersCount(response.data.totalCount)
-                    })
-                    .finally(() => {
-                        this.props.toggleIsFetching(false);
-                    })
+                this.getUser()
             }
-
-        }
     }
 
     componentDidUpdate(prevProps: Readonly<UsersClassPropsType>) {
         if (prevProps.currentPage !== this.props.currentPage) {
-            getUsers(this.props.currentPage, this.props.pageSize)
-                .then(response => {
-                    this.props.setUsers(response.data.items)
-                    this.props.setTotalUsersCount(response.data.totalCount)
-                })
-                .finally(() => {
-                    this.props.toggleIsFetching(false);
-                })
+            this.getUser()
         }
     }
 

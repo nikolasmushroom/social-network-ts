@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import {connect} from "react-redux";
 import {RootReduxStateType} from "../Redux/redux-store";
 import {UserType} from "../Redux/store";
@@ -14,6 +13,7 @@ import {
 } from "../Redux/users-reducer";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader";
+import {getUsers} from "../../api/api";
 
 export type UsersClassPropsType = {
     users: UserType[]
@@ -31,27 +31,38 @@ export type UsersClassPropsType = {
 }
 
 class UsersContainer extends React.Component<UsersClassPropsType> {
-    getUsers = (page: number) => {
-        this.props.toggleIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {withCredentials : true})
-            .then(response => {
-                this.props.setUsers(response.data.items)
-                this.props.setTotalUsersCount(response.data.totalCount)
-            })
-            .finally(() => {
-                this.props.toggleIsFetching(false);
-            })
-    }
     componentDidMount = () => {
         {
-            !this.props.users.length && this.getUsers(this.props.currentPage)
+            if (!this.props.users.length) {
+                getUsers(this.props.currentPage, this.props.pageSize)
+                    .then(response => {
+                        this.props.setUsers(response.data.items)
+                        this.props.setTotalUsersCount(response.data.totalCount)
+                    })
+                    .finally(() => {
+                        this.props.toggleIsFetching(false);
+                    })
+            }
+
+        }
+    }
+
+    componentDidUpdate(prevProps: Readonly<UsersClassPropsType>) {
+        if (prevProps.currentPage !== this.props.currentPage) {
+            getUsers(this.props.currentPage, this.props.pageSize)
+                .then(response => {
+                    this.props.setUsers(response.data.items)
+                    this.props.setTotalUsersCount(response.data.totalCount)
+                })
+                .finally(() => {
+                    this.props.toggleIsFetching(false);
+                })
         }
     }
 
     render() {
-        const getUsersFromAPI = (page: number) => {
+        const setCurrentPage = (page: number) => {
             this.props.setCurrentPage(page);
-            this.getUsers(page)
         }
         return (
             <>
@@ -69,7 +80,7 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
                            setCurrentPage={this.props.setCurrentPage}
                            pageSize={this.props.pageSize}
                            toggleFollow={this.props.toggleFollow}
-                           getUsersFromAPI={getUsersFromAPI}
+                           getUsersFromAPI={setCurrentPage}
                     />
                 }
 

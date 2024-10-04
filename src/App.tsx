@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom';
 import Navigation from './components/Navigation/Navigation';
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
@@ -19,6 +19,9 @@ const App = () => {
                     <Navigation/>
                     <div className='content'>
                         <Routes>
+                            <Route path={'/'}
+                                   element={<Navigate to={'/profile'}
+                                   />}/>
                             <Route path={'/dialogs'}
                                    element={<DialogsContainer
                                    />}/>

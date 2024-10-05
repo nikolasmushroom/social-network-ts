@@ -6,7 +6,7 @@ import {
     SET_MAX_COUNT,
     SET_TOTAL_USERS_COUNT,
     SET_USERS,
-    TOGGLE_FOLLOW_SOMEONE, TOGGLE_IS_FETCHING,
+    TOGGLE_FOLLOW_SOMEONE, TOGGLE_IS_FETCHING, TOGGLE_IS_FOLLOWING_PROGRESS,
 } from "./users-reducer";
 import {SET_USER_DATA} from "./auth-reducer";
 
@@ -31,6 +31,7 @@ export type ActionTypes =
     | toggleIsFetchingType
     | setUserProfileType
     | setUserDataACType
+    | toggleIsFollowingProgressType
     ;
 
 export type AddPostActionType = {
@@ -83,6 +84,11 @@ export type setUserDataACType = {
         email : string,
         login: string
     }
+}
+export type toggleIsFollowingProgressType = {
+    type : typeof TOGGLE_IS_FOLLOWING_PROGRESS,
+    isFollowing : boolean,
+    userId : string
 }
 //----------------------------------------------------------------------------------------------------------------------//
 export type HeaderStateType = {

@@ -49,6 +49,9 @@
     background-color: #ccc7c7;
     transition: all 0.2s ease;
 }
+.imageAndButton button:disabled {
+    cursor: auto;
+}
 
 .nameAndStatus {
     margin: 10px 0 20px 30px;

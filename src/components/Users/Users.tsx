@@ -17,6 +17,8 @@ export type UsersPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     setMaxCount: (newCount: number) => void
     getUsersFromAPI: (page: number) => void
+    toggleIsFollowingProgress: (isFollowing : boolean, userId: string) => void
+    followingInProgress: Array<string>
 }
 export const Users = ({
                           users,
@@ -26,7 +28,9 @@ export const Users = ({
                           pageSize,
                           setMaxCount,
                           maxCount,
-                          getUsersFromAPI
+                          getUsersFromAPI,
+                          toggleIsFollowingProgress,
+                          followingInProgress
                       }: UsersPropsType) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages: Array<number> = []
@@ -42,6 +46,7 @@ export const Users = ({
         usersAPI.changeFollowStatus(u.id, followStatus)
             .then(data => {
                 data.resultCode === 0 && toggleFollow(u.id)
+                toggleIsFollowingProgress(false, u.id)
             })
     }
     return (
@@ -52,7 +57,9 @@ export const Users = ({
                         <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
                     </NavLink>
                     <button
+                        disabled={followingInProgress.some(id => id === u.id)}
                         onClick={() => {
+                            toggleIsFollowingProgress(true, u.id)
                             changeFollowStatus(u, !u.followed)
                         }
                         }>{u.followed ? 'Unfollow' : 'Follow'}</button>

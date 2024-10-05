@@ -3,7 +3,7 @@ import {
     setCurrentPageType, setMaxCountType,
     setTotalUsersCountType,
     setUsersActionType,
-    toFollowSomeoneType, toggleIsFetchingType,
+    toFollowSomeoneType, toggleIsFetchingType, toggleIsFollowingProgressType,
     UserType
 } from "./store";
 
@@ -12,6 +12,7 @@ export const SET_USERS = 'SET_USERS'
 export const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 export const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 export const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
+export const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 export const SET_MAX_COUNT = 'SET_MAX_COUNT';
 
@@ -22,6 +23,7 @@ const initialState = {
     totalUsersCount: 0,
     currentPage : 1,
     maxCount : 10,
+    followingInProgress : []
 }
 export const usersReducer = (state = initialState, action: ActionTypes) => {
     switch (action.type) {
@@ -37,6 +39,11 @@ export const usersReducer = (state = initialState, action: ActionTypes) => {
             return {...state, maxCount: action.newCount}
         case TOGGLE_IS_FETCHING :
             return {...state, isFetching: action.isFetching}
+        case TOGGLE_IS_FOLLOWING_PROGRESS :
+            return {...state, followingInProgress: action.isFollowing
+                    ? [...state.followingInProgress, action.userId]
+                    :  state.followingInProgress.filter(id => id !== action.userId)
+            }
         default:
             return state;
     }
@@ -65,4 +72,9 @@ export const setMaxCount= (newCount : number) : setMaxCountType => ({
 export const toggleIsFetching = (isFetching : boolean) : toggleIsFetchingType => ({
     type : TOGGLE_IS_FETCHING,
     isFetching : isFetching
+})
+export const toggleIsFollowingProgress = (isFollowing : boolean, userId : string) : toggleIsFollowingProgressType => ({
+    type : TOGGLE_IS_FOLLOWING_PROGRESS,
+    isFollowing : isFollowing,
+    userId : userId
 })

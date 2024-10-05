@@ -31,14 +31,14 @@ export const Users = ({
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages: Array<number> = []
     const onPageChange = (changeDirection: '<' | '>') => <span className={styles.pageChangers} onClick={() => {
-                {
-                    setMaxCount(changeDirection === '>' ? maxCount + 10 : maxCount - 10)
-                }
-            }}>{changeDirection}</span>
+        {
+            setMaxCount(changeDirection === '>' ? maxCount + 10 : maxCount - 10)
+        }
+    }}>{changeDirection}</span>
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    const changeFollowStatus = (u: UserType, followStatus : boolean) => {
+    const changeFollowStatus = (u: UserType, followStatus: boolean) => {
         usersAPI.changeFollowStatus(u.id, followStatus)
             .then(data => {
                 data.resultCode === 0 && toggleFollow(u.id)
@@ -51,20 +51,11 @@ export const Users = ({
                     <NavLink to={`/profile/${u.id}`}>
                         <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
                     </NavLink>
-                    {!u.followed
-                        ? <button
-                            onClick={() => {
-                                changeFollowStatus(u, u.followed)
-                            }
-                            }>{'Follow'}</button>
-                        : <button
-                            onClick={() => {
-                                changeFollowStatus(u, u.followed)
-
-                            }
-                            }>{'Unfollow'}</button>
-                    }
-
+                    <button
+                        onClick={() => {
+                            changeFollowStatus(u, !u.followed)
+                        }
+                        }>{u.followed ? 'Unfollow' : 'Follow'}</button>
                 </div>
                 <div className={styles.userProfile}>
                     <div className={styles.nameAndStatus}>

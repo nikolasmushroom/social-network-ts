@@ -18,7 +18,7 @@ export type UsersPropsType = {
     setTotalUsersCount: (totalUsersCount: number) => void
     setMaxCount: (newCount: number) => void
     getUsersFromAPI: (page: number) => void
-    toggleIsFollowingProgress: (isFollowing : boolean, userId: string) => void
+    toggleIsFollowingProgress: (isFollowing: boolean, userId: string) => void
     followingInProgress: Array<string>
 }
 export const Users = ({
@@ -62,8 +62,9 @@ export const Users = ({
                         onClick={() => {
                             toggleIsFollowingProgress(true, u.id)
                             changeFollowStatus(u, !u.followed)
-                        }
-                        }>{u.followed ? 'Unfollow' : 'Follow'}</Button>
+                        }}
+                        children={u.followed ? 'Unfollow' : 'Follow'}
+                    />
                 </div>
                 <div className={styles.userProfile}>
                     <div className={styles.nameAndStatus}>

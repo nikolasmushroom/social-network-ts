@@ -65,11 +65,11 @@ export const profileReducer = (state : ProfilePageType  = initialState, action: 
     }
 };
 
-export const addPostActionCreator = (inputValue: string): AddPostActionType => ({
+export const  addPost = (inputValue: string): AddPostActionType => ({
     type: ADD_POST,
     inputValue
 })
-export const changeInputActionCreator = (newInput: string) : ChangeInputActionType => ({
+export const changeInput = (newInput: string) : ChangeInputActionType => ({
     type: CHANGE_INPUT,
     newInput
 })

@@ -30,23 +30,11 @@ export const Users = ({
                       }: UsersPropsType) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages: Array<number> = []
-    const onPageChange = (changeDirection: string) => {
-        if (changeDirection === '=>') {
-            return <span className={styles.pageChangers} onClick={() => {
+    const onPageChange = (changeDirection: '<' | '>') => <span className={styles.pageChangers} onClick={() => {
                 {
-                    setMaxCount(maxCount + 10)
+                    setMaxCount(changeDirection === '>' ? maxCount + 10 : maxCount - 10)
                 }
             }}>{changeDirection}</span>
-        }
-        if (changeDirection === '<=') {
-            return <span className={styles.pageChangers} onClick={() => {
-                {
-                    setMaxCount(maxCount - 10)
-                }
-            }}>{changeDirection}</span>
-        }
-
-    }
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
@@ -90,7 +78,7 @@ export const Users = ({
                 </div>
             </div>)}
             <div>
-                {maxCount !== 10 && onPageChange('<=')}
+                {maxCount !== 10 && onPageChange('<')}
                 {pages.map(page => {
                     if (page <= maxCount && page > maxCount - 10) {
                         return (
@@ -100,7 +88,7 @@ export const Users = ({
                         )
                     }
                 })}
-                {maxCount !== pages[pages.length - 1] && onPageChange('=>')}
+                {maxCount !== pages[pages.length - 1] && onPageChange('>')}
 
             </div>
         </div>

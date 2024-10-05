@@ -2,22 +2,23 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {PostType} from "../../Redux/store";
+import {Button} from "../../common/Button";
 
 type MyPostsPropsType = {
     posts: PostType[];
     inputValue: string
-    onChangeInput: (text : string) => void
-    addNewPost: (inputValue : string) => void
+    changeInput: (text : string) => void
+    addPost: (inputValue : string) => void
 }
 
-export const MyPosts = ({posts, inputValue, onChangeInput, addNewPost}: MyPostsPropsType) => {
+export const MyPosts = ({posts, inputValue, changeInput, addPost}: MyPostsPropsType) => {
     const postMessageRef = React.createRef<HTMLInputElement>()
 
     const addPostHandler = () => {
-        addNewPost(inputValue)
+        addPost(inputValue)
     };
     const changeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        onChangeInput(e.currentTarget.value)
+        changeInput(e.currentTarget.value)
     }
 
     const onKeyDownHandler = (e: KeyboardEvent<HTMLInputElement>) => {
@@ -36,7 +37,12 @@ export const MyPosts = ({posts, inputValue, onChangeInput, addNewPost}: MyPostsP
                 onChange={changeInputHandler}
                 onKeyDown={onKeyDownHandler}
             />
-            <button onClick={addPostHandler} className={s.button}>Add new post</button>
+            <Button
+                onClick={addPostHandler}
+                className={s.button}
+                disabled={!inputValue.length}
+                children='Add new post'
+            />
             <h2>New posts</h2>
             <div className={s.posts}>
                 {posts.map((post) => <Post key={post.id} id={post.id} message={post.message}

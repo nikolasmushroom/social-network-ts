@@ -4,6 +4,7 @@ import avatar from "../../asserts/avatars/defaultUserImage.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
 import {usersAPI} from "../../api/api";
+import {Button} from "../common/Button";
 
 export type UsersPropsType = {
     users: UserType[]
@@ -56,13 +57,13 @@ export const Users = ({
                     <NavLink to={`/profile/${u.id}`}>
                         <img src={u.photos.small ? u.photos.small : avatar} alt="avatar"/>
                     </NavLink>
-                    <button
+                    <Button
                         disabled={followingInProgress.some(id => id === u.id)}
                         onClick={() => {
                             toggleIsFollowingProgress(true, u.id)
                             changeFollowStatus(u, !u.followed)
                         }
-                        }>{u.followed ? 'Unfollow' : 'Follow'}</button>
+                        }>{u.followed ? 'Unfollow' : 'Follow'}</Button>
                 </div>
                 <div className={styles.userProfile}>
                     <div className={styles.nameAndStatus}>

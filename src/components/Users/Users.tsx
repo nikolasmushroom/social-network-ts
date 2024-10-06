@@ -3,7 +3,6 @@ import styles from './Users.module.css'
 import avatar from "../../asserts/avatars/defaultUserImage.png";
 import React from "react";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 import {Button} from "../common/Button";
 
 export type UsersPropsType = {
@@ -12,26 +11,21 @@ export type UsersPropsType = {
     totalUsersCount: number
     currentPage: number
     maxCount: number
-    toggleFollow: (userId: string) => void
-    setUsers: (users: UserType[]) => void
     setCurrentPage: (page: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
     setMaxCount: (newCount: number) => void
-    getUsersFromAPI: (page: number) => void
-    toggleIsFollowingProgress: (isFollowing: boolean, userId: string) => void
     followingInProgress: Array<string>
+    changeFollowStatus: (u : UserType, followStatus : boolean) => void
 }
 export const Users = ({
                           users,
-                          toggleFollow,
                           currentPage,
                           totalUsersCount,
                           pageSize,
                           setMaxCount,
+                          setCurrentPage,
                           maxCount,
-                          getUsersFromAPI,
-                          toggleIsFollowingProgress,
-                          followingInProgress
+                          followingInProgress,
+                          changeFollowStatus,
                       }: UsersPropsType) => {
     let pagesCount = Math.ceil(totalUsersCount / pageSize);
     let pages: Array<number> = []
@@ -43,13 +37,6 @@ export const Users = ({
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
     }
-    const changeFollowStatus = (u: UserType, followStatus: boolean) => {
-        usersAPI.changeFollowStatus(u.id, followStatus)
-            .then(data => {
-                data.resultCode === 0 && toggleFollow(u.id)
-                toggleIsFollowingProgress(false, u.id)
-            })
-    }
     return (
         <div className={styles.users}>
             {users.map(u => <div className={styles.user} key={u.id}>
@@ -60,7 +47,6 @@ export const Users = ({
                     <Button
                         disabled={followingInProgress.some(id => id === u.id)}
                         onClick={() => {
-                            toggleIsFollowingProgress(true, u.id)
                             changeFollowStatus(u, !u.followed)
                         }}
                         children={u.followed ? 'Unfollow' : 'Follow'}
@@ -83,7 +69,7 @@ export const Users = ({
                     if (page <= maxCount && page > maxCount - 10) {
                         return (
                             <span key={page}
-                                  onClick={() => getUsersFromAPI(page)}
+                                  onClick={() => setCurrentPage(page)}
                                   className={currentPage === page ? `${styles.page} ${styles.selectedPage}` : `${styles.page}`}>{page}</span>
                         )
                     }

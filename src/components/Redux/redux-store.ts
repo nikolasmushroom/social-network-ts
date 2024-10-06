@@ -3,13 +3,14 @@ import {profileReducer} from "./profile-reducer";
 import {dialogsReducer} from "./dialogs-reducer";
 import {sidebarReducer} from "./sidebar-reducer";
 import {usersReducer} from "./users-reducer";
-import {configureStore} from "@reduxjs/toolkit";
 import {authReducer} from "./auth-reducer";
+import {configureStore} from "@reduxjs/toolkit";
+import {thunk} from "redux-thunk";
+export type RootReduxStateType = ReturnType<typeof reducers>
 
-export type RootReduxStateType = ReturnType<typeof RootReducerState>
 
 
-let RootReducerState = combineReducers({
+let reducers = combineReducers({
     profilePage: profileReducer,
     dialogsPage: dialogsReducer,
     navigationPage: sidebarReducer,
@@ -17,7 +18,10 @@ let RootReducerState = combineReducers({
     auth : authReducer
 })
 
-const store = configureStore({reducer : RootReducerState})
+const store = configureStore({
+    reducer : reducers,
+    middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk)
+})
 
 // @ts-ignore
 window.store = store

@@ -7,6 +7,7 @@ import {
     setUserProfileType
 } from "./store";
 import {v1} from "uuid";
+import {usersAPI} from "../../api/api";
 
 export const ADD_POST = "ADD-POST";
 export const CHANGE_INPUT = "CHANGE-INPUT";
@@ -42,7 +43,7 @@ const initialState : ProfilePageType = {
         }
     }
 }
-export const profileReducer = (state : ProfilePageType  = initialState, action: ActionTypes) => {
+export const profileReducer = (state : ProfilePageType  = initialState, action: ActionTypes) : ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -77,3 +78,11 @@ export const setUserProfileActionCreator = (profile: ProfileType) : setUserProfi
     type: SET_USER_PROFILE,
     profile: profile
 })
+export const getUserProfile = (userId : string) => {
+    return (dispatch : any) => {
+        usersAPI.getUserProfile(userId)
+            .then(data => {
+                dispatch(setUserProfileActionCreator(data))
+            })
+    }
+}

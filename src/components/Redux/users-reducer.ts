@@ -92,3 +92,12 @@ export const getUsers = (currentPage : number, pageSize : number) => {
             })
     }
 }
+export const changeFollowStatus = (u : UserType, followStatus : boolean) => {
+    return (dispatch : any) => {
+        usersAPI.changeFollowStatus(u.id, followStatus)
+            .then(data => {
+                data.resultCode === 0 && dispatch(toggleFollow(u.id))
+                dispatch(toggleIsFollowingProgress(false, u.id))
+            })
+    }
+}

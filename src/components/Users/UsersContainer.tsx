@@ -4,6 +4,7 @@ import {RootReduxStateType} from "../Redux/redux-store";
 import {UserType} from "../Redux/store";
 import styles from './Users.module.css'
 import {
+    changeFollowStatus,
     getUsers,
     setCurrentPage,
     setMaxCount,
@@ -25,7 +26,9 @@ export type UsersClassPropsType = {
     isFetching: boolean
     toggleIsFollowingProgress: (isFollowing : boolean, userId: string) => void
     followingInProgress: Array<string>,
-    getUsers: (currentPage : number, pageSize : number) => void
+    getUsers: (currentPage : number, pageSize : number) => void,
+    changeFollowStatus: (u : UserType, followStatus : boolean) => void
+
 }
 
 class UsersContainer extends React.Component<UsersClassPropsType> {
@@ -53,9 +56,8 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
                            currentPage={this.props.currentPage}
                            setCurrentPage={this.props.setCurrentPage}
                            pageSize={this.props.pageSize}
-                           toggleFollow={this.props.toggleFollow}
-                           toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
                            followingInProgress={this.props.followingInProgress}
+                           changeFollowStatus={this.props.changeFollowStatus}
                     />
                 }
 
@@ -82,4 +84,5 @@ export default connect(mapStateToProps, {
     setMaxCount,
     toggleIsFollowingProgress,
     getUsers,
+    changeFollowStatus
 })(UsersContainer);

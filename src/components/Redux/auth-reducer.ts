@@ -1,4 +1,5 @@
 import {HeaderStateType, setUserDataACType} from "./store";
+import {usersAPI} from "../../api/api";
 
 export const SET_USER_DATA = 'SET_USER_DATA'
 export const initialState : HeaderStateType = {
@@ -19,4 +20,14 @@ export const setUserDataAC = (userId: number, email : string, login : string) : 
     return {
         type : 'SET_USER_DATA',
         data : {userId, email, login}}
+}
+export const getLogInfo = () => {
+    return (dispatch : any) => {
+        usersAPI.showAuthorisationStatus()
+            .then(data => {
+                if(data.resultCode === 0){
+                    dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login))
+                }
+            })
+    }
 }

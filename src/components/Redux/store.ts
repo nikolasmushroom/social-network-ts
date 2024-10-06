@@ -214,6 +214,15 @@ export type ProfilePageType = {
 // --------------------------------------------------------------------------------------------------------------------//
 export type NavigationType = {}
 // --------------------------------------------------------------------------------------------------------------------//
+export type UsersStateType = {
+    users: UserType[],
+    isFetching: boolean,
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number,
+    maxCount: number,
+    followingInProgress: string[] // предполагаю, что это массив идентификаторов пользователей
+}
 export type UserType = {
     id: string
     name: string

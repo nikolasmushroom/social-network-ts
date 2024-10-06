@@ -3,9 +3,10 @@ import {
     setCurrentPageType, setMaxCountType,
     setTotalUsersCountType,
     setUsersActionType,
-    toFollowSomeoneType, toggleIsFetchingType, toggleIsFollowingProgressType,
+    toFollowSomeoneType, toggleIsFetchingType, toggleIsFollowingProgressType, UsersStateType,
     UserType
 } from "./store";
+import {usersAPI} from "../../api/api";
 
 export const TOGGLE_FOLLOW_SOMEONE = 'FOLLOW_SOMEONE';
 export const SET_USERS = 'SET_USERS'
@@ -16,7 +17,7 @@ export const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 export const SET_MAX_COUNT = 'SET_MAX_COUNT';
 
-const initialState = {
+const initialState : UsersStateType = {
     users: <UserType[]>[],
     isFetching: false,
     pageSize: 5,
@@ -25,7 +26,7 @@ const initialState = {
     maxCount : 10,
     followingInProgress : []
 }
-export const usersReducer = (state = initialState, action: ActionTypes) => {
+export const usersReducer = (state = initialState, action: ActionTypes): UsersStateType => {
     switch (action.type) {
         case TOGGLE_FOLLOW_SOMEONE :
             return {...state, users: state.users.map(u => u.id === action.id ? {...u, followed: !u.followed} : u)}

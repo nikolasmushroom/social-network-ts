@@ -6,10 +6,14 @@ import {getUserProfile, setUserProfileActionCreator} from "../Redux/profile-redu
 import {RootReduxStateType} from "../Redux/redux-store";
 import {ProfileType} from "../Redux/store";
 import {withRouter} from "../Redux/WithRouter";
+import {Navigate} from "react-router-dom";
+import {Preloader} from "../common/Preloader";
 
 export type ProfileContainerPropsType = {
     setUserProfileActionCreator: (profile: ProfileType) => void
     getUserProfile: (userId: string) => void
+    isAuth : boolean,
+    isLoading: boolean
     profile?: ProfileType
     params?: {[key: string]: string}
 }
@@ -25,6 +29,12 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
 
 
     render() {
+        if(this.props.isLoading){
+            return <Preloader/>
+        }
+        if (!this.props.isAuth){
+            return <Navigate to={'/login'}/>
+        }
         return (
             <div className={classes.content}>
                 <Profile profile={this.props.profile}/>
@@ -37,6 +47,8 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
 const mapStateToProps = (state: RootReduxStateType) => {
     return {
         profile: state.profilePage.profile,
+        isAuth: state.auth.isAuth,
+        isLoading: state.auth.isLoading
     }
 }
 export const ProfileWithRouter = withRouter(ProfileContainer)

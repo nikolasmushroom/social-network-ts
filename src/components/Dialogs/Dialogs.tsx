@@ -3,7 +3,19 @@ import classes from "./Dialogs.module.css";
 import DialogItem from "./Dialogitem/Dialogitem";
 import Message from "./Message/Message";
 import {DialogsContainerType} from "../Redux/store";
-export const Dialogs = ({dialogs , messages, newMessageText, updateNewMessage, sendMessage} : DialogsContainerType) => {
+import {Navigate} from "react-router-dom";
+
+export const Dialogs = ({
+                            dialogs,
+                            messages,
+                            newMessageText,
+                            updateNewMessage,
+                            sendMessage,
+                            isAuth,
+                        }: DialogsContainerType) => {
+    if (!isAuth) {
+        return <Navigate to={'/login'}/>
+    }
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
@@ -23,7 +35,9 @@ export const Dialogs = ({dialogs , messages, newMessageText, updateNewMessage, s
                     })}
                 </div>
                 <div>
-                    <textarea onChange={(e) => {updateNewMessage(e.currentTarget.value)}} value={newMessageText}></textarea>
+                    <textarea onChange={(e) => {
+                        updateNewMessage(e.currentTarget.value)
+                    }} value={newMessageText}></textarea>
                     <button onClick={sendMessage}>Send Message</button>
                 </div>
             </div>

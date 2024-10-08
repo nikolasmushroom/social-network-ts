@@ -5,6 +5,8 @@ import {
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {RootReduxStateType} from "../Redux/redux-store";
+import {withAuthRedirect} from "../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 
 const mapStateToProps = (state : RootReduxStateType) => {
@@ -12,10 +14,12 @@ const mapStateToProps = (state : RootReduxStateType) => {
         dialogs: state.dialogsPage.dialogs,
         messages: state.dialogsPage.messages,
         newMessageText : state.dialogsPage.newMessageText || '',
-        isAuth: state.auth.isAuth,
     }
 }
-export const DialogsContainer = connect(mapStateToProps, {
-    updateNewMessage,
-    sendMessage
-    }) (Dialogs);
+
+// const AuthRedirectComponent = withAuthRedirect(Dialogs)
+const DialogsContainer : any = compose(
+    connect(mapStateToProps, { updateNewMessage, sendMessage }),
+    withAuthRedirect
+)(Dialogs);
+export default DialogsContainer

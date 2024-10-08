@@ -46,11 +46,8 @@ export const Users = ({
                     </NavLink>
                     <Button
                         disabled={followingInProgress.some(id => id === u.id)}
-                        onClick={() => {
-                            changeFollowStatus(u, !u.followed)
-                        }}
-                        children={u.followed ? 'Unfollow' : 'Follow'}
-                    />
+                        onClick={() => changeFollowStatus(u, !u.followed)}
+                    >{u.followed ? 'Unfollow' : 'Follow'}</Button>
                 </div>
                 <div className={styles.userProfile}>
                     <div className={styles.nameAndStatus}>

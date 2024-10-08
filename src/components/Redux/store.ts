@@ -8,7 +8,7 @@ import {
     SET_USERS,
     TOGGLE_FOLLOW_SOMEONE, TOGGLE_IS_FETCHING, TOGGLE_IS_FOLLOWING_PROGRESS,
 } from "./users-reducer";
-import {SET_USER_DATA} from "./auth-reducer";
+import {SET_AUTH_ME, SET_LOADING, SET_USER_DATA} from "./auth-reducer";
 
 export type StoreType = {
     _state: RootStateType,
@@ -32,6 +32,8 @@ export type ActionTypes =
     | setUserProfileType
     | setUserDataACType
     | toggleIsFollowingProgressType
+    | setAuthMeType
+    | setLoadingType
     ;
 
 export type AddPostActionType = {
@@ -90,12 +92,21 @@ export type toggleIsFollowingProgressType = {
     isFollowing : boolean,
     userId : string
 }
+export type setAuthMeType = {
+    type : typeof SET_AUTH_ME,
+
+}
+export type setLoadingType = {
+    type : typeof SET_LOADING,
+    isLoading : boolean
+}
 //----------------------------------------------------------------------------------------------------------------------//
 export type HeaderStateType = {
     userId : number,
     email: string,
     login: string
     isAuth: boolean,
+    isLoading: boolean
 }
 //---------------------------------------------------------------------------------------------------------------------//
 // export const store: StoreType = {
@@ -177,6 +188,7 @@ export type DialogsContainerType = {
     newMessageText: string
     updateNewMessage: (body: string) => void
     sendMessage: () => void
+    isAuth : boolean
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type ProfileType = {

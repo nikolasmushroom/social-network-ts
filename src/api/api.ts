@@ -31,10 +31,12 @@ export const usersAPI = {
                 return response.data
             })
     },
+}
+export const authAPI = {
     showAuthorisationStatus(){
         return instance.get('auth/me')
             .then(response => {
-                    return response.data
+                return response.data
             })
 
     }

@@ -77,8 +77,6 @@ const mapStateToProps = (state: RootReduxStateType) => {
         isFetching: state.usersPage?.isFetching,
         maxCount: state.usersPage?.maxCount,
         followingInProgress: state.usersPage?.followingInProgress,
-        isAuth: state.auth?.isAuth,
-        isLoading: state.auth?.isLoading
     }
 }
 export default connect(mapStateToProps, {

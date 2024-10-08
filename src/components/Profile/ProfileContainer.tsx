@@ -30,7 +30,7 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
 
     render() {
         if(this.props.isLoading){
-            return <Preloader/>
+            return <Preloader className={classes.preloader}/>
         }
         if (!this.props.isAuth){
             return <Navigate to={'/login'}/>

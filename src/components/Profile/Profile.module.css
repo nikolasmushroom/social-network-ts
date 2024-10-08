@@ -4,5 +4,9 @@
     border-bottom-left-radius: 30px;
     border-bottom-right-radius: 30px;
 }
-
+.preloader {
+    height: 100px;
+    width: 100px;
+    margin: 50px 400px;
+}
 

@@ -1,12 +1,10 @@
 import {Navigate} from "react-router-dom";
 import React from "react";
-import {connect} from "react-redux";
-import {RootReduxStateType} from "../Redux/redux-store";
 export type LoginContainerPropsType = {
-    getLogInfo : () => void
-    isAuth : boolean
+    getLogInfo? : () => void
+    isAuth? : boolean
 }
-export const Login = (isAuth : any) => {
+export const Login = (isAuth : LoginContainerPropsType) => {
     if(isAuth){
         return <Navigate to={'/'}/>
     }
@@ -15,20 +13,3 @@ export const Login = (isAuth : any) => {
     )
 
 }
-class LoginContainer extends React.Component<any>{
-    componentDidMount() {
-        this.props.getLogInfo()
-    }
-
-    render(){
-        return (
-            <Login isAuth={this.props.isAuth}/>
-        )
-    }
-}
-const mapStateToProps = (state : RootReduxStateType) => {
-    return {
-        isAuth : state.auth.isAuth,
-    }
-}
-export default connect(mapStateToProps, {})(Login);

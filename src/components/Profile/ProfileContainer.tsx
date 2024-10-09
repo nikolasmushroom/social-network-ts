@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import classes from './Profile.module.css';
 import Profile from "./Profile";
 import {connect} from "react-redux";
@@ -7,6 +7,7 @@ import {RootReduxStateType} from "../Redux/redux-store";
 import {ProfileType} from "../Redux/store";
 import {withRouter} from "../HOC/WithRouter";
 import {withAuthRedirect} from "../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 export type ProfileContainerPropsType = {
     setUserProfileActionCreator: (profile: ProfileType) => void
@@ -43,9 +44,8 @@ const mapStateToProps = (state: RootReduxStateType) => {
         profile: state.profilePage.profile,
     }
 }
-const AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-export const ProfileWithRouter = withRouter(AuthRedirectComponent)
-export default connect(mapStateToProps, {
-    setUserProfileActionCreator,
-    getUserProfile
-})(ProfileWithRouter)
+export default compose<ComponentType>(
+    connect(mapStateToProps, {setUserProfileActionCreator, getUserProfile}),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)

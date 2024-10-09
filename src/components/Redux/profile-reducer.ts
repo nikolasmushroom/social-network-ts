@@ -78,11 +78,13 @@ export const setUserProfileActionCreator = (profile: ProfileType) : setUserProfi
     type: SET_USER_PROFILE,
     profile: profile
 })
-export const getUserProfile = (userId : string) => {
+export const getUserProfile = (userId : string, isAuth : boolean) => {
     return (dispatch : any) => {
-        usersAPI.getUserProfile(userId)
-            .then(data => {
-                dispatch(setUserProfileActionCreator(data))
-            })
-    }
+        if(isAuth){
+            usersAPI.getUserProfile(userId)
+                .then(data => {
+                    dispatch(setUserProfileActionCreator(data))
+                })
+        }
+        }
 }

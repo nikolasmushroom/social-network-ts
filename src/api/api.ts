@@ -14,7 +14,7 @@ export const usersAPI = {
                 return response.data
             })
     },
-    changeFollowStatus(userId: string, followStatus : boolean) {
+    changeFollowStatus(userId: string, followStatus: boolean) {
         return followStatus
             ? instance.post(`follow/${userId}`)
                 .then(response => {
@@ -25,15 +25,20 @@ export const usersAPI = {
                     return response.data
                 })
     },
-    getUserProfile(userId : string){
-       return instance.get(`profile/${userId}`)
+    getUserProfile(userId: string) {
+        return profileAPI.getUserProfile(userId)
+    },
+}
+export const profileAPI = {
+    getUserProfile(userId: string) {
+        return instance.get(`profile/${userId}`)
             .then(response => {
                 return response.data
             })
     },
 }
 export const authAPI = {
-    showAuthorisationStatus(){
+    showAuthorisationStatus() {
         return instance.get('auth/me')
             .then(response => {
                 return response.data

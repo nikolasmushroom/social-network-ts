@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {RootReduxStateType} from "../Redux/redux-store";
 import {UserType} from "../Redux/store";
@@ -13,7 +13,7 @@ import {
 } from "../Redux/users-reducer";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader";
-import {withAuthRedirect} from "../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 
 export type UsersClassPropsType = {
@@ -67,7 +67,6 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
         )
     }
 }
-const AuthRedirectComponent = withAuthRedirect(UsersContainer)
 const mapStateToProps = (state: RootReduxStateType) => {
     return {
         users: state.usersPage.users,
@@ -79,11 +78,7 @@ const mapStateToProps = (state: RootReduxStateType) => {
         followingInProgress: state.usersPage?.followingInProgress,
     }
 }
-export default connect(mapStateToProps, {
-    toggleFollow,
-    setCurrentPage,
-    setMaxCount,
-    toggleIsFollowingProgress,
-    getUsers,
-    changeFollowStatus
-})(AuthRedirectComponent);
+
+export default compose<ComponentType>(
+    connect(mapStateToProps, {toggleFollow, setCurrentPage, setMaxCount, toggleIsFollowingProgress, getUsers, changeFollowStatus}),
+)(UsersContainer)

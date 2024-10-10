@@ -7,12 +7,15 @@ export type LoginContainerPropsType = {
     getLogInfo : () => void
     isAuth : boolean
 }
+
+
 export class LoginContainer extends React.Component<LoginContainerPropsType>{
     componentDidMount() {
-        if(this.props.getLogInfo)
+        if(this.props.getLogInfo){
             this.props.getLogInfo()
-    }
+        }
 
+    }
     render(){
         return (
             <Login isAuth={this.props.isAuth} getLogInfo={this.props.getLogInfo}/>
@@ -26,4 +29,4 @@ const mapStateToProps = (state : RootReduxStateType) => {
         isAuth : state.auth.isAuth,
     }
 }
-export default connect(mapStateToProps, {})(Login);
+export const AuthContainer= connect(mapStateToProps, {})(LoginContainer);

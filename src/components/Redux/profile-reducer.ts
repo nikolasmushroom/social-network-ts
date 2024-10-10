@@ -3,17 +3,18 @@ import {
     AddPostActionType,
     ChangeInputActionType,
     PostType,
-    ProfilePageType, ProfileType,
+    ProfilePageType, ProfileType, setStatusType,
     setUserProfileType
 } from "./store";
 import {v1} from "uuid";
-import {usersAPI} from "../../api/api";
+import {profileAPI, usersAPI} from "../../api/api";
 
-export const ADD_POST = "ADD-POST";
-export const CHANGE_INPUT = "CHANGE-INPUT";
+export const ADD_POST = "ADD-POST"
+export const CHANGE_INPUT = "CHANGE-INPUT"
 export const SET_USER_PROFILE = 'SET_USER_PROFILE'
+export const SET_STATUS = 'SET_STATUS'
 
-const initialState : ProfilePageType = {
+const initialState: ProfilePageType = {
     posts: <PostType[]>[
         {id: v1(), message: 'Hello, its me', likesCount: 12},
         {id: v1(), message: 'My favorite color is red', likesCount: 5},
@@ -22,8 +23,8 @@ const initialState : ProfilePageType = {
     ],
     inputValue: '',
     profile: {
-        aboutMe : 'im fine',
-        contacts : {
+        aboutMe: 'im fine',
+        contacts: {
             "facebook": '',
             "website": null,
             "vk": '',
@@ -33,7 +34,7 @@ const initialState : ProfilePageType = {
             "github": '',
             "mainLink": null
         },
-        "lookingForAJob" : false,
+        "lookingForAJob": false,
         "lookingForAJobDescription": 'string',
         "fullName": 'string',
         "userId": 1,
@@ -41,9 +42,10 @@ const initialState : ProfilePageType = {
             "small": 'string',
             "large": 'string'
         }
-    }
+    },
+    status: '',
 }
-export const profileReducer = (state : ProfilePageType  = initialState, action: ActionTypes) : ProfilePageType => {
+export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes): ProfilePageType => {
     switch (action.type) {
         case ADD_POST:
             return {
@@ -58,33 +60,58 @@ export const profileReducer = (state : ProfilePageType  = initialState, action: 
             };
         case SET_USER_PROFILE:
             return {
-                ...state, profile : action.profile
+                ...state, profile: action.profile
             }
-
+        case SET_STATUS:
+            return {
+                ...state, status: action.newStatus
+            }
         default:
             return state;
     }
 };
 
-export const  addPost = (inputValue: string): AddPostActionType => ({
+export const addPost = (inputValue: string): AddPostActionType => ({
     type: ADD_POST,
     inputValue
 })
-export const changeInput = (newInput: string) : ChangeInputActionType => ({
+export const changeInput = (newInput: string): ChangeInputActionType => ({
     type: CHANGE_INPUT,
     newInput
 })
-export const setUserProfileActionCreator = (profile: ProfileType) : setUserProfileType => ({
+export const setUserProfileActionCreator = (profile: ProfileType): setUserProfileType => ({
     type: SET_USER_PROFILE,
     profile: profile
 })
-export const getUserProfile = (userId : string, isAuth : boolean) => {
-    return (dispatch : any) => {
-        if(isAuth){
+export const setStatusActionCreator = (newStatus: string) : setStatusType => ({
+    type: SET_STATUS,
+    newStatus: newStatus
+})
+export const getUserProfile = (userId: string, isAuth: boolean) => {
+    return (dispatch: any) => {
+        if (isAuth) {
             usersAPI.getUserProfile(userId)
                 .then(data => {
                     dispatch(setUserProfileActionCreator(data))
                 })
         }
+    }
+}
+export const getUserStatus = (userId: string, isAuth: boolean) => {
+    return (dispatch: any) => {
+            profileAPI.getUserStatus(userId)
+                .then(data => {
+                    dispatch(setStatusActionCreator(data))
+                })
         }
+}
+export const updateUserStatus = (status : string) => {
+    return (dispatch: any) => {
+        profileAPI.updateUserStatus(status)
+            .then(data => {
+                if(data.resultCode === 0){
+                    dispatch(setStatusActionCreator(status))
+                }
+            })
+    }
 }

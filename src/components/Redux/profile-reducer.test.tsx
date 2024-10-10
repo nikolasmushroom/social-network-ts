@@ -1,6 +1,6 @@
 import {ProfilePageType} from "./store";
 import {v1} from "uuid";
-import {addPost, changeInput, profileReducer} from "./profile-reducer";
+import {addPost, changeInput, profileReducer, setStatusActionCreator} from "./profile-reducer";
 
 let startState : ProfilePageType;
 beforeEach(() => {
@@ -13,6 +13,7 @@ beforeEach(() => {
             {id: postId2, message: '2nd message', likesCount: 0},
         ],
         inputValue: 'New Message',
+       status : ''
     }
 })
 
@@ -30,4 +31,11 @@ test('reducer should right update text in input', () => {
     const endState = profileReducer(startState, action)
 
     expect(endState.inputValue).toBe(action.newInput)
+})
+test('reducer should right update profile status', () => {
+
+    const action = setStatusActionCreator('New profile status')
+    const endState = profileReducer(startState, action)
+
+    expect(endState.status).toBe(action.newStatus)
 })

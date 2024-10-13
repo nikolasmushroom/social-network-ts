@@ -2,10 +2,13 @@ import React from "react";
 import {RootReduxStateType} from "../Redux/redux-store";
 import {connect} from "react-redux";
 import {Login} from "./Login";
+import {getLogInfo, login} from "../Redux/auth-reducer";
 
 export type LoginContainerPropsType = {
     getLogInfo : () => void
+    login:(email: string, password: string, rememberMe: boolean) => void
     isAuth : boolean
+    error : string
 }
 
 
@@ -18,7 +21,7 @@ export class LoginContainer extends React.Component<LoginContainerPropsType>{
     }
     render(){
         return (
-            <Login isAuth={this.props.isAuth} getLogInfo={this.props.getLogInfo}/>
+            <Login isAuth={this.props.isAuth} login={this.props.login} error={this.props.error}/>
         )
     }
 
@@ -27,6 +30,7 @@ export class LoginContainer extends React.Component<LoginContainerPropsType>{
 const mapStateToProps = (state : RootReduxStateType) => {
     return {
         isAuth : state.auth.isAuth,
+        error : state.auth.error
     }
 }
-export const AuthContainer= connect(mapStateToProps, {})(LoginContainer);
+export const AuthContainer= connect(mapStateToProps, {login, getLogInfo})(LoginContainer);

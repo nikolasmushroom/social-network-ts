@@ -41,11 +41,6 @@ export const dialogsReducer = (state: DialogsPageType = initialState, action: Ac
             if (text) {
                 return {...state, newMessageText: '', messages: [...state.messages, {id: v1(), message: text}]};
             }
-            // state.newMessageText = ''
-            // if (text) {
-            //     state.messages.push({id: v1(), message: text})
-            // }
-            // return state
         }
         return {
             ...state, newMessageText: ''

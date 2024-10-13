@@ -1,13 +1,11 @@
 import React from "react";
 import classes from './ProfileInfo.module.css';
 import background from '../../../asserts/images/background-profile.jpg'
-import {ProfileType} from "../../Redux/store";
 import {Preloader} from "../../common/Preloader";
-import {ProfileStatus} from "../ProfileStatus";
-export type ProfileInfoPropsType = {
-    profile? : ProfileType
-}
-const ProfileInfo = ({profile} : ProfileInfoPropsType) => {
+import {ProfilePropsType} from "../Profile";
+import ProfileStatus from "../ProfileStatus";
+
+const ProfileInfo = ({profile, status, updateUserStatus} : ProfilePropsType) => {
     if(!profile){
         return <Preloader/>
     }
@@ -23,7 +21,7 @@ const ProfileInfo = ({profile} : ProfileInfoPropsType) => {
                 <div className={classes.about}>
                     <div className={classes.fullNameAndAboutMe}>
                         <div className={classes.fullName}>{profile.fullName}</div>
-                        <ProfileStatus className={classes.aboutMe} status={profile.aboutMe}/>
+                        <ProfileStatus className={classes.aboutMe} status={status} updateUserStatus={updateUserStatus}/>
                     </div>
                     <div className={classes.jobStatus}>
                         <div>Job status : {profile.lookingForAJob ? 'search' : 'employed'}</div>

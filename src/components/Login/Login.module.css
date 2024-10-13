@@ -1,0 +1,46 @@
+.login {
+    margin: 40px 350px;
+    width: 200px;
+    font-family: "Bowlby One", sans-serif;
+}
+
+.login h1 {
+    text-align: center;
+    font-size: 25px;
+    margin: 0 auto;
+}
+
+.loginForm {
+    text-align: center;
+}
+
+.loginForm input {
+    height: 25px;
+    width: 100%;
+    margin: 10px;
+    border: none;
+    border-radius: 7px;
+    transition: border-color 0.3s;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.checkbox input {
+    height: 17px;
+    width: 17px;
+    margin: 0 10px
+}
+
+.submit {
+    height: 30px;
+    border-radius: 7px;
+    margin: 7px;
+}
+
+.error {
+    color: #e53535;
+}

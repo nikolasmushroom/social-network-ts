@@ -16,6 +16,20 @@
 .loginBlock {
     margin: 20px 35px 0 0;
 }
+.loginBlock button {
+    color: #ccc7c7;
+    text-decoration: none;
+    background: inherit;
+    border: 1px solid #ccc7c7;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 17px;
+    font-weight: 600;
+}
+.loginBlock button:hover {
+    transition: 0.3s;
+    background-color: #595757;
+}
 .loginBlock a {
     color: #ccc7c7;
     text-decoration: none;

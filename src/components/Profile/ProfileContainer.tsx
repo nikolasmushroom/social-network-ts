@@ -12,6 +12,7 @@ import {ProfileType} from "../Redux/store";
 import {withRouter} from "../HOC/WithRouter";
 import {withAuthRedirect} from "../HOC/WithAuthRedirect";
 import {compose} from "redux";
+import {withNavigate} from "../HOC/withNavigate";
 
 export type ProfileContainerPropsType = {
     getUserProfile: (userId: string, isAuth : boolean) => void
@@ -21,17 +22,21 @@ export type ProfileContainerPropsType = {
     isAuth: boolean,
     isLoading: boolean
     profile: ProfileType
-    params?: { [key: string]: string }
+    params: { [key: string]: string }
+    authorizedUserId: string,
+    navigate: (path : string) => void
 }
 
 class ProfileContainer extends React.Component <ProfileContainerPropsType> {
 
     componentDidMount() {
-        let userId = this.props.params?.userId
-        if (!userId) {
-            userId = '31705'
+        let userId = this.props.params.userId
+        if (this.props.isAuth) {
+            userId = this.props.authorizedUserId
         }
-
+        if(!this.props.authorizedUserId){
+            return this.props.navigate('/login')
+        }
         this.props.getUserProfile(userId, this.props.isAuth);
         this.props.getUserStatus(userId)
     }
@@ -49,11 +54,14 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
 const mapStateToProps = (state: RootReduxStateType) => {
     return {
         profile: state.profilePage.profile,
-        status: state.profilePage.status
+        status: state.profilePage.status,
+        authorizedUserId: state.auth.userId,
+        isAuth: state.auth.isAuth
     }
 }
 export default compose<ComponentType>(
     connect(mapStateToProps, {setUserProfileActionCreator, getUserProfile, getUserStatus, updateUserStatus}),
     withRouter,
+    withNavigate,
     withAuthRedirect
 )(ProfileContainer)

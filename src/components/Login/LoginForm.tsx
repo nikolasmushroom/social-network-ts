@@ -45,9 +45,9 @@ export const LoginForm = <T extends {}>({ login, error,  ...props }: loginFormPr
             localStorage.setItem('userPassword', data.password)
             localStorage.setItem('rememberMe', 'true')
         } else {
-            sessionStorage.setItem('userEmail', data.email)
-            sessionStorage.setItem('userPassword', data.password)
-            sessionStorage.setItem('rememberMe', 'false')
+            localStorage.removeItem('userEmail');
+            localStorage.removeItem('userPassword');
+            localStorage.removeItem('rememberMe');
         }
         login(data.email, data.password, data.rememberMe)
     };

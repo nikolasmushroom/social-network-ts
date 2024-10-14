@@ -57,16 +57,12 @@ export const setError = (error : string) => {
 }
 export const getLogInfo = () => {
     return (dispatch: any) => {
-        dispatch(setLoading(true));
-        authAPI.showAuthorisationStatus()
+        return authAPI.showAuthorisationStatus()
             .then(data => {
                 if (data.resultCode === 0) {
                     dispatch(setAuthMe())
                     dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true))
                 }
-            })
-            .finally(() => {
-                dispatch(setLoading(false));
             })
     };
 };

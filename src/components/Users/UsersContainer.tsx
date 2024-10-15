@@ -90,7 +90,7 @@ const mapStateToProps = (state: RootReduxStateType) => {
     return {
         users: getUsersSelect(state),
         pageSize: getPageSize(state),
-        totalUsersCount: getTotalUsersCount,
+        totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
         maxCount: getMaxCount(state),

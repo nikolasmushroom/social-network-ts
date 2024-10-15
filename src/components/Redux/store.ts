@@ -1,5 +1,5 @@
 
-import {ADD_POST, CHANGE_INPUT, SET_USER_PROFILE,} from "./profile-reducer";
+import {ADD_POST, CHANGE_INPUT, SET_STATUS, SET_USER_PROFILE,} from "./profile-reducer";
 import {UPDATE_NEW_MESSAGE, SEND_MESSAGE} from "./dialogs-reducer";
 import {
     SET_CURRENT_PAGE,
@@ -34,6 +34,9 @@ export type ActionTypes =
     | toggleIsFollowingProgressType
     | setAuthMeType
     | setLoadingType
+    | setStatusType
+    | setErrorType
+    | setInitializedType
     ;
 
 export type AddPostActionType = {
@@ -85,6 +88,7 @@ export type setUserDataACType = {
         userId : number,
         email : string,
         login: string
+        isAuth: boolean
     }
 }
 export type toggleIsFollowingProgressType = {
@@ -100,6 +104,17 @@ export type setLoadingType = {
     type : typeof SET_LOADING,
     isLoading : boolean
 }
+export type setStatusType = {
+    type : typeof SET_STATUS,
+    newStatus: string
+}
+export type setErrorType = {
+    type : 'SET_ERROR',
+    error : string
+}
+export type setInitializedType = {
+    type: 'SET_INITIALIZED',
+}
 //----------------------------------------------------------------------------------------------------------------------//
 export type HeaderStateType = {
     userId : number,
@@ -107,6 +122,17 @@ export type HeaderStateType = {
     login: string
     isAuth: boolean,
     isLoading: boolean
+    error: string
+}
+//----------------------------------------------------------------------------------------------------------------------//
+export type FormStateType = {
+    login : string,
+    password : string
+    rememberMe : boolean
+    formErrors : {
+        login? : string
+        password? : string
+    }
 }
 //---------------------------------------------------------------------------------------------------------------------//
 // export const store: StoreType = {
@@ -181,14 +207,20 @@ export type DialogsPageType = {
     messages: MessageType[]
     newMessageText?: string
 }
-
-export type DialogsContainerType = {
+export type DialogsType = {
     dialogs: DialogType[]
     messages: MessageType[]
     newMessageText: string
     updateNewMessage: (body: string) => void
     sendMessage: () => void
     isAuth : boolean
+}
+export type DialogsContainerType = {
+    dialogs: DialogType[]
+    messages: MessageType[]
+    newMessageText: string
+    updateNewMessage: (body: string) => void
+    sendMessage: () => void
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type ProfileType = {
@@ -221,6 +253,7 @@ export type ProfilePageType = {
     posts: PostType[]
     inputValue: string
     profile?: ProfileType
+    status : string
 }
 
 // --------------------------------------------------------------------------------------------------------------------//

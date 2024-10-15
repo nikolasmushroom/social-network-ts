@@ -14,6 +14,14 @@ import {
 import Users from "./Users";
 import {Preloader} from "../common/Preloader";
 import {compose} from "redux";
+import {
+    getCurrentPage, getFollowingInProgress,
+    getIsFetching,
+    getMaxCount,
+    getPageSize,
+    getTotalUsersCount,
+    getUsersSelect
+} from "../Redux/users-selectors";
 
 
 export type UsersClassPropsType = {
@@ -67,15 +75,26 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
         )
     }
 }
+// const mapStateToProps = (state: RootReduxStateType) => {
+//     return {
+//         users: state.usersPage.users,
+//         pageSize: state.usersPage?.pageSize,
+//         totalUsersCount: state.usersPage?.totalUsersCount,
+//         currentPage: state.usersPage?.currentPage,
+//         isFetching: state.usersPage?.isFetching,
+//         maxCount: state.usersPage?.maxCount,
+//         followingInProgress: state.usersPage?.followingInProgress,
+//     }
+// }
 const mapStateToProps = (state: RootReduxStateType) => {
     return {
-        users: state.usersPage.users,
-        pageSize: state.usersPage?.pageSize,
-        totalUsersCount: state.usersPage?.totalUsersCount,
-        currentPage: state.usersPage?.currentPage,
-        isFetching: state.usersPage?.isFetching,
-        maxCount: state.usersPage?.maxCount,
-        followingInProgress: state.usersPage?.followingInProgress,
+        users: getUsersSelect(state),
+        pageSize: getPageSize(state),
+        totalUsersCount: getTotalUsersCount,
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        maxCount: getMaxCount(state),
+        followingInProgress: getFollowingInProgress(state),
     }
 }
 

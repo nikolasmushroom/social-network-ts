@@ -5,7 +5,7 @@ import {UserType} from "../Redux/store";
 import styles from './Users.module.css'
 import {
     changeFollowStatus,
-    getUsers,
+    requestUsers,
     setCurrentPage,
     setMaxCount,
     toggleFollow,
@@ -20,7 +20,7 @@ import {
     getMaxCount,
     getPageSize,
     getTotalUsersCount,
-    getUsersSelect
+    getUsers
 } from "../Redux/users-selectors";
 
 
@@ -36,18 +36,18 @@ export type UsersClassPropsType = {
     isFetching: boolean
     toggleIsFollowingProgress: (isFollowing : boolean, userId: string) => void
     followingInProgress: Array<string>,
-    getUsers: (currentPage : number, pageSize : number) => void,
+    requestUsers: (currentPage : number, pageSize : number) => void,
     changeFollowStatus: (u : UserType, followStatus : boolean) => void
 }
 
 class UsersContainer extends React.Component<UsersClassPropsType> {
     componentDidMount = () => {
-            this.props.getUsers(this.props.currentPage, this.props.pageSize);
+            this.props.requestUsers(this.props.currentPage, this.props.pageSize);
     }
 
     componentDidUpdate(prevProps: Readonly<UsersClassPropsType>) {
         if (prevProps.currentPage !== this.props.currentPage) {
-            this.props.getUsers(this.props.currentPage, this.props.pageSize);
+            this.props.requestUsers(this.props.currentPage, this.props.pageSize);
         }
     }
 
@@ -88,7 +88,7 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
 // }
 const mapStateToProps = (state: RootReduxStateType) => {
     return {
-        users: getUsersSelect(state),
+        users: getUsers(state),
         pageSize: getPageSize(state),
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
@@ -99,5 +99,5 @@ const mapStateToProps = (state: RootReduxStateType) => {
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {toggleFollow, setCurrentPage, setMaxCount, toggleIsFollowingProgress, getUsers, changeFollowStatus}),
+    connect(mapStateToProps, {toggleFollow, setCurrentPage, setMaxCount, toggleIsFollowingProgress, requestUsers, changeFollowStatus}),
 )(UsersContainer)

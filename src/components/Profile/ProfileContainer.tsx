@@ -31,10 +31,10 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
 
     componentDidMount() {
         let userId = this.props.params.userId
-        if (this.props.isAuth) {
+        if(!userId){
             userId = this.props.authorizedUserId
         }
-        if(!this.props.authorizedUserId){
+        if(!this.props.authorizedUserId && !userId){
             return this.props.navigate('/login')
         }
         this.props.getUserProfile(userId, this.props.isAuth);

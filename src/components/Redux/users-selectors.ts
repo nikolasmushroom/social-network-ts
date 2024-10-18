@@ -1,6 +1,6 @@
 import {RootReduxStateType} from "./redux-store";
 
-export const getUsersSelect = (state : RootReduxStateType) => {
+export const getUsers = (state : RootReduxStateType) => {
     return state.usersPage.users;
 }
 export const getPageSize = (state : RootReduxStateType) => {

@@ -3,7 +3,7 @@ import classes from './ProfileInfo.module.css';
 import background from '../../../asserts/images/background-profile.jpg'
 import {Preloader} from "../../common/Preloader";
 import {ProfilePropsType} from "../Profile";
-import ProfileStatus from "../ProfileStatus";
+import {ProfileStatus} from "../ProfileStatus";
 
 const ProfileInfo = ({profile, status, updateUserStatus} : ProfilePropsType) => {
     if(!profile){

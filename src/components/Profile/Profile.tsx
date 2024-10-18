@@ -9,13 +9,13 @@ export type ProfilePropsType = {
     updateUserStatus : (status: string) => void
 
 }
-const  Profile= ({profile, status, updateUserStatus} : ProfilePropsType) => {
+const  Profile= React.memo(({profile, status, updateUserStatus} : ProfilePropsType) => {
     return (
         <div className={classes.content}>
             <ProfileInfo profile={profile} status={status} updateUserStatus={updateUserStatus}/>
             <MyPostsContainer/>
         </div>
     )
-}
+})
 
 export default Profile

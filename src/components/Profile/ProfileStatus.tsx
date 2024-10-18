@@ -6,7 +6,7 @@ type ProfileStatusPropsType = {
     updateUserStatus: (status: string) => void
 }
 
-export const ProfileStatus = ({className, status, updateUserStatus} : ProfileStatusPropsType) =>  {
+export const ProfileStatus = React.memo(({className, status, updateUserStatus} : ProfileStatusPropsType) =>  {
     const [editMode, setEditMode] = useState<boolean>(false)
     const [statusValue, setStatusValue] = useState<string>(status)
 
@@ -43,7 +43,7 @@ export const ProfileStatus = ({className, status, updateUserStatus} : ProfileSta
                 }
             </>
         )
-}
+})
 // class ProfileStatus extends React.Component <ProfileStatusPropsType> {
 //     componentDidUpdate(prevProps: ProfileStatusPropsType) {
 //         if(prevProps.status !== this.props.status){

@@ -11,7 +11,7 @@ type MyPostsPropsType = {
     addPost: (inputValue : string) => void
 }
 
-export const MyPosts = ({posts, inputValue, changeInput, addPost}: MyPostsPropsType) => {
+export const MyPosts = React.memo(({posts, inputValue, changeInput, addPost}: MyPostsPropsType) => {
     const postMessageRef = React.createRef<HTMLInputElement>()
 
     const addPostHandler = () => {
@@ -50,4 +50,4 @@ export const MyPosts = ({posts, inputValue, changeInput, addPost}: MyPostsPropsT
             </div>
         </div>
     );
-}
+})

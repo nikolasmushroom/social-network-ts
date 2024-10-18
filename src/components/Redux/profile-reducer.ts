@@ -66,6 +66,12 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {
                 ...state, status: action.newStatus
             }
+
+        case 'DELETE_POST' :
+            return {
+                ...state,
+                posts: state.posts.filter(post => post.id !== action.id)
+            };
         default:
             return state;
     }
@@ -75,6 +81,12 @@ export const addPost = (inputValue: string): AddPostActionType => ({
     type: ADD_POST,
     inputValue
 })
+export const deletePost = (id : string) => {
+    return {
+        type : 'DELETE_POST',
+        id : id
+    } as const
+}
 export const changeInput = (newInput: string): ChangeInputActionType => ({
     type: CHANGE_INPUT,
     newInput

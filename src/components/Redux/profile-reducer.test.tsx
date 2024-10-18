@@ -1,6 +1,6 @@
 import {ProfilePageType} from "./store";
 import {v1} from "uuid";
-import {addPost, changeInput, profileReducer, setStatusActionCreator} from "./profile-reducer";
+import {addPost, changeInput, deletePost, profileReducer, setStatusActionCreator} from "./profile-reducer";
 
 let startState : ProfilePageType;
 beforeEach(() => {
@@ -17,13 +17,21 @@ beforeEach(() => {
     }
 })
 
-test('reducer should add right post at the end', () => {
+test('reducer should add right post at the end, and length should increase', () => {
 
     const action = addPost(startState.inputValue)
     const endState = profileReducer(startState, action)
 
     expect(endState.posts.length).toBe(3)
     expect(endState.posts[2].message).toBe(action.inputValue)
+})
+test('length after deleting should decrement', () => {
+
+    const action = deletePost(startState.posts[0].id)
+    const endState = profileReducer(startState, action)
+
+    expect(endState.posts.length).toBe(1)
+    expect(endState.posts[0].id).toBe(startState.posts[1].id)
 })
 test('reducer should right update text in input', () => {
 

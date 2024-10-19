@@ -7,7 +7,7 @@ import {
     setUserProfileType
 } from "./store";
 import {v1} from "uuid";
-import {profileAPI, usersAPI} from "../../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 export const ADD_POST = "ADD-POST"
 export const CHANGE_INPUT = "CHANGE-INPUT"
@@ -81,10 +81,10 @@ export const addPost = (inputValue: string): AddPostActionType => ({
     type: ADD_POST,
     inputValue
 })
-export const deletePost = (id : string) => {
+export const deletePost = (id: string) => {
     return {
-        type : 'DELETE_POST',
-        id : id
+        type: 'DELETE_POST',
+        id: id
     } as const
 }
 export const changeInput = (newInput: string): ChangeInputActionType => ({
@@ -95,35 +95,23 @@ export const setUserProfileActionCreator = (profile: ProfileType): setUserProfil
     type: SET_USER_PROFILE,
     profile: profile
 })
-export const setStatusActionCreator = (newStatus: string) : setStatusType => ({
+export const setStatusActionCreator = (newStatus: string): setStatusType => ({
     type: SET_STATUS,
     newStatus: newStatus
 })
-export const getUserProfile = (userId: string, isAuth: boolean) => {
-    return (dispatch: any) => {
-        if (isAuth) {
-            usersAPI.getUserProfile(userId)
-                .then(data => {
-                    dispatch(setUserProfileActionCreator(data))
-                })
-        }
+export const getUserProfile = (userId: string, isAuth: boolean) => async (dispatch: any) => {
+    if (isAuth) {
+        const response = await usersAPI.getUserProfile(userId)
+        dispatch(setUserProfileActionCreator(response.data))
     }
 }
-export const getUserStatus = (userId: string, isAuth: boolean) => {
-    return (dispatch: any) => {
-            profileAPI.getUserStatus(userId)
-                .then(data => {
-                    dispatch(setStatusActionCreator(data))
-                })
-        }
+export const getUserStatus = (userId: string) => async (dispatch: any) => {
+    const response = await profileAPI.getUserStatus(userId)
+    dispatch(setStatusActionCreator(response.data))
 }
-export const updateUserStatus = (status : string) => {
-    return (dispatch: any) => {
-        profileAPI.updateUserStatus(status)
-            .then(data => {
-                if(data.resultCode === 0){
-                    dispatch(setStatusActionCreator(status))
-                }
-            })
+export const updateUserStatus = (status: string) => async (dispatch: any) => {
+    const response = await profileAPI.updateUserStatus(status)
+    if (response.data.resultCode === 0) {
+        dispatch(setStatusActionCreator(status))
     }
 }

@@ -1,27 +1,25 @@
 import React, {ComponentType} from "react";
 import {connect} from "react-redux";
-import {RootReduxStateType} from "../Redux/redux-store";
-import {UserType} from "../Redux/store";
+import {RootReduxStateType} from "../../Redux/redux-store";
+import {UserType} from "../../Redux/store";
 import styles from './Users.module.css'
 import {
     changeFollowStatus,
     requestUsers,
     setCurrentPage,
-    setMaxCount,
     toggleFollow,
     toggleIsFollowingProgress,
-} from "../Redux/users-reducer";
+} from "../../Redux/users-reducer";
 import Users from "./Users";
 import {Preloader} from "../common/Preloader";
 import {compose} from "redux";
 import {
     getCurrentPage, getFollowingInProgress,
     getIsFetching,
-    getMaxCount,
     getPageSize,
     getTotalUsersCount,
     getUsers
-} from "../Redux/users-selectors";
+} from "../../Redux/users-selectors";
 
 
 export type UsersClassPropsType = {
@@ -29,10 +27,8 @@ export type UsersClassPropsType = {
     pageSize: number
     totalUsersCount: number
     currentPage: number
-    maxCount: number
     toggleFollow: (userId: string) => void
     setCurrentPage: (page: number) => void
-    setMaxCount: (newCount: number) => void
     isFetching: boolean
     toggleIsFollowingProgress: (isFollowing : boolean, userId: string) => void
     followingInProgress: Array<string>,
@@ -42,12 +38,14 @@ export type UsersClassPropsType = {
 
 class UsersContainer extends React.Component<UsersClassPropsType> {
     componentDidMount = () => {
-            this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+        const {currentPage, pageSize} = this.props
+            this.props.requestUsers(currentPage, pageSize);
     }
 
     componentDidUpdate(prevProps: Readonly<UsersClassPropsType>) {
+        const {currentPage, pageSize} = this.props
         if (prevProps.currentPage !== this.props.currentPage) {
-            this.props.requestUsers(this.props.currentPage, this.props.pageSize);
+            this.props.requestUsers(currentPage, pageSize);
         }
     }
 
@@ -60,8 +58,6 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
                 {!this.props.isFetching &&
                     <Users users={this.props.users}
                            totalUsersCount={this.props.totalUsersCount}
-                           maxCount={this.props.maxCount}
-                           setMaxCount={this.props.setMaxCount}
                            currentPage={this.props.currentPage}
                            setCurrentPage={this.props.setCurrentPage}
                            pageSize={this.props.pageSize}
@@ -75,17 +71,6 @@ class UsersContainer extends React.Component<UsersClassPropsType> {
         )
     }
 }
-// const mapStateToProps = (state: RootReduxStateType) => {
-//     return {
-//         users: state.usersPage.users,
-//         pageSize: state.usersPage?.pageSize,
-//         totalUsersCount: state.usersPage?.totalUsersCount,
-//         currentPage: state.usersPage?.currentPage,
-//         isFetching: state.usersPage?.isFetching,
-//         maxCount: state.usersPage?.maxCount,
-//         followingInProgress: state.usersPage?.followingInProgress,
-//     }
-// }
 const mapStateToProps = (state: RootReduxStateType) => {
     return {
         users: getUsers(state),
@@ -93,11 +78,10 @@ const mapStateToProps = (state: RootReduxStateType) => {
         totalUsersCount: getTotalUsersCount(state),
         currentPage: getCurrentPage(state),
         isFetching: getIsFetching(state),
-        maxCount: getMaxCount(state),
         followingInProgress: getFollowingInProgress(state),
     }
 }
 
 export default compose<ComponentType>(
-    connect(mapStateToProps, {toggleFollow, setCurrentPage, setMaxCount, toggleIsFollowingProgress, requestUsers, changeFollowStatus}),
+    connect(mapStateToProps, {toggleFollow, setCurrentPage, toggleIsFollowingProgress, requestUsers, changeFollowStatus}),
 )(UsersContainer)

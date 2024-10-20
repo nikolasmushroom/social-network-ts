@@ -10,13 +10,14 @@ import {
 } from "./users-reducer";
 import {SET_AUTH_ME, SET_LOADING, SET_USER_DATA} from "./auth-reducer";
 
-export type StoreType = {
-    _state: RootStateType,
-    _onChange: () => void
-    getState: () => RootStateType
-    subscribe: (callback: () => void) => void
-    dispatch: (action: ActionTypes) => void
-}
+//
+// export type StoreType = {
+//     _state: RootStateType,
+//     _onChange: () => void
+//     getState: () => RootStateType
+//     subscribe: (callback: () => void) => void
+//     dispatch: (action: ActionTypes) => void
+// }
 
 export type ActionTypes =
     AddPostActionType
@@ -37,6 +38,7 @@ export type ActionTypes =
     | setStatusType
     | setErrorType
     | setInitializedType
+    | deletePostType
     ;
 
 export type AddPostActionType = {
@@ -114,6 +116,10 @@ export type setErrorType = {
 }
 export type setInitializedType = {
     type: 'SET_INITIALIZED',
+}
+export type deletePostType = {
+    type : 'DELETE_POST',
+    id : string
 }
 //----------------------------------------------------------------------------------------------------------------------//
 export type HeaderStateType = {
@@ -265,8 +271,7 @@ export type UsersStateType = {
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
-    maxCount: number,
-    followingInProgress: string[] // предполагаю, что это массив идентификаторов пользователей
+    followingInProgress: string[]
 }
 export type UserType = {
     id: string

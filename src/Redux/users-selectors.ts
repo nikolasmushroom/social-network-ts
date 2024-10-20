@@ -18,6 +18,3 @@ export const getIsFetching = (state : RootReduxStateType) => {
 export const getFollowingInProgress = (state : RootReduxStateType) => {
     return state.usersPage?.followingInProgress;
 }
-export const getMaxCount = (state : RootReduxStateType) => {
-    return  state.usersPage?.maxCount;
-}

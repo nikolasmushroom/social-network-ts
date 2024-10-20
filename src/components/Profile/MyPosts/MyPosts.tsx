@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
-import {PostType} from "../../Redux/store";
+import {PostType} from "../../../Redux/store";
 import {Button} from "../../common/Button";
 
 type MyPostsPropsType = {

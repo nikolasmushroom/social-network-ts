@@ -6,9 +6,9 @@ import {
     getUserProfile,
     getUserStatus,
     setUserProfileActionCreator, updateUserStatus
-} from "../Redux/profile-reducer";
-import {RootReduxStateType} from "../Redux/redux-store";
-import {ProfileType} from "../Redux/store";
+} from "../../Redux/profile-reducer";
+import {RootReduxStateType} from "../../Redux/redux-store";
+import {ProfileType} from "../../Redux/store";
 import {withRouter} from "../HOC/WithRouter";
 import {withAuthRedirect} from "../HOC/WithAuthRedirect";
 import {compose} from "redux";

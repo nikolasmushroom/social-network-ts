@@ -1,6 +1,6 @@
-import {RootReduxStateType} from "../../Redux/redux-store";
+import {RootReduxStateType} from "../../../Redux/redux-store";
 import {MyPosts} from "./MyPosts";
-import {addPost, changeInput} from "../../Redux/profile-reducer";
+import {addPost, changeInput} from "../../../Redux/profile-reducer";
 import {connect} from "react-redux";
 import React from "react";
 const mapStateToProps = (state: RootReduxStateType) => {

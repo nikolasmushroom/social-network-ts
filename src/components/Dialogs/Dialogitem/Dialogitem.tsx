@@ -1,7 +1,7 @@
 import classes from "./../Dialogs.module.css";
 import {NavLink} from "react-router-dom";
 import React from "react";
-import {DialogType} from "../../Redux/store";
+import {DialogType} from "../../../Redux/store";
 
 const DialogItem : React.FC<DialogType> = ({id , image, name}) => {
     return (

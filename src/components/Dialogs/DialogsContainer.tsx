@@ -1,10 +1,10 @@
 import {
     sendMessage,
     updateNewMessage,
-} from "../Redux/dialogs-reducer";
+} from "../../Redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
-import {RootReduxStateType} from "../Redux/redux-store";
+import {RootReduxStateType} from "../../Redux/redux-store";
 import {withAuthRedirect} from "../HOC/WithAuthRedirect";
 import {compose} from "redux";
 import {ComponentType} from "react";

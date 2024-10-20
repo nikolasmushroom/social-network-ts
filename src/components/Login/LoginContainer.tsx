@@ -1,8 +1,8 @@
 import React from "react";
-import {RootReduxStateType} from "../Redux/redux-store";
+import {RootReduxStateType} from "../../Redux/redux-store";
 import {connect} from "react-redux";
 import {Login} from "./Login";
-import {getLogInfo, login} from "../Redux/auth-reducer";
+import {getLogInfo, login} from "../../Redux/auth-reducer";
 
 export type LoginContainerPropsType = {
     getLogInfo : () => void

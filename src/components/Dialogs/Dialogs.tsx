@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Dialogs.module.css";
 import DialogItem from "./Dialogitem/Dialogitem";
 import Message from "./Message/Message";
-import {DialogsContainerType} from "../Redux/store";
+import {DialogsContainerType} from "../../Redux/store";
 
 export const Dialogs = ({
                             dialogs,

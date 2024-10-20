@@ -1,8 +1,8 @@
 import React from "react";
 import Header from "./Header";
 import {connect} from "react-redux";
-import {logout} from "../Redux/auth-reducer";
-import {RootReduxStateType} from "../Redux/redux-store";
+import {logout} from "../../Redux/auth-reducer";
+import {RootReduxStateType} from "../../Redux/redux-store";
 export type HeaderContainerPropsType = {
     isAuth : boolean
     login: string

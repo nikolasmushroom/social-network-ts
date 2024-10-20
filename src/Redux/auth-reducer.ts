@@ -1,5 +1,5 @@
 import {ActionTypes, HeaderStateType, setAuthMeType, setLoadingType, setUserDataACType} from "./store";
-import {authAPI} from "../../api/api";
+import {authAPI} from "../api/api";
 
 export const SET_USER_DATA = 'SET_USER_DATA'
 export const SET_AUTH_ME = 'SET_AUTH_ME'
@@ -49,42 +49,33 @@ export const setLoading = (isLoading: boolean): setLoadingType => {
         isLoading: isLoading
     }
 }
-export const setError = (error : string) => {
+export const setError = (error: string) => {
     return {
-        type : 'SET_ERROR',
-        error : error
+        type: 'SET_ERROR',
+        error: error
     } as const
 }
 export const getLogInfo = () => {
-    return (dispatch: any) => {
-        return authAPI.showAuthorisationStatus()
-            .then(data => {
-                if (data.resultCode === 0) {
+    return async (dispatch: any) => {
+        const response = await authAPI.authMe()
+                if (response.data.resultCode === 0) {
+                    let {id, login, email} = response.data.data
                     dispatch(setAuthMe())
-                    dispatch(setUserDataAC(data.data.id, data.data.email, data.data.login, true))
+                    dispatch(setUserDataAC(id, email, login, true))
                 }
-            })
     };
 };
-export const login = (email: string, password: string, rememberMe: boolean = false) => {
-    return (dispatch: any) => {
-        authAPI.login(email, password, rememberMe)
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(getLogInfo())
-                }else{
-                    dispatch(setError(data.messages))
-                }
-            })
+export const login = (email: string, password: string, rememberMe: boolean = false) => async (dispatch: any) => {
+    const response = await authAPI.login(email, password, rememberMe)
+    if (response.data.resultCode === 0) {
+        dispatch(getLogInfo())
+    } else {
+        dispatch(setError(response.data.messages))
     }
 }
-export const logout = () => {
-    return (dispatch: any) => {
-        authAPI.logout()
-            .then(data => {
-                if (data.resultCode === 0) {
-                    dispatch(setUserDataAC(0, '', '', false))
-                }
-            })
+export const logout = () => async (dispatch: any) => {
+    let response = await authAPI.logout()
+    if (response.data.resultCode === 0) {
+        dispatch(setUserDataAC(0, '', '', false))
     }
 }

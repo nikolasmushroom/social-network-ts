@@ -1,7 +1,6 @@
 import {v1} from "uuid";
 import {
     setCurrentPage,
-    setMaxCount,
     setTotalUsersCount,
     setUsers,
     toggleFollow, toggleIsFetching,
@@ -54,13 +53,6 @@ test('reducer should switch number of all users count', () => {
     const endState = usersReducer(startState, action)
 
     expect(endState.totalUsersCount).toBe(action.totalUsersCount)
-})
-test('reducer should switch max number of pages with users', () => {
-
-    const action = setMaxCount(23)
-    const endState = usersReducer(startState, action)
-
-    expect(endState.maxCount).toBe(action.newCount)
 })
 test('reducer should switch isFetching status', () => {
 

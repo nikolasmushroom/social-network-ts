@@ -8,64 +8,38 @@ const instance = axios.create({
     }
 })
 export const usersAPI = {
-    getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
-                return response.data
-            })
+    async getUsers(currentPage: number, pageSize: number) {
+        return await instance.get(`users?page=${currentPage}&count=${pageSize}`);
     },
-    changeFollowStatus(userId: string, followStatus: boolean) {
+    async changeFollowStatus(userId: string, followStatus: boolean) {
         return followStatus
-            ? instance.post(`follow/${userId}`)
-                .then(response => {
-                    return response.data
-                })
-            : instance.delete(`follow/${userId}`)
-                .then(response => {
-                    return response.data
-                })
+            ? await instance.post(`follow/${userId}`)
+            : await instance.delete(`follow/${userId}`)
     },
     getUserProfile(userId: string) {
         return profileAPI.getUserProfile(userId)
     },
 }
 export const profileAPI = {
-    getUserProfile(userId: string) {
-        return instance.get(`profile/${userId}`)
-            .then(response => {
-                return response.data
-            })
+    async getUserProfile(userId: string) {
+        return await instance.get(`profile/${userId}`)
     },
-    getUserStatus(userId: string){
-        return instance.get(`profile/status/${userId}`)
-            .then(response => {
-                return response.data
-            })
+    async getUserStatus(userId: string) {
+        return await instance.get(`profile/status/${userId}`)
     },
-    updateUserStatus(status: string){
-        return instance.put(`profile/status`, {status: status})
-            .then(response => {
-                return response.data
-            })
+    async updateUserStatus(status: string) {
+        return await instance.put(`profile/status`, {status: status});
     }
 }
 export const authAPI = {
-    showAuthorisationStatus() {
-        return instance.get('auth/me')
-            .then(response => {
-                return response.data
-            })
+    async authMe() {
+       return await instance.get('auth/me')
+
     },
-    login(email : string, password: string, rememberMe : boolean = false){
-        return instance.post('auth/login', {email, password, rememberMe})
-            .then(response => {
-                return response.data
-            })
+    async login(email: string, password: string, rememberMe: boolean = false) {
+        return await instance.post('auth/login', {email, password, rememberMe});
     },
-    logout(){
-        return instance.delete('auth/login')
-            .then(response => {
-                return response.data
-            })
+    async logout() {
+        return await instance.delete('auth/login');
     }
 }

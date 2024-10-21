@@ -10,21 +10,24 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import {AuthContainer} from "./components/Login/LoginContainer";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContainer";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
-import {initializeApp} from "./components/Redux/app-reducer";
-import {RootReduxStateType} from "./components/Redux/redux-store";
+import {initializeApp} from "./Redux/app-reducer";
+import store, {RootReduxStateType} from "./Redux/redux-store";
 import {Preloader} from "./components/common/Preloader";
+
 type AppPropsType = {
     initializeApp: () => void
     initialized: boolean
 }
+
 class App extends React.Component<AppPropsType> {
     componentDidMount() {
         this.props.initializeApp()
     }
+
     render() {
-        if(!this.props.initialized){
+        if (!this.props.initialized) {
             return <Preloader/>
         }
         return (
@@ -57,12 +60,18 @@ class App extends React.Component<AppPropsType> {
         );
     }
 }
-const mapStateToProps = (state : RootReduxStateType) => {
+
+const mapStateToProps = (state: RootReduxStateType) => {
     return {
         initialized: state.app.initialized
     }
 }
 
-export default compose(
+export const AppContainer = compose(
     connect(mapStateToProps, {initializeApp})
 )(App);
+export const MainApp = () => {
+        return <Provider store={store}>
+            <AppContainer/>
+        </Provider>
+}

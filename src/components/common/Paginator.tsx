@@ -3,26 +3,27 @@ import React, {useState} from "react";
 type PaginatorPropsType = {
     currentPage : number
     pageSize : number
-    totalUsersCount: number
+    totalItemsCount: number
     setCurrentPage: (page: number) => void
 
 }
-export const Paginator = ({currentPage, pageSize, totalUsersCount, setCurrentPage, ...props} : PaginatorPropsType) => {
-    let pagesCount = Math.ceil(totalUsersCount / pageSize);
+export const Paginator = ({currentPage, pageSize, totalItemsCount, setCurrentPage, ...props} : PaginatorPropsType) => {
+    let pagesCount = Math.ceil(totalItemsCount / pageSize);
     let pages: Array<number> = []
     const onPageChange = (changeDirection: '<' | '>') => <span className={styles.pageChangers} onClick={() => {
         {
-            setMaxCount(changeDirection === '>' ? maxCount + 10 : maxCount - 10)
+            setPortionCount(changeDirection === '>' ? portionCount + 10 : portionCount - 10)
         }
     }}>{changeDirection}</span>
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i);
+
     }
-    const [maxCount, setMaxCount]= useState<number>(10)
+    const [portionCount, setPortionCount]= useState<number>(10)
     return <div>
-        {maxCount !== 10 && onPageChange('<')}
+        {portionCount !== 10 && onPageChange('<')}
         {pages.map(page => {
-            if (page <= maxCount && page > maxCount - 10) {
+            if (page <= portionCount && page > portionCount - 10) {
                 return (
                     <span key={page}
                           onClick={() => setCurrentPage(page)}
@@ -30,7 +31,7 @@ export const Paginator = ({currentPage, pageSize, totalUsersCount, setCurrentPag
                 )
             }
         })}
-        {maxCount !== pages[pages.length - 1] && onPageChange('>')}
+        {portionCount !== pages[pages.length - 1] && onPageChange('>')}
 
     </div>
 }

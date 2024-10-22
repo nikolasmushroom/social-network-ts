@@ -22,3 +22,14 @@ test('after creation span with status should be displayed with correct status', 
 
     ReactDOM.unmountComponentAtNode(div);
 });
+test('after double click on span editMode should be changed, and input should be instead span', () => {
+    const div = document.createElement('div');
+    const component= ReactDOM.render(<ProfileStatus status={'it-kamasutra'} className={''} updateUserStatus={() => {}} />, div) as any;
+    const span = div.querySelector('span');
+    span?.dispatchEvent(new MouseEvent('dblclick', { bubbles: true }));
+    expect(div.querySelector('input')).not.toBeNull();
+    expect(div.querySelector('input')!.value).toBe('it-kamasutra');
+    expect(div.querySelector('span')).toBeNull();
+
+    ReactDOM.unmountComponentAtNode(div);
+});

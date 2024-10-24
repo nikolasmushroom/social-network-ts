@@ -1,0 +1,18 @@
+{
+  "files": {
+    "main.css": "/static/css/main.55364c2c.css",
+    "main.js": "/static/js/main.7248ee56.js",
+    "static/media/background-profile.jpg": "/static/media/background-profile.74f1a68374afe4efdac2.jpg",
+    "static/media/BowlbyOne-Regular.woff": "/static/media/BowlbyOne-Regular.6581b0355bb15c8ad53b.woff",
+    "static/media/BowlbyOne-Regular.woff2": "/static/media/BowlbyOne-Regular.c1f26c7ebb38687235f4.woff2",
+    "static/media/logo.png": "/static/media/logo.6898efe2ad11d7014cb9.png",
+    "static/media/tube-spinner.svg": "/static/media/tube-spinner.6ed451cd71296f51dada80271d84e120.svg",
+    "index.html": "/index.html",
+    "main.55364c2c.css.map": "/static/css/main.55364c2c.css.map",
+    "main.7248ee56.js.map": "/static/js/main.7248ee56.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.55364c2c.css",
+    "static/js/main.7248ee56.js"
+  ]
+}

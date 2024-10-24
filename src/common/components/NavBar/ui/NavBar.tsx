@@ -1,8 +1,8 @@
 import React from "react";
-import classes from './Navigation.module.css';
+import classes from './NavBar.module.css';
 import {NavLink} from "react-router-dom";
 
-const Navigation: React.FC = () => {
+const NavBar: React.FC = () => {
     return (
         <nav className={classes.nav}>
             <div className={classes.item}>
@@ -30,4 +30,4 @@ const Navigation: React.FC = () => {
     )
 }
 
-export default Navigation;
+export default NavBar;

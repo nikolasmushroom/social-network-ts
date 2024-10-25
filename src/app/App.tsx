@@ -20,7 +20,7 @@ class App extends React.Component<AppPropsType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
                 <MainPage/>
             </BrowserRouter>
         );

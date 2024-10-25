@@ -29,6 +29,15 @@ export const profileAPI = {
     },
     async updateUserStatus(status: string) {
         return await instance.put(`profile/status`, {status: status});
+    },
+    async savePhoto(file : any){
+        const formData = new FormData()
+        formData.append('image', file)
+        return await instance.put(`profile/photo`, formData, {
+            headers : {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
     }
 }
 export const authAPI = {

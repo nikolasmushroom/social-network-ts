@@ -3,7 +3,7 @@ import {
     AddPostActionType,
     ChangeInputActionType,
     PostType,
-    ProfilePageType, ProfileType, setStatusType,
+    ProfilePageType, ProfileType, savePhotoType, setStatusType,
     setUserProfileType
 } from "../../../app/store/store";
 import {v1} from "uuid";
@@ -23,7 +23,7 @@ const initialState: ProfilePageType = {
     ],
     inputValue: '',
     profile: {
-        aboutMe: 'im fine',
+        aboutMe: '', // Default to empty string to avoid undefined
         contacts: {
             "facebook": '',
             "website": null,
@@ -35,12 +35,12 @@ const initialState: ProfilePageType = {
             "mainLink": null
         },
         "lookingForAJob": false,
-        "lookingForAJobDescription": 'string',
-        "fullName": 'string',
+        "lookingForAJobDescription": '',
+        "fullName": '',
         "userId": 1,
         "photos": {
-            "small": 'string',
-            "large": 'string'
+            "small": '',
+            "large": ''
         }
     },
     status: '',
@@ -72,6 +72,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.id)
             };
+        case 'SAVE_PHOTO' :
+            return {
+                ...state, profile : {...state.profile, photos : action.file}
+            }
         default:
             return state;
     }
@@ -99,6 +103,10 @@ export const setStatusActionCreator = (newStatus: string): setStatusType => ({
     type: SET_STATUS,
     newStatus: newStatus
 })
+export const savePhotoActionCreator = (file: any): savePhotoType => ({
+    type: "SAVE_PHOTO",
+    file: file
+}) as const
 export const getUserProfile = (userId: string, isAuth: boolean) => async (dispatch: any) => {
     if (isAuth) {
         const response = await usersAPI.getUserProfile(userId)
@@ -115,3 +123,13 @@ export const updateUserStatus = (status: string) => async (dispatch: any) => {
         dispatch(setStatusActionCreator(status))
     }
 }
+export const savePhoto = (file: string) => async (dispatch: any) => {
+    const response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0) {
+        console.log(response.data.photos)
+        dispatch(savePhotoActionCreator(response.data.photos))
+    }else{
+        console.log('2')
+    }
+}
+

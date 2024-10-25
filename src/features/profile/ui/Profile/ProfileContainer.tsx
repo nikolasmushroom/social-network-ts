@@ -4,7 +4,7 @@ import Profile from "./Profile";
 import {connect} from "react-redux";
 import {
     getUserProfile,
-    getUserStatus,
+    getUserStatus, savePhoto,
     setUserProfileActionCreator, updateUserStatus
 } from "../../model/profile-reducer";
 import {RootReduxStateType} from "../../../../app/store/redux-store";
@@ -25,11 +25,11 @@ export type ProfileContainerPropsType = {
     params: { [key: string]: string }
     authorizedUserId: string,
     navigate: (path : string) => void
+    savePhoto: (file: any) => void
 }
 
 class ProfileContainer extends React.Component <ProfileContainerPropsType> {
-
-    componentDidMount() {
+    refreshProfilePage(){
         let userId = this.props.params.userId
         if(!userId){
             userId = this.props.authorizedUserId
@@ -40,12 +40,25 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
         this.props.getUserProfile(userId, this.props.isAuth);
         this.props.getUserStatus(userId)
     }
-
+    componentDidMount() {
+        this.refreshProfilePage()
+    }
+    componentDidUpdate(prevProps: Readonly<ProfileContainerPropsType>) {
+        if(this.props.params.userId !== prevProps.params.userId){
+            this.refreshProfilePage()
+        }
+    }
 
     render() {
         return (
             <div className={classes.content}>
-                <Profile profile={this.props.profile} status={this.props.status} updateUserStatus={this.props.updateUserStatus}/>
+                <Profile
+                    isOwner={!this.props.params.userId}
+                    profile={this.props.profile}
+                    status={this.props.status}
+                    updateUserStatus={this.props.updateUserStatus}
+                    savePhoto={this.props.savePhoto}
+                />
             </div>
         )
     }
@@ -60,7 +73,7 @@ const mapStateToProps = (state: RootReduxStateType) => {
     }
 }
 export default compose<ComponentType>(
-    connect(mapStateToProps, {setUserProfileActionCreator, getUserProfile, getUserStatus, updateUserStatus}),
+    connect(mapStateToProps, {setUserProfileActionCreator, getUserProfile, getUserStatus, updateUserStatus, savePhoto}),
     withRouter,
     withNavigate,
     withAuthRedirect

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/social-network-ts/static/css/main.8260e09a.css",
-    "main.js": "/social-network-ts/static/js/main.52e98bcc.js",
+    "main.js": "/social-network-ts/static/js/main.398a14ab.js",
     "static/media/background-profile.jpg": "/social-network-ts/static/media/background-profile.74f1a68374afe4efdac2.jpg",
     "static/media/BowlbyOne-Regular.woff": "/social-network-ts/static/media/BowlbyOne-Regular.6581b0355bb15c8ad53b.woff",
     "static/media/BowlbyOne-Regular.woff2": "/social-network-ts/static/media/BowlbyOne-Regular.c1f26c7ebb38687235f4.woff2",
@@ -9,10 +9,10 @@
     "static/media/tube-spinner.svg": "/social-network-ts/static/media/tube-spinner.6ed451cd71296f51dada80271d84e120.svg",
     "index.html": "/social-network-ts/index.html",
     "main.8260e09a.css.map": "/social-network-ts/static/css/main.8260e09a.css.map",
-    "main.52e98bcc.js.map": "/social-network-ts/static/js/main.52e98bcc.js.map"
+    "main.398a14ab.js.map": "/social-network-ts/static/js/main.398a14ab.js.map"
   },
   "entrypoints": [
     "static/css/main.8260e09a.css",
-    "static/js/main.52e98bcc.js"
+    "static/js/main.398a14ab.js"
   ]
 }

@@ -6,9 +6,14 @@ import {ProfilePropsType} from "../Profile";
 import avatar from '../../../../../asserts/avatars/defaultUserImage.png';
 import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
-const ProfileInfo = ({profile, status, updateUserStatus} : ProfilePropsType) => {
-    if(!profile){
+const ProfileInfo = ({profile, status, updateUserStatus, isOwner, savePhoto}: ProfilePropsType) => {
+    if (!profile) {
         return <Preloader/>
+    }
+    const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.currentTarget.files) {
+            savePhoto(e.currentTarget.files[0]);
+        }
     }
     return (
         <div className={classes.content}>
@@ -18,7 +23,16 @@ const ProfileInfo = ({profile, status, updateUserStatus} : ProfilePropsType) => 
                     alt="background"/>
             </div>
             <div className={classes.descriptionBlock}>
-                <img className={classes.avatarImage} src={profile.photos.large || profile.photos.small ? profile.photos.large || profile.photos.small : avatar} alt="avatar"/>
+                <div className={classes.imageContainer}>
+                    <img className={classes.avatarImage} src={profile.photos.large ? profile.photos.large : avatar}
+                         alt="avatar"/>
+                    {isOwner && <div>
+                        <label className={classes.fileInputLabel} htmlFor="file-upload">Add new</label>
+                        <input type={'file'} onChange={(event) => onMainPhotoSelected(event)}
+                               className={classes.changePhoto}/>
+                    </div>
+                    }
+                </div>
                 <div className={classes.about}>
                     <div className={classes.fullNameAndAboutMe}>
                         <div className={classes.fullName}>{profile.fullName}</div>

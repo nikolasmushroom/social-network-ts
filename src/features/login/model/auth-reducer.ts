@@ -1,5 +1,6 @@
 import {ActionTypes, HeaderStateType, setAuthMeType, setLoadingType, setUserDataACType} from "../../../app/store/store";
-import {authAPI} from "../../../api/api";
+
+import {authAPI} from "../api/authAPI";
 
 export const SET_USER_DATA = 'SET_USER_DATA'
 export const SET_AUTH_ME = 'SET_AUTH_ME'

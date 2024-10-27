@@ -39,6 +39,7 @@ export type ActionTypes =
     | setErrorType
     | setInitializedType
     | deletePostType
+    | savePhotoType
     ;
 
 export type AddPostActionType = {
@@ -120,6 +121,10 @@ export type setInitializedType = {
 export type deletePostType = {
     type : 'DELETE_POST',
     id : string
+}
+export type savePhotoType = {
+    type : 'SAVE_PHOTO',
+    file : any
 }
 //----------------------------------------------------------------------------------------------------------------------//
 export type HeaderStateType = {
@@ -230,25 +235,25 @@ export type DialogsContainerType = {
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type ProfileType = {
-    aboutMe : string,
-    contacts : {
-        "facebook": string,
-        "website": null,
-        "vk": string,
-        "twitter": string,
-        "instagram": string,
-        "youtube": null,
-        "github": string,
-        "mainLink": null
-    },
-    "lookingForAJob" : boolean,
-    "lookingForAJobDescription": string,
-    "fullName": string,
-    "userId": number,
-    "photos": {
-        "small": string,
-        "large": string
-    }
+    aboutMe?: string; // Use optional chaining to allow undefined
+    contacts?: {
+        facebook?: string;
+        website?: string | null;
+        vk?: string;
+        twitter?: string;
+        instagram?: string;
+        youtube?: string | null;
+        github?: string;
+        mainLink?: string | null;
+    };
+    lookingForAJob?: boolean;
+    lookingForAJobDescription?: string;
+    fullName?: string;
+    userId?: number;
+    photos: {
+        small?: string;
+        large?: string;
+    };
 }
 export type PostType = {
     id: string

@@ -1,5 +1,6 @@
 {
   "name": "social-network-ts",
+  "homepage": "https://nikolasmushroom.github.io/social-network-ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

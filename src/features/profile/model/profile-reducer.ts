@@ -7,7 +7,8 @@ import {
     setUserProfileType
 } from "../../../app/store/store";
 import {v1} from "uuid";
-import {profileAPI, usersAPI} from "../../../api/api";
+import {usersAPI} from "../../users/api/usersAPI";
+import {profileAPI} from "../api/profileAPI";
 
 export const ADD_POST = "ADD-POST"
 export const CHANGE_INPUT = "CHANGE-INPUT"
@@ -23,16 +24,16 @@ const initialState: ProfilePageType = {
     ],
     inputValue: '',
     profile: {
-        aboutMe: '', // Default to empty string to avoid undefined
+        aboutMe: '',
         contacts: {
             "facebook": '',
-            "website": null,
+            "website": '',
             "vk": '',
             "twitter": '',
             "instagram": '',
-            "youtube": null,
+            "youtube": '',
             "github": '',
-            "mainLink": null
+            "mainLink": ''
         },
         "lookingForAJob": false,
         "lookingForAJobDescription": '',
@@ -60,8 +61,15 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             };
         case SET_USER_PROFILE:
             return {
-                ...state, profile: action.profile
-            }
+                ...state,
+                profile: {
+                    ...state.profile,
+                    ...action.profile,
+                    contacts: {
+                        ...action.profile.contacts
+                    }
+                }
+            };
         case SET_STATUS:
             return {
                 ...state, status: action.newStatus
@@ -121,6 +129,12 @@ export const updateUserStatus = (status: string) => async (dispatch: any) => {
     const response = await profileAPI.updateUserStatus(status)
     if (response.data.resultCode === 0) {
         dispatch(setStatusActionCreator(status))
+    }
+}
+export const updateUserProfile = (profile : ProfileType) => async (dispatch: any) => {
+    const response = await profileAPI.updateUserProfileData(profile)
+    if(response.data.resultCode === 0){
+        dispatch(setUserProfileActionCreator(profile))
     }
 }
 export const savePhoto = (file: string) => async (dispatch: any) => {

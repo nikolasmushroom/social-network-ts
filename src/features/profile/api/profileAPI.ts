@@ -1,8 +1,12 @@
 import {baseURL} from "../../../api/api";
+import {ProfileType} from "../../../app/store/store";
 
 export const profileAPI = {
     async getUserProfile(userId: string) {
         return await baseURL.get(`profile/${userId}`)
+    },
+    async updateUserProfileData(profile : ProfileType){
+      return await baseURL.put('profile', profile)
     },
     async getUserStatus(userId: string) {
         return await baseURL.get(`profile/status/${userId}`)

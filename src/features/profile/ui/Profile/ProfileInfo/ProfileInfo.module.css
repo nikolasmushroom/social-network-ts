@@ -21,7 +21,6 @@
 .descriptionBlock {
     display: flex;
     position: relative;
-    padding: 0 10px;
     z-index: 2;
 }
 
@@ -30,7 +29,11 @@
 }
 
 .fullNameAndAboutMe {
-    padding-bottom: 40px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+.profileInfoWrapper {
+    display: flex;
 }
 
 .fullName {
@@ -43,7 +46,7 @@
 }
 
 .descriptionBlock .avatarImage {
-    padding: 25px 20px;
+    padding: 25px 0 25px 20px;
     width: 200px;
     height: 200px;
     border-radius: 50%;
@@ -73,7 +76,9 @@
     border-radius: 4px;
     cursor: pointer;
 }
-
+.contacts span {
+    padding: 5px;
+}
 .changePhoto {
     opacity: 0;
     position: absolute;

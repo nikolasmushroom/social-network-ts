@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {
     getUserProfile,
     getUserStatus, savePhoto,
-    setUserProfileActionCreator, updateUserStatus
+    setUserProfileActionCreator, updateUserProfile, updateUserStatus
 } from "../../model/profile-reducer";
 import {RootReduxStateType} from "../../../../app/store/redux-store";
 import {ProfileType} from "../../../../app/store/store";
@@ -18,6 +18,7 @@ export type ProfileContainerPropsType = {
     getUserProfile: (userId: string, isAuth : boolean) => void
     getUserStatus: (userId: string) => void
     updateUserStatus: (status: string) => void
+    updateUserProfile: (profile: ProfileType, setError? : any) => void
     status: string
     isAuth: boolean,
     isLoading: boolean
@@ -58,6 +59,7 @@ class ProfileContainer extends React.Component <ProfileContainerPropsType> {
                     status={this.props.status}
                     updateUserStatus={this.props.updateUserStatus}
                     savePhoto={this.props.savePhoto}
+                    updateUserProfile={this.props.updateUserProfile}
                 />
             </div>
         )
@@ -73,7 +75,7 @@ const mapStateToProps = (state: RootReduxStateType) => {
     }
 }
 export default compose<ComponentType>(
-    connect(mapStateToProps, {setUserProfileActionCreator, getUserProfile, getUserStatus, updateUserStatus, savePhoto}),
+    connect(mapStateToProps, {setUserProfileActionCreator, getUserProfile, getUserStatus, updateUserStatus, savePhoto, updateUserProfile}),
     withRouter,
     withNavigate,
     withAuthRedirect

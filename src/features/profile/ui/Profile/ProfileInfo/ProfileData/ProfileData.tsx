@@ -10,7 +10,7 @@ export type AboutMePropsType = {
     status: string
     updateUserStatus: (status: string) => void
     switchEditMode: () => void
-    updateUserProfile: (profile: ProfileType) => void
+    updateUserProfile: (profile: ProfileType, setError? : any) => void
 }
 export const ProfileData = ({profile, status, updateUserStatus, isOwner, switchEditMode}: AboutMePropsType) => {
     return (

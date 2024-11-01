@@ -1,5 +1,10 @@
 
-import {ADD_POST, CHANGE_INPUT, SET_STATUS, SET_USER_PROFILE,} from "../../features/profile/model/profile-reducer";
+import {
+    ADD_POST,
+    CHANGE_INPUT,
+    SET_STATUS,
+    SET_USER_PROFILE,
+} from "../../features/profile/model/profile-reducer";
 import {UPDATE_NEW_MESSAGE, SEND_MESSAGE} from "../../features/dialogs/model/dialogs-reducer";
 import {
     SET_CURRENT_PAGE,
@@ -235,24 +240,24 @@ export type DialogsContainerType = {
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type ProfileType = {
-    aboutMe?: string; // Use optional chaining to allow undefined
-    contacts?: {
-        facebook?: string;
-        website?: string | null;
-        vk?: string;
-        twitter?: string;
-        instagram?: string;
-        youtube?: string | null;
-        github?: string;
-        mainLink?: string | null;
+    aboutMe: string;
+    contacts: {
+        facebook: string;
+        website: string;
+        vk: string;
+        twitter: string;
+        instagram: string;
+        youtube: string;
+        github: string;
+        mainLink: string;
     };
-    lookingForAJob?: boolean;
-    lookingForAJobDescription?: string;
-    fullName?: string;
-    userId?: number;
+    lookingForAJob: boolean;
+    lookingForAJobDescription: string;
+    fullName: string;
+    userId: number;
     photos: {
-        small?: string;
-        large?: string;
+        small: string;
+        large: string;
     };
 }
 export type PostType = {
@@ -263,7 +268,7 @@ export type PostType = {
 export type ProfilePageType = {
     posts: PostType[]
     inputValue: string
-    profile?: ProfileType
+    profile: ProfileType
     status : string
 }
 

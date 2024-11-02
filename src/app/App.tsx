@@ -3,6 +3,10 @@ import './App.css';
 import {Preloader} from "../common/components/Preloader/Preloader";
 import {BrowserRouter} from 'react-router-dom';
 import {MainPage} from "../common/components/MainPage/MainPage/MainPage";
+import {compose} from "redux";
+import {connect, Provider} from "react-redux";
+import {initializeApp} from "./app-reducer";
+import store, {RootReduxStateType} from "./store/redux-store";
 
 
 type AppPropsType = {
@@ -11,8 +15,16 @@ type AppPropsType = {
 }
 
 class App extends React.Component<AppPropsType> {
+    catchAllUnhandledErrors(){
+        alert('Some error occured')
+    }
     componentDidMount() {
         this.props.initializeApp()
+        window.addEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+    }
+    componentWillUnmount() {
+        window.removeEventListener('unhandledrejection', this.catchAllUnhandledErrors)
+
     }
 
     render() {
@@ -20,11 +32,26 @@ class App extends React.Component<AppPropsType> {
             return <Preloader/>
         }
         return (
-            <BrowserRouter basename={process.env.PUBLIC_URL}>
-                <MainPage/>
-            </BrowserRouter>
+            <MainPage/>
         );
     }
 }
 
-export default App
+const mapStateToProps = (state: RootReduxStateType) => {
+    return {
+        initialized: state.app.initialized
+    }
+}
+export const AppContainer = compose(
+    connect(mapStateToProps, {initializeApp})
+)(App);
+export const MainApp = () => {
+    return (
+        <Provider store={store}>
+            <BrowserRouter basename={process.env.PUBLIC_URL}>
+                <AppContainer/>
+            </BrowserRouter>
+        </Provider>
+    )
+
+}

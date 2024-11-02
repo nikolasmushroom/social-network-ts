@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/social-network-ts/static/css/main.80c5b8e5.css",
-    "main.js": "/social-network-ts/static/js/main.0a718ec5.js",
+    "main.css": "/social-network-ts/static/css/main.19850dd0.css",
+    "main.js": "/social-network-ts/static/js/main.6f305d62.js",
     "static/media/background-profile.jpg": "/social-network-ts/static/media/background-profile.74f1a68374afe4efdac2.jpg",
     "static/media/BowlbyOne-Regular.woff": "/social-network-ts/static/media/BowlbyOne-Regular.6581b0355bb15c8ad53b.woff",
     "static/media/BowlbyOne-Regular.woff2": "/social-network-ts/static/media/BowlbyOne-Regular.c1f26c7ebb38687235f4.woff2",
     "static/media/logo.png": "/social-network-ts/static/media/logo.6898efe2ad11d7014cb9.png",
+    "static/media/page-404.svg": "/social-network-ts/static/media/page-404.1787f29b67daac6ba50ff6b1db3d893b.svg",
     "static/media/tube-spinner.svg": "/social-network-ts/static/media/tube-spinner.6ed451cd71296f51dada80271d84e120.svg",
     "index.html": "/social-network-ts/index.html",
-    "main.80c5b8e5.css.map": "/social-network-ts/static/css/main.80c5b8e5.css.map",
-    "main.0a718ec5.js.map": "/social-network-ts/static/js/main.0a718ec5.js.map"
+    "main.19850dd0.css.map": "/social-network-ts/static/css/main.19850dd0.css.map",
+    "main.6f305d62.js.map": "/social-network-ts/static/js/main.6f305d62.js.map"
   },
   "entrypoints": [
-    "static/css/main.80c5b8e5.css",
-    "static/js/main.0a718ec5.js"
+    "static/css/main.19850dd0.css",
+    "static/js/main.6f305d62.js"
   ]
 }

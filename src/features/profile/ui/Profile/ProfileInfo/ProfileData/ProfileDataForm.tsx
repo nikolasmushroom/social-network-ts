@@ -3,13 +3,15 @@ import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import {AboutMePropsType} from "./ProfileData";
 import {useForm} from "react-hook-form";
 import {Button} from "../../../../../../common/components/Button/Button";
+import {useEffect} from "react";
 
 export const ProfileDataForm = ({
                                     profile,
                                     status,
                                     updateUserStatus,
                                     switchEditMode,
-                                    updateUserProfile
+                                    updateUserProfile,
+                                    error,
                                 }: AboutMePropsType) => {
     const {register, handleSubmit, formState: {errors, isSubmitting}, setError} = useForm<any>({
         defaultValues: {
@@ -52,7 +54,17 @@ export const ProfileDataForm = ({
             }
         })
     }
-
+    useEffect(() => {
+        if(error){
+            setError('facebook', { type: 'custom', message: error });
+            setError('website', { type: 'custom', message: error });
+            setError('vk', { type: 'custom', message: error });
+            setError('twitter', { type: 'custom', message: error });
+            setError('youtube', { type: 'custom', message: error });
+            setError('github', { type: 'custom', message: error });
+            setError('mainLink', { type: 'custom', message: error });
+        }
+    }, [error])
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             <div className={classes.about}>
@@ -81,6 +93,7 @@ export const ProfileDataForm = ({
                     <span>github: <input type="text" {...register('github')}/></span>
                     <span>mainLink: <input type="text" {...register('mainLink')}/></span>
                 </div>
+
                 <Button>Save</Button>
             </div>
 

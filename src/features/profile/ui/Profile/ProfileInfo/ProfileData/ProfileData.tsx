@@ -3,7 +3,6 @@ import classes from "../ProfileInfo.module.css";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import React from "react";
 import {Button} from "../../../../../../common/components/Button/Button";
-
 export type AboutMePropsType = {
     isOwner?: boolean
     profile: ProfileType
@@ -11,8 +10,9 @@ export type AboutMePropsType = {
     updateUserStatus: (status: string) => void
     switchEditMode: () => void
     updateUserProfile: (profile: ProfileType, setError? : any) => void
+    error : string
 }
-export const ProfileData = ({profile, status, updateUserStatus, isOwner, switchEditMode}: AboutMePropsType) => {
+export const ProfileData = ({error, profile, status, updateUserStatus, isOwner, switchEditMode}: AboutMePropsType) => {
     return (
         <div className={classes.about}>
             <div className={classes.profileInfoWrapper}>
@@ -35,6 +35,7 @@ export const ProfileData = ({profile, status, updateUserStatus, isOwner, switchE
                 <span>mainLink: {profile.contacts.mainLink || '-'}</span>
             </div>
             {isOwner && <Button onClick={switchEditMode}>Edit</Button>}
+            {error && <div>{error}</div>}
         </div>
     )
 }

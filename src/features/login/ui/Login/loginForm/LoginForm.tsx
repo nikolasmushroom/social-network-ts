@@ -7,17 +7,20 @@ type loginFormValuesType = {
     email: string
     password: string
     rememberMe: boolean
+    captcha: string
 }
 type loginFormPropsType<T extends {} = {}> = T & {
-    login: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
     error : string
+    captchaUrl: string
 }
-export const LoginForm = <T extends {}>({ login, error,  ...props }: loginFormPropsType<T>) => {
+export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props }: loginFormPropsType<T>) => {
     const {register, handleSubmit, formState: {errors, isSubmitting}, setValue, setError} = useForm<loginFormValuesType>({
         defaultValues: {
             email: '',
             password: '',
-            rememberMe: false
+            rememberMe: false,
+            captcha: ''
         },
         mode: "onChange"
     });
@@ -49,7 +52,7 @@ export const LoginForm = <T extends {}>({ login, error,  ...props }: loginFormPr
             localStorage.removeItem('userPassword');
             localStorage.removeItem('rememberMe');
         }
-        login(data.email, data.password, data.rememberMe)
+        login(data.email, data.password, data.rememberMe, data.captcha)
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={classes.loginForm}>
@@ -88,6 +91,10 @@ export const LoginForm = <T extends {}>({ login, error,  ...props }: loginFormPr
                 </div>
 
             </div>
+            {captchaUrl && <div className={classes.captchaContainer}>
+                <img src={captchaUrl} className={classes.captcha} alt="Captcha generated image"/>
+                <input {...register('captcha')} type="text"/>
+            </div>}
             <div>
                 <Button disabled={isSubmitting} className={classes.submit}>{isSubmitting ? 'Loading...' : 'Submit'}</Button>
             </div>

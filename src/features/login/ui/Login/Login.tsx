@@ -4,11 +4,12 @@ import classes from "./Login.module.css";
 import {LoginForm} from "./loginForm/LoginForm";
 
 export type LoginPropsType = {
-    login: (email: string, password: string, rememberMe: boolean) => void
+    login: (email: string, password: string, rememberMe: boolean, captcha :string) => void
     isAuth: boolean
+    captchaUrl: string
     error: string
 }
-export const Login = ({isAuth, login, error}: LoginPropsType) => {
+export const Login = ({isAuth, login, error, captchaUrl}: LoginPropsType) => {
     useEffect(() => {
     }, [isAuth])
     if (isAuth) {
@@ -17,7 +18,7 @@ export const Login = ({isAuth, login, error}: LoginPropsType) => {
         return (
             <div className={classes.login}>
                 <h1>LOGIN</h1>
-                <LoginForm login={login} error={error}/>
+                <LoginForm login={login} captchaUrl={captchaUrl} error={error}/>
             </div>
         )
     }

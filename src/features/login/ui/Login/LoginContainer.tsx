@@ -6,7 +6,8 @@ import {getLogInfo, login} from "../../model/auth-reducer";
 
 export type LoginContainerPropsType = {
     getLogInfo : () => void
-    login:(email: string, password: string, rememberMe: boolean) => void
+    login:(email: string, password: string, rememberMe: boolean, captcha : string) => void
+    captchaUrl : string
     isAuth : boolean
     error : string
 }
@@ -21,7 +22,7 @@ export class LoginContainer extends React.Component<LoginContainerPropsType>{
     }
     render(){
         return (
-            <Login isAuth={this.props.isAuth} login={this.props.login} error={this.props.error}/>
+            <Login captchaUrl={this.props.captchaUrl} isAuth={this.props.isAuth} login={this.props.login} error={this.props.error}/>
         )
     }
 
@@ -30,6 +31,7 @@ export class LoginContainer extends React.Component<LoginContainerPropsType>{
 const mapStateToProps = (state : RootReduxStateType) => {
     return {
         isAuth : state.auth.isAuth,
+        captchaUrl : state.auth.captchaUrl,
         error : state.auth.error
     }
 }

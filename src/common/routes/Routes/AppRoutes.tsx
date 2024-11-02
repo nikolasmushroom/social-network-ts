@@ -8,6 +8,7 @@ import {News} from "../../../features/news/ui/News/News";
 import {Music} from "../../../features/music/ui/Music/Music";
 import {Settings} from "../../../features/settings/ui/Settings/Settings";
 import {AuthContainer} from "../../../features/login/ui/Login/LoginContainer";
+import {Page404} from "../../components/404page/Page404";
 
 export const AppRoutes = () => {
     return (
@@ -30,6 +31,7 @@ export const AppRoutes = () => {
             <Route path={'/music'} element={<Music/>}/>
             <Route path={'/settings'} element={<Settings/>}/>
             <Route path={'/login'} element={<AuthContainer/>}/>
+            <Route path={'*'} element={<Page404/>}/>
         </Routes>
     )
 }

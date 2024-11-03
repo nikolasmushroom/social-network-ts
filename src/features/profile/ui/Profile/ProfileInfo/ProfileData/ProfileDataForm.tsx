@@ -3,7 +3,7 @@ import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import {AboutMePropsType} from "./ProfileData";
 import {useForm} from "react-hook-form";
 import {Button} from "../../../../../../common/components/Button/Button";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
 
 export const ProfileDataForm = ({
                                     profile,
@@ -85,13 +85,19 @@ export const ProfileDataForm = ({
 
                 </div>
                 <div className={classes.contacts}>
-                    <span>facebook: <input type="text" {...register('facebook')}/></span>
-                    <span>website: <input type="text" {...register('website')}/></span>
-                    <span>vk: <input type="text" {...register('vk')}/></span>
-                    <span>twitter: <input type="text" {...register('twitter')}/></span>
-                    <span>youtube: <input type="text" {...register('youtube')}/></span>
-                    <span>github: <input type="text" {...register('github')}/></span>
-                    <span>mainLink: <input type="text" {...register('mainLink')}/></span>
+                    <div>
+                        <span>facebook: <input type="text" {...register('facebook')}/></span>
+                        <span>website: <input type="text" {...register('website')}/></span>
+                        <span>vk: <input type="text" {...register('vk')}/></span>
+                        <span>twitter: <input type="text" {...register('twitter')}/></span>
+                    </div>
+                    <div>
+                        <span>youtube: <input type="text" {...register('youtube')}/></span>
+                        <span>github: <input type="text" {...register('github')}/></span>
+                        <span>mainLink: <input type="text" {...register('mainLink')}/></span>
+                    </div>
+                </div>
+                <div className={classes.contacts}>
                 </div>
 
                 <Button>Save</Button>

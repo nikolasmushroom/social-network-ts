@@ -45,6 +45,7 @@ const initialState: ProfilePageType = {
         }
     },
     status: '',
+    error: ''
 }
 export const profileReducer = (state: ProfilePageType = initialState, action: ActionTypes): ProfilePageType => {
     switch (action.type) {
@@ -84,6 +85,10 @@ export const profileReducer = (state: ProfilePageType = initialState, action: Ac
             return {
                 ...state, profile: {...state.profile, photos: action.file}
             }
+        case 'SET_PROFILE_ERROR':
+            return {
+                ...state, error : action.error
+            }
         default:
             return state;
     }
@@ -115,6 +120,10 @@ export const savePhotoActionCreator = (file: any): savePhotoType => ({
     type: "SAVE_PHOTO",
     file: file
 }) as const
+export const setProfileError = (error: string) => ({
+    type: "SET_PROFILE_ERROR",
+    error: error
+}) as const
 export const getUserProfile = (userId: string, isAuth: boolean) => async (dispatch: any) => {
     if (isAuth) {
         const response = await usersAPI.getUserProfile(userId)
@@ -136,6 +145,9 @@ export const updateUserProfile = (profile: ProfileType) => (dispatch: any) => {
         .then((response) => {
             if (response.data.resultCode === 0) {
                 dispatch(setUserProfileActionCreator(profile))
+                dispatch(setProfileError(''))
+            } else {
+                dispatch(setProfileError(response.data.messages.toString()))
             }
         })
 }

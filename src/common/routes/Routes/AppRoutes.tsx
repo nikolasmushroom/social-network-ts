@@ -1,14 +1,14 @@
 import {Navigate, Route, Routes} from "react-router-dom";
 import React, {Suspense} from "react";
 import {Preloader} from "../../components/Preloader/Preloader";
-import DialogsContainer from "../../../features/dialogs/ui/Dialogs/DialogsContainer";
-import ProfileContainer from "../../../features/profile/ui/Profile/ProfileContainer";
-import UsersContainer from "../../../features/users/ui/UsersPage/UsersContainer";
 import {News} from "../../../features/news/ui/News/News";
 import {Music} from "../../../features/music/ui/Music/Music";
 import {Settings} from "../../../features/settings/ui/Settings/Settings";
-import {AuthContainer} from "../../../features/login/ui/Login/LoginContainer";
 import {Page404} from "../../components/404page/Page404";
+import Profile from "../../../features/profile/ui/Profile/Profile";
+import UsersNew from "../../../features/users/ui/UsersPage/Users";
+import {Dialogs} from "../../../features/dialogs/ui/Dialogs/Dialogs";
+import {Login} from "../../../features/login/ui/Login/Login";
 
 export const AppRoutes = () => {
     return (
@@ -18,19 +18,19 @@ export const AppRoutes = () => {
 
             <Route path={'/dialogs'}
                    element={ <Suspense fallback={<Preloader/>}>
-                       <DialogsContainer />
+                       <Dialogs/>
                    </Suspense>}/>
             <Route path={"/profile/:userId?"}
                    element={<Suspense fallback={<Preloader/>}>
-                       <ProfileContainer />
+                       <Profile/>
                    </Suspense>}/>
             <Route path={'/users'}
-                   element={<UsersContainer
+                   element={<UsersNew
                    />}/>
             <Route path={'/news'} element={<News/>}/>
             <Route path={'/music'} element={<Music/>}/>
             <Route path={'/settings'} element={<Settings/>}/>
-            <Route path={'/login'} element={<AuthContainer/>}/>
+            <Route path={'/login'} element={<Login/>}/>
             <Route path={'*'} element={<Page404/>}/>
         </Routes>
     )

@@ -1,20 +1,40 @@
-import React from "react";
+import React, {useEffect} from "react";
 import classes from './Profile.module.css';
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostContainer";
-import {ProfileType} from "../../../../app/store/store";
-export type ProfilePropsType = {
-    isOwner : boolean
-    profile : ProfileType
-    status : string
-    updateUserStatus : (status: string) => void
-    savePhoto: (file: any) => void
-    updateUserProfile: (profile: ProfileType, setError? : any) => void
-}
-const  Profile= React.memo(({updateUserProfile, isOwner, profile, status, updateUserStatus, savePhoto} : ProfilePropsType) => {
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate, useParams} from "react-router-dom";
+import {AppDispatch, RootReduxStateType} from "../../../../app/store/redux-store";
+import {getUserProfile, getUserStatus} from "../../model/profile-reducer";
+
+const  Profile= React.memo(() => {
+    const navigate = useNavigate()
+    const params = useParams()
+    const dispatch = useDispatch<AppDispatch>()
+    const authorizedUserId = useSelector((state : RootReduxStateType) => state.auth.userId)
+    const isAuth = useSelector((state : RootReduxStateType) => state.auth.isAuth)
+
+    const refreshProfilePage = () => {
+        let userId  = params.userId
+        if(!userId){
+            userId = authorizedUserId
+        }
+        if (!isAuth) {
+            return navigate('/login')
+        }
+        if(!authorizedUserId && !userId){
+            return navigate('/login')
+        }
+        dispatch(getUserProfile(userId, isAuth));
+        dispatch(getUserStatus(userId));
+    }
+    useEffect(() => {
+        refreshProfilePage()
+    }, [params.userId, isAuth])
+
     return (
         <div className={classes.content}>
-            <ProfileInfo updateUserProfile={updateUserProfile} isOwner={isOwner} profile={profile} status={status} updateUserStatus={updateUserStatus} savePhoto={savePhoto}/>
+            <ProfileInfo isOwner={!params.userId}/>
             <MyPostsContainer/>
         </div>
     )

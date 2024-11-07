@@ -2,6 +2,9 @@ import {useForm} from "react-hook-form";
 import React, {useEffect} from "react";
 import classes from "../Login.module.css";
 import {Button} from "../../../../../common/components/Button/Button";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootReduxStateType} from "../../../../../app/store/redux-store";
+import {login} from "../../../model/auth-reducer";
 
 type loginFormValuesType = {
     email: string
@@ -9,12 +12,11 @@ type loginFormValuesType = {
     rememberMe: boolean
     captcha: string
 }
-type loginFormPropsType<T extends {} = {}> = T & {
-    login: (email: string, password: string, rememberMe: boolean, captcha: string) => void
-    error : string
-    captchaUrl: string
-}
-export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props }: loginFormPropsType<T>) => {
+type loginFormPropsType<T extends {} = {}> = T & {}
+export const LoginForm = <T extends {}>({ ...props}: loginFormPropsType<T>) => {
+    const dispatch = useDispatch<AppDispatch>()
+    const captchaUrl = useSelector((state : RootReduxStateType) => state.auth.captchaUrl)
+    const error = useSelector((state : RootReduxStateType) => state.auth.error)
     const {register, handleSubmit, formState: {errors, isSubmitting}, setValue, setError} = useForm<loginFormValuesType>({
         defaultValues: {
             email: '',
@@ -28,7 +30,7 @@ export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props 
         const savedEmail = localStorage.getItem('userEmail') || sessionStorage.getItem('userEmail')
         const savedPassword = localStorage.getItem('userPassword') || sessionStorage.getItem('userPassword')
         const savedRememberMe = localStorage.getItem('rememberMe') || sessionStorage.getItem('rememberMe');
-        if(savedEmail && savedPassword){
+        if (savedEmail && savedPassword) {
             setValue('email', savedEmail)
             setValue('password', savedPassword)
             setValue('rememberMe', savedRememberMe === 'true')
@@ -36,14 +38,14 @@ export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props 
     }, [setValue])
 
     useEffect(() => {
-        if(error){
-            setError('email', { type: 'custom', message: error });
-            setError('password', { type: 'custom', message: error});
+        if (error) {
+            setError('email', {type: 'custom', message: error});
+            setError('password', {type: 'custom', message: error});
         }
     }, [error, setError])
 
     const onSubmit = (data: loginFormValuesType) => {
-        if(data.rememberMe){
+        if (data.rememberMe) {
             localStorage.setItem('userEmail', data.email)
             localStorage.setItem('userPassword', data.password)
             localStorage.setItem('rememberMe', 'true')
@@ -52,7 +54,7 @@ export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props 
             localStorage.removeItem('userPassword');
             localStorage.removeItem('rememberMe');
         }
-        login(data.email, data.password, data.rememberMe, data.captcha)
+        dispatch(login(data.email, data.password, data.rememberMe, data.captcha))
     };
     return (
         <form onSubmit={handleSubmit(onSubmit)} className={classes.loginForm}>
@@ -64,7 +66,7 @@ export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props 
                             message: 'Your login should have min. 7 characters '
                         },
                         validate: (value) => {
-                            if(!value.includes('@')) {
+                            if (!value.includes('@')) {
                                 return 'Your login should have @';
                             }
                             return true;
@@ -96,7 +98,8 @@ export const LoginForm = <T extends {}>({ captchaUrl,  login, error,   ...props 
                 <input {...register('captcha')} type="text"/>
             </div>}
             <div>
-                <Button disabled={isSubmitting} className={classes.submit}>{isSubmitting ? 'Loading...' : 'Submit'}</Button>
+                <Button disabled={isSubmitting}
+                        className={classes.submit}>{isSubmitting ? 'Loading...' : 'Submit'}</Button>
             </div>
         </form>
     )

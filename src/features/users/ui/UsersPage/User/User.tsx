@@ -4,12 +4,15 @@ import avatar from "../../../../../asserts/avatars/defaultUserImage.png";
 import {Button} from "../../../../../common/components/Button/Button";
 import React from "react";
 import {UserType} from "../../../../../app/store/store";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootReduxStateType} from "../../../../../app/store/redux-store";
+import {changeFollowStatus} from "../../../model/users-reducer";
 export type UserPropsType = {
     user : UserType
-    followingInProgress: Array<string>
-    changeFollowStatus: (u : UserType, followStatus : boolean) => void
 }
-export const User = ({user, changeFollowStatus, followingInProgress} : UserPropsType) => {
+export const User = ({user} : UserPropsType) => {
+    const dispatch = useDispatch<AppDispatch>()
+    const followingInProgress = useSelector((state : RootReduxStateType) => state.usersPage.followingInProgress)
     return (
         <div className={styles.user} key={user.id}>
             <div className={styles.imageAndButton}>
@@ -18,7 +21,7 @@ export const User = ({user, changeFollowStatus, followingInProgress} : UserProps
                 </NavLink>
                 <Button
                     disabled={followingInProgress.some(id => id === user.id)}
-                    onClick={() => changeFollowStatus(user, !user.followed)}
+                    onClick={() => dispatch(changeFollowStatus(user, !user.followed))}
                 >{user.followed ? 'Unfollow' : 'Follow'}</Button>
             </div>
             <div className={styles.userProfile}>

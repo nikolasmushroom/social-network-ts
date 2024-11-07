@@ -4,18 +4,19 @@ import {AboutMePropsType} from "./ProfileData";
 import {useForm} from "react-hook-form";
 import {Button} from "../../../../../../common/components/Button/Button";
 import React, {useEffect} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootReduxStateType} from "../../../../../../app/store/redux-store";
+import {updateUserProfile} from "../../../../model/profile-reducer";
 
 export const ProfileDataForm = ({
-                                    profile,
-                                    status,
-                                    updateUserStatus,
                                     switchEditMode,
-                                    updateUserProfile,
-                                    error,
                                 }: AboutMePropsType) => {
+    const error = useSelector((state: RootReduxStateType) => state.profilePage.error)
+    const profile = useSelector((state: RootReduxStateType) => state.profilePage.profile)
+    const dispatch = useDispatch<AppDispatch>()
     const {register, handleSubmit, formState: {errors, isSubmitting}, setError} = useForm<any>({
         defaultValues: {
-            aboutMe: status || '',
+            aboutMe: profile.aboutMe || '',
             facebook: profile.contacts.facebook || '',
             website: profile.contacts.website || '',
             vk: profile.contacts.vk || '',
@@ -32,8 +33,8 @@ export const ProfileDataForm = ({
     });
     const onSubmit = (data: any) => {
         switchEditMode()
-        updateUserProfile({
-            aboutMe: status,
+        dispatch(updateUserProfile({
+            aboutMe: data.aboutMe,
             contacts: {
                 "facebook": data.facebook,
                 "website": data.website,
@@ -52,17 +53,18 @@ export const ProfileDataForm = ({
                 "small": profile.photos.small,
                 "large": profile.photos.large
             }
-        })
+        }))
     }
     useEffect(() => {
-        if(error){
-            setError('facebook', { type: 'custom', message: error });
-            setError('website', { type: 'custom', message: error });
-            setError('vk', { type: 'custom', message: error });
-            setError('twitter', { type: 'custom', message: error });
-            setError('youtube', { type: 'custom', message: error });
-            setError('github', { type: 'custom', message: error });
-            setError('mainLink', { type: 'custom', message: error });
+        if (error) {
+            setError('facebook', {type: 'custom', message: error});
+            setError('website', {type: 'custom', message: error});
+            setError('vk', {type: 'custom', message: error});
+            setError('twitter', {type: 'custom', message: error});
+            setError('youtube', {type: 'custom', message: error});
+            setError('github', {type: 'custom', message: error});
+            setError('instagram', {type: 'custom', message: error});
+            setError('mainLink', {type: 'custom', message: error});
         }
     }, [error])
     return (
@@ -71,7 +73,7 @@ export const ProfileDataForm = ({
                 <div className={classes.profileInfoWrapper}>
                     <div className={classes.fullNameAndAboutMe}>
                         <input {...register(('fullName'))} type="text" placeholder={'Full name'}/>
-                        <ProfileStatus className={classes.aboutMe} status={status} updateUserStatus={updateUserStatus}/>
+                        <ProfileStatus className={classes.aboutMe}/>
                     </div>
                     <div className={classes.jobStatus}>
                         <div>Job status : <select {...register(('lookingForAJobStatus'))}>
@@ -81,6 +83,9 @@ export const ProfileDataForm = ({
                         </div>
                         <div>Description : <input {...register(('lookingForAJobDescription'))} type="text"
                                                   placeholder={'Status about job'}/></div>
+                    </div>
+                    <div>
+                        <div>About me : <input {...register(('aboutMe'))} type="text" placeholder={'Information about user'}/></div>
                     </div>
 
                 </div>
@@ -94,6 +99,7 @@ export const ProfileDataForm = ({
                     <div>
                         <span>youtube: <input type="text" {...register('youtube')}/></span>
                         <span>github: <input type="text" {...register('github')}/></span>
+                        <span>instagram: <input type="text" {...register('instagram')}/></span>
                         <span>mainLink: <input type="text" {...register('mainLink')}/></span>
                     </div>
                 </div>

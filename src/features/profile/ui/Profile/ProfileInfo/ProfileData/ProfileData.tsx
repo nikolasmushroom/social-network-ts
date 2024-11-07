@@ -1,30 +1,31 @@
-import {ProfileType} from "../../../../../../app/store/store";
 import classes from "../ProfileInfo.module.css";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import React from "react";
 import {Button} from "../../../../../../common/components/Button/Button";
+import {useSelector} from "react-redux";
+import {RootReduxStateType} from "../../../../../../app/store/redux-store";
 
 export type AboutMePropsType = {
     isOwner?: boolean
-    profile: ProfileType
-    status: string
-    updateUserStatus: (status: string) => void
     switchEditMode: () => void
-    updateUserProfile: (profile: ProfileType, setError?: any) => void
-    error: string
 }
-export const ProfileData = ({error, profile, status, updateUserStatus, isOwner, switchEditMode}: AboutMePropsType) => {
+export const ProfileData = ({isOwner, switchEditMode}: AboutMePropsType) => {
+    const error = useSelector((state : RootReduxStateType) => state.profilePage.error)
+    const profile = useSelector((state : RootReduxStateType) => state.profilePage.profile)
     return (
         <div className={classes.about}>
             <div className={classes.profileInfoWrapper}>
                 <div className={classes.fullNameAndAboutMe}>
                     <div className={classes.fullName}>{profile.fullName}</div>
-                    <ProfileStatus className={classes.aboutMe} status={status} updateUserStatus={updateUserStatus}/>
+                    <ProfileStatus className={classes.aboutMe}/>
                 </div>
                 <div className={classes.jobStatus}>
                     <div>Job status : {profile.lookingForAJob ? 'search' : 'employed'}</div>
                     <div>Description
                         : {profile.lookingForAJobDescription ? profile.lookingForAJobDescription : 'No description'}</div>
+                </div>
+                <div>
+                    <div>About me : {profile.aboutMe}</div>
                 </div>
             </div>
             <div className={classes.contacts}>
@@ -37,6 +38,7 @@ export const ProfileData = ({error, profile, status, updateUserStatus, isOwner, 
                 <div>
                     <span>youtube: {profile.contacts.youtube || '-'}</span>
                     <span>github: {profile.contacts.github || '-'}</span>
+                    <span>instagram: {profile.contacts.instagram || '-'}</span>
                     <span>mainLink: {profile.contacts.mainLink || '-'}</span>
                 </div>
             </div>

@@ -2,18 +2,40 @@ import {ProfilePageType} from "../../../../app/store/store";
 import {v1} from "uuid";
 import {addPost, changeInput, deletePost, profileReducer, setStatusActionCreator} from "../profile-reducer";
 
-let startState : ProfilePageType;
+let startState: ProfilePageType;
 beforeEach(() => {
     const postId1 = v1()
     const postId2 = v1()
 
-   startState = {
+    startState = {
         posts: [
             {id: postId1, message: '1st message', likesCount: 0},
             {id: postId2, message: '2nd message', likesCount: 0},
         ],
+        profile: {
+            userId: 1,
+            aboutMe: '',
+            contacts: {
+                facebook: '',
+                website: '',
+                vk: '',
+                twitter: '',
+                instagram: '',
+                youtube: '',
+                github: '',
+                mainLink: ''
+            },
+            photos : {
+                small: '',
+                large: ''
+            },
+            lookingForAJobDescription : '',
+            fullName: '',
+            lookingForAJob: true,
+        },
+        error: '',
         inputValue: 'New Message',
-       status : ''
+        status: ''
     }
 })
 

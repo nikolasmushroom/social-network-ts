@@ -2,20 +2,27 @@ import React, {useState} from "react";
 import classes from './ProfileInfo.module.css';
 import background from '../../../../../asserts/images/background-profile.jpg'
 import {Preloader} from "../../../../../common/components/Preloader/Preloader";
-import {ProfilePropsType} from "../Profile";
 import avatar from '../../../../../asserts/avatars/defaultUserImage.png';
 import {Button} from "../../../../../common/components/Button/Button";
 import {ProfileData, } from "./ProfileData/ProfileData";
 import {ProfileDataForm} from "./ProfileData/ProfileDataForm";
-
-const ProfileInfo = ({profile, status, updateUserStatus, isOwner, savePhoto, updateUserProfile}: ProfilePropsType) => {
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, RootReduxStateType} from "../../../../../app/store/redux-store";
+import {savePhoto} from "../../../model/profile-reducer";
+export type ProfilePropsType = {
+    isOwner : boolean
+}
+const ProfileInfo = ({isOwner}: ProfilePropsType) => {
     const [editMode, setEditMode] = useState(false)
+    const dispatch = useDispatch<AppDispatch>()
+    const profile = useSelector((state : RootReduxStateType) => state.profilePage.profile)
+
     if (!profile) {
         return <Preloader/>
     }
     const onMainPhotoSelected = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.currentTarget.files) {
-            savePhoto(e.currentTarget.files[0]);
+            dispatch(savePhoto(e.currentTarget.files[0]));
         }
     }
     const switchEditMode = () => {
@@ -39,7 +46,7 @@ const ProfileInfo = ({profile, status, updateUserStatus, isOwner, savePhoto, upd
                     </div>
                     }
                 </div>
-                {!editMode ? <ProfileData updateUserProfile={updateUserProfile} switchEditMode={switchEditMode} isOwner={isOwner} profile={profile} status={status} updateUserStatus={updateUserStatus}/> : <ProfileDataForm switchEditMode={switchEditMode} profile={profile} status={status} updateUserStatus={updateUserStatus} updateUserProfile={updateUserProfile}/>}
+                {!editMode ? <ProfileData switchEditMode={switchEditMode} isOwner={isOwner}/> : <ProfileDataForm switchEditMode={switchEditMode}/>}
 
             </div>
 

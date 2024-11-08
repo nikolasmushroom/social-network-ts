@@ -6,7 +6,9 @@ import {
     toFollowSomeoneType, toggleIsFetchingType, toggleIsFollowingProgressType, UsersStateType,
     UserType
 } from "../../../app/store/store";
-import {usersAPI} from "../../../api/api";
+
+import {usersAPI} from "../api/usersAPI";
+import {AppDispatch} from "../../../app/store/redux-store";
 
 export const TOGGLE_FOLLOW_SOMEONE = 'FOLLOW_SOMEONE';
 export const SET_USERS = 'SET_USERS'
@@ -73,7 +75,7 @@ export const toggleIsFollowingProgress = (isFollowing: boolean, userId: string):
     isFollowing: isFollowing,
     userId: userId
 })
-export const requestUsers = (currentPage: number, pageSize: number) => async (dispatch: any) => {
+export const requestUsers = (currentPage: number, pageSize: number) => async (dispatch: AppDispatch) => {
     dispatch(toggleIsFetching(true))
     try {
         const response = await usersAPI.getUsers(currentPage, pageSize)
@@ -83,7 +85,7 @@ export const requestUsers = (currentPage: number, pageSize: number) => async (di
         dispatch(toggleIsFetching(false))
     }
 }
-export const changeFollowStatus = (u: UserType, followStatus: boolean) => async (dispatch: any) => {
+export const changeFollowStatus = (u: UserType, followStatus: boolean) => async (dispatch: AppDispatch) => {
     const response = await usersAPI.changeFollowStatus(u.id, followStatus)
     response.data.resultCode === 0 && dispatch(toggleFollow(u.id))
     dispatch(toggleIsFollowingProgress(false, u.id))

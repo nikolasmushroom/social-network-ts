@@ -32,7 +32,7 @@ test('reducer should toggle follow/unfollow', () => {
 
     expect(endState.users[0].followed).not.toBe(startState.users[0].followed)
 })
-test('reducer should switch new users array', () => {
+test('reducer should set new users', () => {
 
     const action = setUsers([])
     const endState = usersReducer(startState, action)

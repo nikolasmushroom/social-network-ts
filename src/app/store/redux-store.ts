@@ -24,6 +24,7 @@ const store = configureStore({
     reducer : reducers,
     middleware : (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk)
 })
+export type AppDispatch = typeof store.dispatch
 
 // @ts-ignore
 window.store = store

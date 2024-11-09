@@ -45,6 +45,8 @@ export type ActionTypes =
     | setInitializedType
     | deletePostType
     | savePhotoType
+    | getCaptchaUrlType
+    | setProfileErrorType
     ;
 
 export type AddPostActionType = {
@@ -93,7 +95,7 @@ export type setUserProfileType = {
 export type setUserDataACType = {
     type: typeof SET_USER_DATA,
     data : {
-        userId : number,
+        userId : string,
         email : string,
         login: string
         isAuth: boolean
@@ -131,13 +133,24 @@ export type savePhotoType = {
     type : 'SAVE_PHOTO',
     file : any
 }
+export type getCaptchaUrlType = {
+    type: 'GET_CAPTCHA_URL_SUCCESS',
+    payload: {
+        captchaUrl : string
+    }
+}
+export type setProfileErrorType = {
+    type: "SET_PROFILE_ERROR",
+    error: string
+}
 //----------------------------------------------------------------------------------------------------------------------//
 export type HeaderStateType = {
-    userId : number,
+    userId : string,
     email: string,
     login: string
     isAuth: boolean,
     isLoading: boolean
+    captchaUrl: string
     error: string
 }
 //----------------------------------------------------------------------------------------------------------------------//
@@ -232,11 +245,7 @@ export type DialogsType = {
     isAuth : boolean
 }
 export type DialogsContainerType = {
-    dialogs: DialogType[]
-    messages: MessageType[]
-    newMessageText: string
-    updateNewMessage: (body: string) => void
-    sendMessage: () => void
+
 }
 // --------------------------------------------------------------------------------------------------------------------//
 export type ProfileType = {
@@ -270,6 +279,7 @@ export type ProfilePageType = {
     inputValue: string
     profile: ProfileType
     status : string
+    error : string
 }
 
 // --------------------------------------------------------------------------------------------------------------------//

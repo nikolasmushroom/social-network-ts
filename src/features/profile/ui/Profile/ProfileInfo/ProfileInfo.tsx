@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import classes from './ProfileInfo.module.css';
 import background from '../../../../../asserts/images/background-profile.jpg'
-import {Preloader} from "../../../../../common/components/Preloader/Preloader";
+import {Preloader} from "common/components";
 import avatar from '../../../../../asserts/avatars/defaultUserImage.png';
-import {Button} from "../../../../../common/components/Button/Button";
+import {Button} from "common/components";
 import {ProfileData, } from "./ProfileData/ProfileData";
 import {ProfileDataForm} from "./ProfileData/ProfileDataForm";
 import {useDispatch, useSelector} from "react-redux";

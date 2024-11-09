@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {Preloader} from "../common/components/Preloader/Preloader";
-import {MainPage} from "../common/components/MainPage/MainPage/MainPage";
+import {Preloader} from "common/components";
+import {MainPage} from "common/components";
 import {useDispatch, useSelector} from "react-redux";
 import {initializeApp} from "./app-reducer";
 import {AppDispatch, RootReduxStateType} from "./store/redux-store";

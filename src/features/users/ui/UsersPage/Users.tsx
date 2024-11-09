@@ -1,12 +1,11 @@
-import {UserType} from "../../../../app/store/store";
 import styles from './Users.module.css'
 import React, {useEffect} from "react";
-import {Paginator} from "../../../../common/components/Paginator/Paginator";
+import {Paginator} from "common/components";
 import {User} from "./User/User";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootReduxStateType} from "../../../../app/store/redux-store";
 import {requestUsers} from "../../model/users-reducer";
-import {Preloader} from "../../../../common/components/Preloader/Preloader";
+import {Preloader} from "common/components";
 
 export type UsersPropsType = {
 }

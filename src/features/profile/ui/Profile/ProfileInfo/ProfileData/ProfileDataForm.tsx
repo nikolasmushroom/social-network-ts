@@ -2,7 +2,7 @@ import classes from "../ProfileInfo.module.css";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import {AboutMePropsType} from "./ProfileData";
 import {useForm} from "react-hook-form";
-import {Button} from "../../../../../../common/components/Button/Button";
+import {Button} from "common/components";
 import React, {useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootReduxStateType} from "../../../../../../app/store/redux-store";

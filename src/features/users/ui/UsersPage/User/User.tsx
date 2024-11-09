@@ -1,7 +1,7 @@
 import styles from "../Users.module.css";
 import {NavLink} from "react-router-dom";
 import avatar from "../../../../../asserts/avatars/defaultUserImage.png";
-import {Button} from "../../../../../common/components/Button/Button";
+import {Button} from "common/components";
 import React from "react";
 import {UserType} from "../../../../../app/store/store";
 import {useDispatch, useSelector} from "react-redux";

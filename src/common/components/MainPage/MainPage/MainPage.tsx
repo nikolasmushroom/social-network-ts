@@ -1,11 +1,11 @@
 import NavBar from "../../NavBar/ui/NavBar";
-import {AppRoutes} from "../../../routes/Routes/AppRoutes";
-import HeaderNew from "../../Header/Header";
+import {AppRoutes} from "common/routes";
+import {Header} from "common/components/Header/Header";
 
 export const MainPage = () => {
     return (
             <div className='app-wrapper'>
-                <HeaderNew/>
+                <Header/>
                 <div className='main-content'>
                     <NavBar/>
                     <div className='content'>

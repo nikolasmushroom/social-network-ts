@@ -1,7 +1,7 @@
 import classes from "../ProfileInfo.module.css";
 import {ProfileStatus} from "../ProfileStatus/ProfileStatus";
 import React from "react";
-import {Button} from "../../../../../../common/components/Button/Button";
+import {Button} from "common/components";
 import {useSelector} from "react-redux";
 import {RootReduxStateType} from "../../../../../../app/store/redux-store";
 

@@ -2,7 +2,7 @@ import React, {ChangeEvent, KeyboardEvent} from "react";
 import s from './MyPosts.module.css';
 import {Post} from "./Post/Post";
 import {PostType} from "../../../../../app/store/store";
-import {Button} from "../../../../../common/components/Button/Button";
+import {Button} from "common/components";
 
 type MyPostsPropsType = {
     posts: PostType[];

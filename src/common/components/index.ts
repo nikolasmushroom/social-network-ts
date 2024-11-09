@@ -1,0 +1,7 @@
+export {MainPage} from './MainPage/MainPage/MainPage'
+export {Preloader} from './Preloader/Preloader'
+export {Paginator} from './Paginator/Paginator'
+export {NavBar} from './NavBar/ui/NavBar'
+export {Header} from  './Header/Header'
+export {Button} from  './Button/Button'
+export {Page404} from  './404page/Page404'

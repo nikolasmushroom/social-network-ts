@@ -19,7 +19,7 @@ export const profileAPI = {
     async updateUserProfileData(profile: ProfileType) {
         return await baseURL.put<ApiResponse<PhotoData>>('profile', profile)
     },
-    async getUserStatus(userId: string) {
+    async getUserStatus(userId: number) {
         return await baseURL.get<string>(`profile/status/${userId}`)
     },
     async updateUserStatus(status: string) {

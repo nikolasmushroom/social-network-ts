@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootReduxStateType} from "../../../app/store/redux-store";
 import {logout} from "../../../features/login/model/auth-reducer";
 type HeaderPropsType = {}
-const Header = ({} : HeaderPropsType) => {
+export const Header = ({} : HeaderPropsType) => {
     const isAuth = useSelector((state : RootReduxStateType) => state.auth.isAuth)
     const login = useSelector((state : RootReduxStateType) => state.auth.login)
     const dispatch = useDispatch<AppDispatch>()
@@ -20,4 +20,3 @@ const Header = ({} : HeaderPropsType) => {
         </header>
     )
 }
-export default Header;
